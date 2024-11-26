@@ -1,3 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +18,971 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+/* Header*/
+
+.header {
+  display: flex;
+  justify-content: flex-end; /* Align the navbar to the right */
+  padding: 10px;
+  background-color: #CAEBFB;
+
+}
+
+
+.navbar {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin-left: 20px;
+  margin-right: 10px; 
+  font-weight: 600;
+  font-size: 15px;
+  color: #4f6a68;
+}
+
+.nav-link {
+  color: #006400; 
+  text-decoration: none; 
+  font-size: 16px;
+}
+
+.nav-link:hover {
+  color: #228B22;
+}
+
+
+.btn-container{
+  display: flex;
+  gap:10px;
+}
+
+button{
+  border-radius: 8px;
+  border:1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color:#ff9a68;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #333;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/*2nd  Header*/
+
+.header-contact {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 15px;
+  background-color: #f1f1f1; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.contact-left {
+  display: flex;
+  align-items: flex-start; 
+}
+
+.image {
+  width: 80px; 
+  height: 80px; 
+  border-radius: 70%;  
+  object-fit: cover; 
+  margin-right: 10px; 
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+}
+
+.state-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff; 
+  margin-bottom: 4px;
+}
+
+
+.sub-title {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 2px; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contact-right {
+  display: flex;
+  flex-direction: column; 
+  text-align: right;
+  font-size: 14px;
+  color: #333;
+}
+
+
+
+/* Ensure icons are visible and properly sized */
+.contact-info i,
+.email-info i {
+  font-size: 20px; 
+  color: #006400;  
+  margin-right: 8px;
+}
+
+/* Styling for contact and email info */
+.contact-info,
+.email-info {
+  font-size: 14px;
+  margin-bottom: 8px; 
+}
+
+.contact-info a,
+.email-info a {
+  color: #006400; 
+  text-decoration: none; 
+}
+
+.contact-info a:hover,
+.email-info a:hover {
+  color: #228B22; 
+}
+
+
+.contact-right a {
+  color: #006400;
+  text-decoration: none;
+}
+
+.contact-right a:hover {
+  color: #228B22; 
+}
+
+.contact-right span {
+  font-weight: bold; 
+}
+
+
+
+
+/* SubNavBar*/
+
+
+.sub-navbar .navbar-nav {
+  display: flex;
+  flex-wrap: nowrap; 
+}
+
+/* Links in the subnavbar */
+.sub-navbar .nav-link {
+  color: white !important; 
+  font-size: 16px; 
+  padding: 8px 15px; 
+  white-space: nowrap; 
+  }
+
+/* Hover effect for navbar links */
+.sub-navbar .nav-link:hover {
+  color: #ffc107 !important; 
+  background-color: #0c6a68
+}
+
+/* Mobile navbar toggle */
+.sub-navbar .navbar-toggler {
+  border-color: #ffffff;
+}
+
+.sub-navbar .navbar-toggler-icon {
+  background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3e%3cpath fill="%23ffffff" d="M4 7h22M4 15h22M4 23h22"%3e%3c/path%3e%3c/svg%3e'); /* White toggler icon */
+}
+
+/* Fixing Dropdown - Positioning the dropdown above the button */
+.sub-navbar .dropdown {
+  position: relative;
+  display: inline-block; 
+ 
+}
+
+/* Dropdown menu - Position above the button */
+.sub-navbar .dropdown-menu {
+  background-color: #0c6a68 !important;
+  border: none; 
+  box-shadow: 0 4px 8px #0c6a68;
+  position: absolute !important; 
+  top: -100%; 
+  left: 0;
+  right: auto;
+  z-index: 9999; 
+  min-width: 200px; 
+  visibility: hidden !important; 
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show dropdown items when hovering over or clicking on the dropdown */
+.sub-navbar .dropdown.show .dropdown-menu {
+  display: block !important;
+  visibility: visible !important; 
+  opacity: 1; 
+  margin-top: 8px;
+}
+
+/* Dropdown items */
+.sub-navbar .dropdown-item {
+  color: white !important; 
+  font-size: 14px; 
+  padding: 8px 15px; 
+  white-space: nowrap; 
+}
+
+/* Hover effect for dropdown items */
+.sub-navbar .dropdown-item:hover {
+  background-color: #ffc107 !important; 
+  color: #0c6a68 !important; 
+}
+
+/* Active state for dropdown items */
+.sub-navbar .dropdown-item:active {
+  color: #0c6a68 !important; 
+}
+
+/* Dropdown toggle icon color */
+.sub-navbar .dropdown-toggle::after {
+  color: white; 
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+  .sub-navbar .navbar-nav {
+    flex-direction: column; 
+    text-align: center; 
+  }
+
+  .sub-navbar .nav-item {
+    margin-bottom: 10px;
+  }
+
+  /* Ensure dropdown is positioned correctly on mobile */
+  .sub-navbar .dropdown-menu {
+    position: relative !important; 
+    top: 0;
+    z-index: 999;
+  }
+}
+
+.sub-navbar .dropdown-menu li {
+  white-space: nowrap; 
+}
+
+.sub-navbar .dropdown-menu .dropdown-item {
+  padding: 10px 20px; 
+  font-size: 14px; 
+  
+}
+
+
+
+/*Swiper */
+
+.mySwiper {
+  width: 100%;  
+  height: 450px; 
+  border: none; 
+
+}
+
+/* Each swiper slide should be centered */
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;  
+}
+
+/* Define the image wrapper */
+.swiperimage {
+  width: 100%; 
+  height: 100%; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  overflow: hidden; 
+  margin: 0; 
+}
+
+
+.swiperimage img {
+  width: 100%;   
+  height: auto;  
+  object-fit: cover; 
+}
+
+
+/* Home*/
+
+.home-container {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 40px;
+  gap: 30px; 
+  flex-wrap: wrap; 
+  text-align: left; 
+  text-align: center;
+
+}
+
+/* Image container */
+.image-container {
+  flex: 1; 
+  max-width: 50%; 
+  padding: 5px; 
+}
+
+/* Adjust image styling */
+.left-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px; 
+  object-fit: cover; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+/* Content container */
+.content-container {
+  flex: 1; 
+  max-width: 50%; 
+  text-align: left; 
+  padding: 20px;
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.content-container h1 {
+  font-size: 28px; 
+  color: #0c6a68;
+  margin-bottom: 15px;
+  font-weight: 500; 
+  line-height: 1.4; 
+}
+
+/* Paragraph styling */
+.content-container p {
+  font-size: 16px; 
+  color: #333; 
+  line-height: 1.8; 
+  font-family: 'Arial', sans-serif; 
+  margin-bottom: 20px; 
+}
+
+/* Shortened content (collapsed) */
+.content-text.collapsed {
+  max-height: 120px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  transition: max-height 0.3s ease; 
+}
+
+/* Expanded content */
+.content-text.expanded {
+  max-height: none; 
+  transition: max-height 0.3s ease; 
+}
+
+/* Bullet points for lists */
+ul {
+  list-style-type: disc; 
+  margin-left: 20px; 
+  font-size: 16px;
+  line-height: 1.8; 
+  margin-bottom: 20px;
+}
+
+/* Styling the Read More/Read Less link */
+.read-more-link {
+  background-color: #0c6a68; 
+  color: white; 
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none; 
+  border-radius: 25px; 
+  cursor: pointer; 
+  text-align: center; 
+  display: inline-block;
+  transition: background-color 0.3s ease; 
+  margin-top: 20px; 
+}
+
+.read-more-link:hover {
+  background-color: #ffc107; 
+  color: #0c6a68; 
+}
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  
+  .home-container {
+    flex-direction: column; 
+    text-align: center; 
+    gap: 20px; 
+    padding: 10px;
+  }
+
+  .image-container {
+    max-width: 100%; 
+  }
+
+  .left-image {
+    max-height: 250px; 
+  }
+
+  /* Content container also takes full width on small screens */
+  .content-container {
+    max-width: 100%; 
+    text-align: center;
+  }
+
+  /* Adjust font size of title and text on small screens */
+  .content-container h1 {
+    font-size: 24px; 
+  }
+
+  .content-container p {
+    font-size: 14px; 
+  }
+
+  .read-more-link {
+    font-size: 14px; 
+    padding: 8px 16px; 
+  }
+}
+
+
+
+
+/* ServiceLink*/
+
+.service-links-container {
+  background-color: #0c6a68; 
+  border-radius: 8px; 
+  padding: 20px; 
+  margin-top: 0px;
+  margin-bottom:0px;
+}
+
+/* Layout for the service links */
+.service-links {
+  display: flex;
+  justify-content: space-around; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+}
+
+/* Individual service items */
+.service-item {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+}
+
+.service-icon {
+  font-size: 30px;
+  padding: 20px; 
+  background-color: #fff; 
+  color: #0c6a68; 
+  border-radius: 50%; 
+  display: inline-block; 
+  margin-bottom: 10px; 
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.service-icon:hover {
+  background-color: #0c6a68; 
+  color: white; 
+}
+
+.service-item span {
+  display: block; 
+  margin-top: 10px; 
+  font-weight: 500; 
+}
+
+
+
+
+/* CardSection.css */
+
+
+.card-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: 70px;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 30%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover; 
+  border-bottom: 1px solid #ddd;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-content i {
+  margin-left: 10px;
+  font-size: 1.2rem;
+  color: #0056b3;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-content i:hover {
+  transform: translateX(5px); /* Adds a slight animation on hover */
+}
+
+
+
+
+
+
+/* Footer.css */
+.footer {
+  background-color: #223645;
+  color: white;
+  padding: 20px 0;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 25px;
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-left: 10px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.footer-section li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-section a {
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-section i {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer-section li {
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 0 10px;
+  }
+
+  .footer-section h3 {
+    font-size: 1rem;
+  }
+
+  .footer-section li {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem;
+  }
+}
+
+
+
+
+
+
+/* About*/
+.disclaimer {
+  padding: 15px;
+  background-color: #f0f0f0; 
+  border-left: 4px solid #007bff; 
+  border-radius: 4px;
+  font-size: 0.9rem; 
+  font-weight: bold; 
+}
+
+.disclaimer p {
+  user-select: none; 
+  pointer-events: none; 
+  margin: 0; 
+}
+
+
+
+
+/*contact */
+
+
+
+.contact-container {
+  padding: 21px;
+  background-color: #f9f9f9; 
+  border-radius: 10px; 
+  max-width: 900px; 
+  margin: auto; 
+}
+
+.contact-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  font-size: 16px; 
+  line-height: 1.5; 
+}
+
+.contact-info h3 {
+  margin-top: 15px; 
+}
+
+
+
+/*Feedback */
+
+.feedback-container {
+  padding: 20px;
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  max-width: 800px; 
+  margin: auto; 
+}
+
+.feedback-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px; 
+}
+
+.form-input,
+.form-textarea {
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+}
+
+.form-textarea {
+  height: 100px; 
+}
+
+.submit-button {
+  width: 100%; 
+  padding: 10px; 
+  background-color: #ff9a68; 
+  color: white; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+}
+
+.submit-button:hover {
+  background-color: #0056b3; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* peakdemand*/
+
+.peak-demand-box {
+  background-color: #4e73df; 
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+  color: #fff;  
+  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;  
+}
+
+.demand-info {
+  display: flex;
+  gap: 20px;
+}
+
+.demand-item {
+  flex: 1;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.demand-item h3 {
+  font-size: 1.2rem;
+  color: #f1f1f1; 
+}
+
+.peak-demand {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.timestamp {
+  color: #ddd;
+  font-size: 0.9rem;
+}
+
+.current-revision {
+  background-color: #2e3a59;  
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.current-revision h3 {
+  font-size: 1.3rem;
+  color: #ffcc00;  
+}
+
+.last-update {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+.transmission-info {
+  background-color: #1c1f3f;  
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.transmission-info h3 {
+  font-size: 1.4rem;
+  color: #ffcc00;  
+}
+
+.target, .achieved {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #7FFF00;  
+}
+
+@media (max-width: 768px) {
+  .peak-demand-box {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .demand-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .transmission-info {
+    width: 100%; 
+  }
+
+  .current-revision {
+    margin-top: 20px;
+  }
+}
+
+
+
+
+/* Main Dashboard Container */
+.dashboard-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-right: 20px;
+  
+}
+
+/* Card Styles */
+.card {
+  background-color: #3b8e8c;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  min-height: 200px;
+  margin-right: 20px;
+}
+
+/* Flexbox Layout for Cards */
+.cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
