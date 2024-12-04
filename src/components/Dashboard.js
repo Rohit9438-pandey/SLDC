@@ -44,7 +44,7 @@ const Dashboard = () => {
   return (
     <div
       style={{
-        width: "0%",
+        width: "80%",
         margin: "0 auto",
         padding: "20px",
         borderRadius: "8px",

@@ -6,9 +6,9 @@ const Card = ({ title, content, backgroundColor }) => {
     <div
       style={{
         backgroundColor: backgroundColor || "#0c6a68",
-        borderRadius: "8px",
+        borderRadius: "6px",
         padding: "20px",
-        margin: "10px",
+        margin: "20px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         color: "#fff",
         width: "100%", 
