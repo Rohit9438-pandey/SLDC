@@ -43,11 +43,35 @@
 
 
 
-      
-        "latestNewsTitle": "Latest News and Updates",
-        "newsContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget nibh. Etiam cursus leo vel metus.",
-        "dynamicDataTitle": "Dynamic Data",
-        "dynamicDataContent": "Dynamic Data will be shown here. The system is currently updated with the latest metrics.",
+
+  "latestNewsTitle": "Latest News And Updates",
+  "newsContent": "Here is the latest news content...",
+  "dynamicDataTitle": "Dynamic Data",
+  "frequency": "Current Frequency (Hz)",
+  "dsmRate": "DSM Rate (Paise/Unit)",
+  "delhiLoad": "Delhi Load (MW)",
+  "delhiSchedule": "Delhi Schedule (MW)",
+  "delhiDrawal": "Delhi Drawal (MW)",
+  "odUd": "OD/UD (MW)",
+  "delhiGeneration": "Delhi Generation (MW)",
+  "maxLoadToday": "Max Load (Today, so far)",
+  "minLoadToday": "Min Load (Today, so far)",
+  "maxLoadYesterday": "Max Load (Yesterday)",
+  "minLoadYesterday": "Min Load (Yesterday)",
+
+
+   
+  
+    "outage-plant": "Outage of Generation Plant within Delhi",
+    "license-transmission": "License for Transmission and Bulk Supply of Electricity",
+    "transmission-losses": "Transmission Losses with details of Input to Discoms from FY 07-08 to FY 16-17",
+    "public-notice": "Public Notice",
+    "Load-Curve-Details": "Load Curve Details",
+    "Load-shedding-Details": "Load shedding Details",
+    "Latest-Break-Down": "Latest Break Down Details",
+    "Demand-Availability": "Demand-Availability Detail",
+  
+  
 
 
 

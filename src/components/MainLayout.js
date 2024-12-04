@@ -9,13 +9,16 @@ import Homepage from '../pages/Homepage';
 import CardSection from './CardSection';
 import HeaderWithContact from './HeaderWithContact';
 import Dashboard from './Dashboard';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import RealTimeDataPage from '../pages/Discom-Drawl';
+
 
 
 
 const MainLayout = ({ children }) => {
   return (
     <div>
-    
+  
       <HeaderWithContact />
       <SubNavbar />
       <ImageSlider />
@@ -23,11 +26,14 @@ const MainLayout = ({ children }) => {
       <Homepage />
       < Dashboard />
       <CardSection />
-    
 
+   
+
+  
       <main>{children}</main> 
       <PeakDemand />
       <Footer />
+     
     </div>
   );
 };

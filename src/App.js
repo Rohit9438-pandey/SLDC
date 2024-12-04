@@ -12,30 +12,33 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Feedback from './pages/Feedback';
 import Meetings from './pages/Meetings';
+import DiscomDrawl from './pages/Discom-Drawl';
+import Details from "./components/Details";
+
 
 
 
 
 const App = () => {
   return (
-    <Router>
+    <>
     <Header />
-   
-      
-     
-   
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
       </Route>
-
       <Route path="/about" element={<About />} />  
       <Route path="/contact" element={<Contact />} />
       <Route path="/feedback" element={<Feedback />} />
       <Route path="/meetings" element={<Meetings />} />
+      <Route path="/discom-drawl" element={<DiscomDrawl/>} /> 
+      <Route path="/details/:newsId" element={<Details />} />
+
 
     </Routes>
-  </Router>
+    </>
+    
+  
   );
 };
 

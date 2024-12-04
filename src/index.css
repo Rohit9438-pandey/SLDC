@@ -595,6 +595,71 @@ ul {
 
 
 
+/* dashboard */
+
+.dynamic-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.dynamic-data-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: #333; /* Set text color to dark for contrast */
+}
+
+.dynamic-data-table td:first-child {
+  font-weight: bold;
+  width: 50%;
+  color: #333; /* Set text color to dark for labels as well */
+}
+
+.dynamic-data-table td:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.dynamic-data-table td:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+.dynamic-data-table tr:nth-child(odd) td {
+  background-color: #f1f1f1;
+}
+
+.dynamic-data-table td,
+.dynamic-data-table tr {
+  font-size: 14px; /* Set a readable font size */
+}
+
+.dynamic-data-table th {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4CAF50; /* Adjust header color */
+  color: white;
+}
+
+
+
+.latest-news-link {
+  color: #6699db; /* Light color for text */
+  font-size: 18px;
+  text-decoration: none;
+  padding: 5px 0;
+  display: block;
+  font-weight: bold;
+}
+
+.latest-news-link:hover {
+  color: #fff;
+  background-color: #008080;  /* Change to any color you like */
+  padding-left: 10px;  /* Optional: adds a little indent effect */
+}
+
+
+
+
 
 
 
@@ -962,6 +1027,153 @@ ul {
   justify-content: space-between;
   gap: 50px;
 }
+
+
+
+
+
+/* General Styles for the Real-Time Data Page */
+.real-time-data-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.real-time-data-page h2 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.table thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.table th, .table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.table th {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.table td {
+  font-size: 1rem;
+  color: #555;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.table td strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.table td a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.table td a:hover {
+  text-decoration: underline;
+}
+
+/* Hover Effects for Discom and Schedule Items */
+.table td:hover {
+  background-color: #e6f7ff; /* Light blue background on hover */
+  cursor: pointer; /* Change the cursor to indicate interactivity */
+}
+
+/* Hover effects for Discom column */
+.table td:nth-child(1):hover { /* Discom column */
+  background-color: #cce7ff; /* Lighter blue on hover */
+  color: #007bff; /* Change text color to blue */
+  text-decoration: underline;
+}
+
+/* Hover effects for Schedule column */
+.table td:nth-child(2):hover { /* Schedule column */
+  background-color: #c1ffd7; /* Light green on hover */
+  color: #28a745; /* Change text color to green */
+  text-decoration: underline;
+}
+
+/* Styling the Total Row */
+.table tfoot tr {
+  background-color: #f2f2f2;
+}
+
+.table tfoot td {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.table tfoot td strong {
+  color: #333;
+}
+
+/* Loading and Error Styles */
+.loading,
+.error {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #ff5733;
+  margin-top: 20px;
+}
+
+.loading {
+  color: #1a73e8;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .real-time-data-page h2 {
+    font-size: 1.5rem;
+  }
+
+  .table th, .table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .table td a {
+    font-size: 1rem;
+  }
+
+  .table td strong {
+    font-size: 1.1rem;
+  }
+}
+
+
 
 
 

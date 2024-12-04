@@ -317,10 +317,21 @@ export const RouterLinks = []
       ],
     },
     {
-      title: "Real time Data",
-      href: "/real-time-data",
-      disabled: false,
-    },
+    title: "Real time Data",
+    href: "/real-time-data", // Real-time data does not navigate
+    disabled: false,
+
+    sublinks: [
+      {
+        title: "DISCOM DRAWL",
+        href: "/discom-drawl", 
+        disabled: false,
+        isTableVisible: false, // Control visibility of the table
+        // Add the actual data for the table here
+      
+      },
+    ],
+  },
     {
       title: "Reports",
       href: "/reports",

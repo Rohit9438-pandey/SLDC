@@ -15,8 +15,9 @@ const Card = ({ title, content, backgroundColor }) => {
         minHeight: "500px",
       }}
     >
+
       <h3>{title}</h3>
-      <p>{content}</p>
+   <div>{content}</div>
     </div>
   );
 };

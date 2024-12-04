@@ -46,11 +46,38 @@
 
 
           
-            "latestNewsTitle": "नवीनतम समाचार और अपडेट्स",
-            "newsContent": "लोरम इप्सम डोलर सिट अमेट, कॉन्सेक्टetur adipiscing elit. विवामस एगेट निब्ह। एटियम कर्सुस लेओ वेल मेटस।",
-            "dynamicDataTitle": "डायनामिक डेटा",
-            "dynamicDataContent": "यहां डायनामिक डेटा दिखाया जाएगा। सिस्टम वर्तमान में नवीनतम मीट्रिक के साथ अद्यतन है।",
+      
 
+  "latestNewsTitle": "ताजा समाचार और अपडेट",
+  "newsContent": "यहां ताजा समाचार सामग्री है...",
+  "dynamicDataTitle": "गतिशील डेटा",
+  "frequency": "वर्तमान आवृत्ति (Hz)",
+  "dsmRate": "DSM दर (पैसे/यूनिट)",
+  "delhiLoad": "दिल्ली लोड (MW)",
+  "delhiSchedule": "दिल्ली शेड्यूल (MW)",
+  "delhiDrawal": "दिल्ली ड्रॉअल (MW)",
+  "odUd": "OD/UD (MW)",
+  "delhiGeneration": "दिल्ली उत्पादन (MW)",
+  "maxLoadToday": "अधिकतम लोड (आज तक)",
+  "minLoadToday": "न्यूनतम लोड (आज तक)",
+  "maxLoadYesterday": "अधिकतम लोड (कल)",
+  "minLoadYesterday": "न्यूनतम लोड (कल)",
+
+
+
+
+
+  
+    "outage-plant": "दिल्ली में जनरेशन प्लांट की आउटेज",
+    "license-transmission": "विद्युत् संचरण और थोक आपूर्ति के लिए लाइसेंस",
+    "transmission-losses": "FY 07-08 से FY 16-17 तक डिसकॉम्स को इनपुट के विवरण के साथ संचरण हानि",
+    "public-notice": "सार्वजनिक सूचना",
+    "Load-Curve-Details": "लोड कर्व विवरण",
+    "Load-shedding-Details": "लोड शेडिंग विवरण",
+    "Latest-Break-Down": "लेटेस्ट ब्रेकडाउन विवरण",
+    "Demand-Availability": "डिमांड-उपलब्धता विवरण",
+  
+  
 
 
 
