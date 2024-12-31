@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'font-awesome/css/font-awesome.min.css';
@@ -14,6 +14,7 @@ import Feedback from './pages/Feedback';
 import Meetings from './pages/Meetings';
 import DiscomDrawl from './pages/Discom-Drawl';
 import Details from "./components/Details";
+import DrawlDetails from './pages/Drawl-details';
 
 
 
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <>
     <Header />
+
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
@@ -33,6 +35,7 @@ const App = () => {
       <Route path="/meetings" element={<Meetings />} />
       <Route path="/discom-drawl" element={<DiscomDrawl/>} /> 
       <Route path="/details/:newsId" element={<Details />} />
+      <Route path="/drawl-details/:discom" element={<DrawlDetails />} />
 
 
     </Routes>

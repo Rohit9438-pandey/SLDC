@@ -1,11 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import useFetchData from '../lib/useFetchData';  
 
 const DiscomDrawl = () => {
-  // Simulate fetching the data (replace this with actual fetch logic or prop passing)
-  const { data, loading, error } = useFetchData("discom-drawl");  
-  
-  // Handle loading and error states
+  const { data, loading, error } = useFetchData("discom-drawl");
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -14,7 +13,6 @@ const DiscomDrawl = () => {
     return <div>Error: {error}</div>;
   }
 
-  // Calculate totals for Schedule, Drawl, and OD/UD
   const totals = data.reduce(
     (acc, item) => {
       acc.scheduleTotal += item.DD_SCHEDULE;
@@ -22,14 +20,13 @@ const DiscomDrawl = () => {
       acc.odudTotal += item.DD_ODUD;
       return acc;
     },
-    { scheduleTotal: 0, drawlTotal: 0, odudTotal: 0 } // Initial values
+    { scheduleTotal: 0, drawlTotal: 0, odudTotal: 0 }
   );
 
   return (
     <div className="real-time-data-page">
-      <h2>Real-Time Data </h2>
-
-      {/* Render DISCOM DRAWL table if data exists */}
+      <h2>Real-Time Data</h2>
+      
       {data && Array.isArray(data) && data.length > 0 ? (
         <table className="table table-bordered">
           <thead>
@@ -38,21 +35,18 @@ const DiscomDrawl = () => {
               <th>Schedule</th>
               <th>Drawl</th>
               <th>OD/UD</th>
-              
             </tr>
           </thead>
           <tbody>
-            {/* Map through the data */}
             {data.map((item, index) => (
               <tr key={index}>
                 <td>{item.DD_DISCOM}</td>
-                <td>{Math.round(item.DD_SCHEDULE)}</td>
+                <td><Link to ={`/drawl-details/${item.DD_DISCOM}`}>{Math.round(item.DD_SCHEDULE)}</Link> </td>
                 <td>{Math.round(item.DD_DRAWL)}</td>
                 <td>{Math.round(item.DD_ODUD)}</td>
               </tr>
             ))}
 
-            {/* Add a row for the totals within the table */}
             <tr>
               <td><strong>Total:</strong></td>
               <td><strong>{Math.round(totals.scheduleTotal.toFixed(2))}</strong></td>

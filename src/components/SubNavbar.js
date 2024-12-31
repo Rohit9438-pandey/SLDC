@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useLanguage } from '../Hoc/LanguageContext';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { subnav } from '../lib/RouterLink'; // Import subnav data
+import { useNavigate } from 'react-router-dom'; 
+import { subnav } from '../lib/RouterLink'; 
 
 const SubNavbar = () => {
   const { translations } = useLanguage();
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate(); 
   
   // State to control the visibility of the table for DISCOM DRAWL
   const [activeTable, setActiveTable] = useState(null);
@@ -14,9 +14,9 @@ const SubNavbar = () => {
   // Function to handle toggling the table visibility
   const handleTableToggle = (index) => {
     if (activeTable === index) {
-      setActiveTable(null); // Hide table if already active
+      setActiveTable(null); 
     } else {
-      setActiveTable(index); // Show table for this index
+      setActiveTable(index); 
     }
   };
 
