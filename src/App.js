@@ -15,6 +15,12 @@ import Meetings from './pages/Meetings';
 import DiscomDrawl from './pages/Discom-Drawl';
 import Details from "./components/Details";
 import DrawlDetails from './pages/Drawl-details';
+import DelhiGeneration from './pages/Delhi-Generation';
+import StateDrawl from './pages/State-Drawl';
+import GridLoading from './pages/Grid-Loading';
+import CentralGeneration from './pages/Central-Generation';
+import DelhiImport from './pages/Delhi-Import';
+import RealTimeData from './pages/Real-Time-Data';
 
 
 
@@ -36,6 +42,12 @@ const App = () => {
       <Route path="/discom-drawl" element={<DiscomDrawl/>} /> 
       <Route path="/details/:newsId" element={<Details />} />
       <Route path="/drawl-details/:discom" element={<DrawlDetails />} />
+      <Route path="delhi-generation" element={<DelhiGeneration />} />
+      <Route path="state-drawl" element={<StateDrawl />} />
+      <Route path="/grid-loading" element={<GridLoading />} />
+      <Route path="central-section" element={<CentralGeneration />} />
+      <Route path="delhi-import" element={<DelhiImport />} />
+      <Route path="real-time-data" element={<RealTimeData />} />
 
 
     </Routes>

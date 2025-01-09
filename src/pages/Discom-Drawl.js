@@ -1,9 +1,12 @@
-import React from 'react';
 import { Link } from 'react-router-dom'; 
 import useFetchData from '../lib/useFetchData';  
 
 const DiscomDrawl = () => {
+
+
+
   const { data, loading, error } = useFetchData("discom-drawl");
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -23,10 +26,16 @@ const DiscomDrawl = () => {
     { scheduleTotal: 0, drawlTotal: 0, odudTotal: 0 }
   );
 
+
   return (
     <div className="real-time-data-page">
-      <h2>Real-Time Data</h2>
+
+
+
+      <h2 style={{color: '#0c6a98' , fontWeight: 700}}>DISCOM DRAWL</h2>
       
+   
+
       {data && Array.isArray(data) && data.length > 0 ? (
         <table className="table table-bordered">
           <thead>

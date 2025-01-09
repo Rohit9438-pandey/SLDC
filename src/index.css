@@ -1615,13 +1615,14 @@ ul {
 
 .real-time-data-page h2 {
   font-size: 2rem;
-  color: #333;
+  color: #050470;
   text-align: center;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 /* Table Styles */
-.table {
+table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -1630,119 +1631,41 @@ ul {
   border-radius: 8px;
 }
 
-.table thead {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.table th, .table td {
-  padding: 12px 15px;
+table td, table th {
   text-align: center;
+  padding: 12px;
+  font-size: 17px;
 }
 
-.table th {
-  font-size: 1.1rem;
-  font-weight: 600;
+/* Add a background color to the <th> elements */
+table th {
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 1px; /* Add some spacing to the letters */
 }
 
-.table td {
-  font-size: 1rem;
-  color: #555;
-}
 
-.table tr:nth-child(even) {
-  background-color: #f7f7f7;
-}
 
-.table tr:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
-}
-
-.table td strong {
-  font-weight: 600;
-  color: #333;
-}
-
-.table td a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.table td a:hover {
+table td a:hover{
   text-decoration: underline;
 }
 
-/* Hover Effects for Discom and Schedule Items */
-.table td:hover {
-  background-color: #e6f7ff; /* Light blue background on hover */
-  cursor: pointer; /* Change the cursor to indicate interactivity */
+
+table tr:first-child th {
+
+  background-color:#0c6a98;
+  font-weight: 800;
+
 }
 
-/* Hover effects for Discom column */
-.table td:nth-child(1):hover { /* Discom column */
-  background-color: #cce7ff; /* Lighter blue on hover */
-  color: #007bff; /* Change text color to blue */
-  text-decoration: underline;
+/* Styling for the total values */
+table tr:last-child td {
+  color: black;
 }
 
-/* Hover effects for Schedule column */
-.table td:nth-child(2):hover { /* Schedule column */
-  background-color: #c1ffd7; /* Light green on hover */
-  color: #28a745; /* Change text color to green */
-  text-decoration: underline;
-}
-
-/* Styling the Total Row */
-.table tfoot tr {
-  background-color: #f2f2f2;
-}
-
-.table tfoot td {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.table tfoot td strong {
-  color: #333;
-}
-
-/* Loading and Error Styles */
-.loading,
-.error {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #ff5733;
-  margin-top: 20px;
-}
-
-.loading {
-  color: #1a73e8;
-}
-
-.error {
-  color: #e74c3c;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .real-time-data-page h2 {
-    font-size: 1.5rem;
-  }
-
-  .table th, .table td {
-    padding: 8px 10px;
-    font-size: 0.9rem;
-  }
-
-  .table td a {
-    font-size: 1rem;
-  }
-
-  .table td strong {
-    font-size: 1.1rem;
-  }
+/* Add a border to the table cells */
+table td, table th {
+  border: 2px solid #ddd;
+  border-radius: 4px;
 }
 
 
@@ -1751,131 +1674,227 @@ ul {
 
 
 
-/*Discom-drawl-details */
+/* Drawl Details Page Styling */
 
-/* General container style */
-.container {
-  background-color: #f8f9fa; /* Light gray background */
-  padding: 30px;
-  max-width: 1200px;
-  margin: 30px auto;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-  color:tomato;
+/* Hover and focus effect for the select box */
+select:hover {
+  border-color: #3498db; /* Change border color on hover */
+  background-color: #f1f8ff; /* Light blue background on hover */
 }
 
-/* Title Styling */
-h2 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: 600;
-  margin-bottom: 40px;
+select:focus {
+  border-color: #2980b9; /* Darker blue when the select box is focused */
+  background-color: #f1f8ff; /* Maintain background color on focus */
+  outline: none; /* Remove default focus outline */
 }
 
-/* Form row flexbox layout */
+
+/* Flexbox layout for form rows */
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   justify-content: space-between;
-  margin-bottom: 30px;
+  gap: 20px;
 }
 
-/* Individual form group layout */
+/* Form Group Styling */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-basis: 22%;
-  min-width: 220px;
+  flex: 1 1 300px; /* Allowing the form groups to grow and shrink */
+  margin-bottom: 20px;
 }
 
-/* Paragraph style in form group */
-.form-group p {
-  font-size: 14px;
-  color: #2c3e50;
-  font-weight: 600;
-  margin: 0;
-  margin-top: 10px;
+/* Styling for the select container */
+.select-container {
+  width: 100%;
 }
 
-/* Styling for Select and Input fields */
-.form-select,
+
+
+/* Styling for the input */
 .form-input {
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #3498db;
-  border-radius: 8px;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.15);
+  width: 50%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.form-select:hover,
-.form-input:hover {
-  background-color: #ecf0f1;
-  border-color: #2980b9;
-}
-
-.form-select:focus,
-.form-input:focus {
-  outline: none;
-  border-color: #2980b9;
-  box-shadow: 0 0 6px rgba(41, 128, 185, 0.6);
-}
-
-/* Inline form for "For Date" */
+/* Flexbox for the inline form to align select and date input parallel */
 .inline-form {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px; /* Space between the label and input */
 }
 
+/* Styling for the "For Date" label */
 .inline-form p {
-  font-size: 16px;
-  font-weight: 500;
-  color: #2c3e50;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
 }
+
+
+/* Styling for select box to ensure consistent width with date input */
+.form-select {
+  width: 60%; /* You can adjust this value as needed */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 
 /* Table Wrapper Styling */
 .table-wrapper {
   margin-top: 40px;
-  overflow-x: auto; /* Horizontal scroll */
-}
-
-.table-container {
-  width: 100%;
+  max-height: 500px;  /* Set a maximum height for vertical scrolling */
+  width: 100%;        /* Set to 100% width for responsiveness */
+  overflow: auto;     /* Enable both vertical and horizontal scrolling */
+  position: relative; /* To allow sticky headers */
+  padding-right: 20px; /* Adjust for the scrollbar space */
+  box-sizing: border-box; /* Ensure padding doesn't overflow */
 }
 
 /* Table Styling */
-table {
-  width: 100%;
+.table-wrapper table {
+  width: 100%;        /* Allow the table to use the full width of the container */
+  min-width: 600px;   /* Ensure the table is not too small and allows scrolling */
+  table-layout: auto; /* Automatically adjust the column widths */
   border-collapse: collapse;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-  padding: 8px;
-  text-align: center;
-}
-
 /* Table Header Styling */
-th {
-  background-color: #2980b9; /* Blue background for header */
+.table-wrapper th {
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+  position: sticky;
+  top: 0; /* Stick the header to the top */
+  z-index: 2; /* Ensure header stays above table rows */
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  word-wrap: break-word; /* Ensure text wraps if it’s too long */
 }
 
-/* Row Hover Effect */
-tr:hover {
-  background-color: #ecf0f1;
-  cursor: pointer;
+/* Table Row Styling */
+.table-wrapper td {
+  padding: 13px 16px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  color: #333;
+  word-wrap: break-word; /* Ensure text wraps within the cells */
 }
+
+
 
 /* Sticky Header */
+.table-wrapper th.fixed-column {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color:#0C6A98;
+  font-weight: 600;
+  color:#ffffff;
+  z-index: 2;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Scrollbar Styling */
+.table-wrapper::-webkit-scrollbar {
+  height: 10px;  /* Horizontal scrollbar height */
+  width: 10px;   /* Vertical scrollbar width */
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color:#0C6A98;
+  border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #3498db;
+}
+
+
+
+
+
+/* Table Data Styling */
+.table-wrapper td {
+  background-color: #ffffff;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+
+
+/* Styling for the first column */
+.table-wrapper td:first-child {
+  background-color: #EFEEEC;
+  font-weight: 700;
+}
+
+
+
+/* Table Header Styling */
+.table-wrapper th {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: sticky;
+  top: 0; /* Stick the header to the top */
+  z-index: 2; /* Ensure header stays above table rows */
+  padding: 12px 15px;
+  text-align: center;
+  border: 2px solid #ddd;
+  word-wrap: break-word; /* Ensure text wraps if it’s too long */
+}
+
+
+/* Colorful hover effect for table rows */
+.table-wrapper tr:hover td {
+  background-color: #f39c12; /* Highlight row with orange */
+  color: white;
+}
+
+
+/* Additional visual effects for table data */
+.table-wrapper td.numeric {
+  color: #2c3e50; /* Darker color for numeric data */
+  font-weight: 600;
+  background-color: #EFEEEC /* Light gray background for numeric cells */
+}
+
+
+/* Styling for even rows (light yellow) */
+.table-wrapper tr:nth-child(even) {
+  background-color: #f5f5f5; /* Light gray for even rows */
+  border-top: 1px solid #ccc;
+}
+
+/* Styling for odd rows (light peach) */
+.table-wrapper tr:nth-child(odd) {
+  background-color: #EFEEEC; 
+  border-top: 2px solid #ccc;
+}
+
+/* Highlight row with a deeper orange on hover */
+.table-wrapper tr:hover {
+  background-color: #f39c12;
+  color: white;
+}
+
+
+/* Styling for sticky header */
 .wrapper {
   position: sticky;
   top: 0; /* Stick to top */
@@ -1884,49 +1903,16 @@ tr:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-th.fixed-column {
-  position: sticky;
-  top: 0;
-  left: 0;
-  background-color: #2980b9;
-  font-weight:700;
-  z-index: 2;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  width: "70%";
-}
-
-/* Table Data Styling */
-td {
-  background-color: #ffffff;
-}
-
 /* Table Wrapper Styling (vertical scroll) */
 .table-wrapper {
-  max-height: 500px; /* Limit the height of the table */
-  overflow-x: auto;
-  width: "100%";
+  max-height: 600px; /* Limit the height of the table */
+  overflow-y: auto;
   margin-bottom: 20px;
-
 }
 
-/* No Data Available Styling */
-.table-wrapper p {
-  text-align: center;
-  font-size: 18px;
-  color: #7f8c8d;
-}
-
-.fixed-column {
-  position: sticky;
-  left: 0;
-  background-color:#007bff;
-  z-index: 1;
-  border-right: 1px solid #ccc; 
-}
-
-.table th, .table td {
-  border: 1px solid #ccc;
-
+/* Border Styling */
+.table-wrapper th, .table-wrapper td {
+  border: 2px solid #ccc;
 }
 
 /* Responsive Layout for smaller screens */
@@ -1961,3 +1947,197 @@ td {
   }
 }
 
+
+/*Delhi- Generation */
+
+.genco h2{
+  text-align: center;
+  color: #0c6a98;
+}
+
+.genco-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Table Header Styles */
+.genco-table th {
+  text-align: center; /* Center align the text */
+  padding: 12px; /* Add padding */
+  font-size: 16px; /* Set font size */
+  font-weight: bold; /* Make the text bold */
+}
+
+
+
+/* Table Body Styles */
+.genco-table td {
+  padding: 10px;
+  text-align: center;
+  font-size: 17px; /* Set font size */
+}
+
+/* Optional: Alternate Row Colors */
+.genco-table tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+.genco-table tr:nth-child(even) {
+  background-color: #e6f7e6; /* Light green for even rows */
+}
+
+/* Footer row with totals */
+.genco-table tfoot td {
+  font-weight: bold;
+  background-color: #d3f9d8; /* Light green background for totals row */
+}
+
+/* Border and Box-shadow for better visibility */
+.genco-table th, .genco-table td {
+  border: 2px solid #ddd;
+}
+
+.genco-table td strong {
+  color: #050470;
+}
+
+
+
+
+/* Grid -loading*/
+
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.grid-table th,
+.grid-table td {
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.grid-table th {
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.grid-table tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.grid-table td {
+  background-color: #fff;
+}
+
+.grid-table td,
+.grid-table th {
+  border-bottom: 1px solid #ddd;
+}
+
+.grid-table td {
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-table th,
+  .grid-table td {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+
+
+
+
+
+/* Central-section*/
+
+.sector h2{
+  text-align: center;
+  color: #0C6A98;
+  font-weight: 700;
+}
+
+
+.sector-table th {
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+.import h2{
+  text-align: center;
+  color: #0C6A98;
+
+}
+
+.import-table th{
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/*Real time data */
+.btn {
+  justify-content: center;
+  flex-wrap: wrap; 
+  margin-top: 20px;
+  margin-bottom: 10px;
+  gap: 15px; 
+  margin-left: 30px;
+}
+
+.btn button {
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin: 8px; /* Add margin to each button for spacing */
+}
+
+/* Add hover effect */
+.btn button:hover {
+  background-color: #0C6A98; 
+  color: white; 
+  transform: translateY(-3px); 
+}
+
+.btn button:active {
+  transform: translateY(1px); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

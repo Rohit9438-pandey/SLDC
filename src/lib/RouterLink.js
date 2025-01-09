@@ -323,13 +323,15 @@ export const RouterLinks = []
 
     sublinks: [
       {
-        title: "DISCOM DRAWL",
-        href: "/discom-drawl", 
+        title: "Real Time Data",
+        href: "/real-time-data", 
         disabled: false,
         isTableVisible: false, // Control visibility of the table
         // Add the actual data for the table here
       
       },
+
+     
     ],
   },
     {

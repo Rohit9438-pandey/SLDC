@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useLanguage } from '../Hoc/LanguageContext';
-import { useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import { subnav } from '../lib/RouterLink'; 
+import RealTimeData from '../pages/Real-Time-Data';
 
 const SubNavbar = () => {
   const { translations } = useLanguage();
@@ -33,12 +34,14 @@ const SubNavbar = () => {
           {/* Loop through subnav and create dropdown items */}
           {subnav.map((navItem, index) => (
             <NavDropdown
+            onClick={navigate("/real-time-data")}
               key={index}
               title={navItem.title}
               id={`nav-dropdown-${index}`}
               disabled={navItem.disabled}
               align="end"
               className="sub-navbar-dropdown"
+             
             >
               {/* Loop through sublinks for each dropdown */}
               {navItem.sublinks &&
@@ -48,37 +51,11 @@ const SubNavbar = () => {
                     href={sublink.href}
                    
                   >
-                    {sublink.title}
+                  {sublink.title}
+                    
 
-                    {/* Display table when DISCOM DRAWL is clicked */}
-                    {activeTable === subIndex && (
-                      <div className="mt-3">
-                        {sublink.data && Array.isArray(sublink.data) && sublink.data.length > 0 ? (
-                          <table className="table table-bordered">
-                            <thead>
-                              <tr>
-                                <th>Discom</th>
-                                <th>Schedule</th>
-                                <th>Drawl</th>
-                                <th>OD/UD</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {sublink.data.map((item, itemIndex) => (
-                                <tr key={itemIndex}>
-                                  <td>{item.discom}</td>
-                                  <td>{item.schedule}</td>
-                                  <td>{item.drawl}</td>
-                                  <td>{item.od_ud}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        ) : (
-                          <p>No data available</p>
-                        )}
-                      </div>
-                    )}
+                   
+                  
                   </NavDropdown.Item>
                 ))}
             </NavDropdown>
