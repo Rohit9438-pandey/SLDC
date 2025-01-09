@@ -37,7 +37,7 @@ const DiscomDrawl = () => {
    
 
       {data && Array.isArray(data) && data.length > 0 ? (
-        <table className="table table-bordered">
+        <table className="genco-table">
           <thead>
             <tr>
               <th>Discom</th>

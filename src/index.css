@@ -1956,7 +1956,7 @@ select:focus {
 }
 
 .genco-table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   background-color: #fff;
@@ -1964,12 +1964,13 @@ select:focus {
   border-radius: 10px;
 }
 
-/* Table Header Styles */
-.genco-table th {
-  text-align: center; /* Center align the text */
-  padding: 12px; /* Add padding */
-  font-size: 16px; /* Set font size */
-  font-weight: bold; /* Make the text bold */
+.genco-table th{
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
 }
 
 
@@ -1978,17 +1979,9 @@ select:focus {
 .genco-table td {
   padding: 10px;
   text-align: center;
-  font-size: 17px; /* Set font size */
+  font-size: 20px; 
 }
 
-/* Optional: Alternate Row Colors */
-.genco-table tr:nth-child(odd) {
-  background-color: #f2f2f2; /* Light gray for odd rows */
-}
-
-.genco-table tr:nth-child(even) {
-  background-color: #e6f7e6; /* Light green for even rows */
-}
 
 /* Footer row with totals */
 .genco-table tfoot td {
@@ -2002,8 +1995,9 @@ select:focus {
 }
 
 .genco-table td strong {
-  color: #050470;
+  color: black;
 }
+
 
 
 
@@ -2046,6 +2040,7 @@ select:focus {
 
 .grid-table td {
   background-color: #fff;
+  font-size: 18px;
 }
 
 .grid-table td,
@@ -2080,7 +2075,6 @@ select:focus {
 
 
 .sector-table th {
-  background-color: #007bff;
   color: #fff;
   position: sticky;
   top: 0;
@@ -2091,15 +2085,91 @@ select:focus {
 
 
 
+/* Delhi Import*/
 
-
-.import h2{
-  text-align: center;
-  color: #0C6A98;
-
+.import-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.import-table th{
+.import-page h2{
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.import-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.import-page th, .import-page td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.import-page th {
+  background-color: #f4f4f4;
+}
+
+.import-page tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.import-page tr:hover {
+  background-color: #f1f1f1;
+}
+
+.import-page th{
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/*Export Page */
+
+
+.export-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.export-page h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.export-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.export-page th, .export-page td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.export-page th {
+  background-color: #f4f4f4;
+}
+
+.export-page tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.export-page tr:hover {
+  background-color: #f1f1f1;
+}
+
+.export-page th{
   background-color: #007bff;
   color: #fff;
   position: sticky;

@@ -33,7 +33,7 @@ const StateDrawl = () => {
     <div className='genco'>
       <h2 style ={{color: '#0c6a98' , fontWeight: 700}}> STATES DRAWL</h2>
       {data.length > 0 ? (
-        <table className="table table-bordered genco-table">
+        <table className="genco-table">
           <thead>
             <tr>
               <th>STATE</th>

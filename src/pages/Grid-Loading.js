@@ -33,7 +33,7 @@ const GridLoading = () => {
     <div className='genco'>
       <h2 style= {{color: '#0c6a98' , fontWeight: 700}}> GRID LOADING</h2>
       {data.length > 0 ? (
-        <table className="table table-bordered grid-table">
+        <table className="grid-table">
           <thead>
             <tr>
               <th>Sub-Stations</th>

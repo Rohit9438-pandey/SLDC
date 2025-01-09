@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const DelhiImport = () => {
-  const [importData, setImportData] = useState([]);
+const DelhiExport = () => {
+  const [exportData, setExportData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -12,16 +12,16 @@ const DelhiImport = () => {
       .then((data) => {
         console.log('Fetched data:', data);  // Debugging step to see raw response
         if (data && data.data) {
-          // Filter import data where DI_TYPE = 1
-          const filteredData = data.data.filter(item => item.DI_TYPE === 1);
-          setImportData(filteredData);
+          // Filter export data where DI_TYPE = 0
+          const filteredData = data.data.filter(item => item.DI_TYPE === 0);
+          setExportData(filteredData);
         } else {
           setError('No data available');
         }
       })
       .catch((error) => {
         setError('Error fetching data: ' + error.message);
-        console.error('Error fetching import data:', error);
+        console.error('Error fetching export data:', error);
       })
       .finally(() => {
         setLoading(false);
@@ -37,8 +37,8 @@ const DelhiImport = () => {
   }
 
   return (
-    <div className="import-page">
-      <h2 style= {{color: '#0c6a98' , fontWeight: 700}}>DELHI IMPORT</h2>
+    <div className="export-page">
+      <h2 style = {{color: '#0c6a98' , fontWeight: 700 , textAlign: 'center'}}>Export Data</h2>
       <table>
         <thead>
           <tr>
@@ -49,7 +49,7 @@ const DelhiImport = () => {
           </tr>
         </thead>
         <tbody>
-          {importData.map((entry, index) => (
+          {exportData.map((entry, index) => (
             <tr key={index}>
               <td>{entry.DI_FEEDER}</td>
               <td>{entry.DI_MW}</td>
@@ -63,4 +63,4 @@ const DelhiImport = () => {
   );
 };
 
-export default DelhiImport;
+export default DelhiExport;

@@ -7,6 +7,7 @@ import StatesDrawl from './State-Drawl';
 import GridLoading from './Grid-Loading'; 
 import CentralSectorGeneration from './Central-Generation'; 
 import DelhiImport from './Delhi-Import'; 
+import DelhiExport from './Delhi-Export';
 
 const RealTimeData = () => {
   const [activeSection, setActiveSection] = useState(null);  
@@ -43,6 +44,7 @@ const RealTimeData = () => {
       {activeSection === 'gridLoading' && <GridLoading />}
       {activeSection === 'centralSector' && <CentralSectorGeneration />}
       {activeSection === 'delhiImport' && <DelhiImport />}
+      {activeSection === 'delhiExport' && <DelhiExport />}
     </div>
   );
 };

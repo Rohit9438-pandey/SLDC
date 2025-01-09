@@ -33,7 +33,7 @@ const CentralGeneration = () => {
     <div className='sector'>
       <h2> CENTRAL SECTOR GENERATION</h2>
       {data.length > 0 ? (
-        <table className="table table-bordered sector-table">
+        <table className="sector-table">
           <thead>
             <tr>
               <th>GENCO NAME</th>

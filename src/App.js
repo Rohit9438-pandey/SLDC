@@ -21,6 +21,7 @@ import GridLoading from './pages/Grid-Loading';
 import CentralGeneration from './pages/Central-Generation';
 import DelhiImport from './pages/Delhi-Import';
 import RealTimeData from './pages/Real-Time-Data';
+import DelhiExport from './pages/Delhi-Export';
 
 
 
@@ -48,6 +49,7 @@ const App = () => {
       <Route path="central-section" element={<CentralGeneration />} />
       <Route path="delhi-import" element={<DelhiImport />} />
       <Route path="real-time-data" element={<RealTimeData />} />
+      <Route path="delhi-export"  element={<DelhiExport />} />
 
 
     </Routes>

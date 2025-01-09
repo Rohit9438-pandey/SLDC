@@ -41,7 +41,7 @@ const DelhiGeneration = () => {
     <div className='genco'>
       <h2 style={{color: '#0c6a98' , fontWeight: 700}}>DELHI GENERATION</h2>
       {data.length > 0 ? (
-        <table className="table table-bordered genco-table">
+        <table className="genco-table">
           <thead>
             <tr>
               <th>GENCO</th>
