@@ -38,7 +38,7 @@ const DelhiExport = () => {
 
   return (
     <div className="export-page">
-      <h2 style = {{color: '#0c6a98' , fontWeight: 700 , textAlign: 'center'}}>Export Data</h2>
+      <h2 style = {{color: '#0c6a98' , fontWeight: 700 , textAlign: 'center'}}>DELHI EXPORT</h2>
       <table>
         <thead>
           <tr>

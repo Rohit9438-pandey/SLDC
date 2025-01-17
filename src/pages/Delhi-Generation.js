@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; 
+
 
 const DelhiGeneration = () => {
   // State to store data and loading/error state
@@ -12,14 +14,14 @@ const DelhiGeneration = () => {
     fetch('https://www.delhisldc.org/app-api/genco')
       .then((response) => response.json())
       .then((data) => {
-        setData(data.data);  // Store the fetched data
-        setLoading(false);  // Set loading to false when data is fetched
+        setData(data.data);  
+        setLoading(false);  
       })
       .catch((err) => {
-        setError(err.message);  // Set error message in case of failure
+        setError(err.message);  
         setLoading(false);
       });
-  }, []);  // Empty dependency array means it runs once when the component mounts
+  }, []);  
 
   // Handling loading and error states
   if (loading) return <div>Loading...</div>;
@@ -36,6 +38,10 @@ const DelhiGeneration = () => {
   );
 
 
+  const handleOpenDrawlDetails = (genco) => {
+    const url = `/delhi-generation/${genco}`;
+    window.open(url, '_blank');  
+  };
 
   return (
     <div className='genco'>
@@ -53,8 +59,16 @@ const DelhiGeneration = () => {
           <tbody>
             {data.map((item, index) => (
               <tr key={index}>
-                <td>{item.DG_GENCO}</td>
-                <td>{Math.round(item.DG_SCHEDULE)}</td>
+                <td> <Link to={`${item.DG_GENCO}`} target="_blank">{item.DG_GENCO}</Link></td>
+                <td>
+                <button
+                    onClick={() => handleOpenDrawlDetails(item.DG_SCHEDULE)}
+                    style={{ cursor: 'pointer', backgroundColor: '#f1f1f1', border: 'none', padding: '5px 10px',color:"#0c6a98" , textDecoration: "underline" }}
+                  >
+                  {Math.round(item.DG_SCHEDULE)}
+                  </button>
+                  </td>
+
                 <td>{Math.round(item.DG_ACTUAL)}</td>
                 <td>{Math.round(item.DG_UI)}</td>
               </tr>

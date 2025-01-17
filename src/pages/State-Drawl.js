@@ -50,8 +50,8 @@ const StateDrawl = () => {
                 <td>{item.DS_STATE}</td>
                 <td>{Math.round(item.DS_SCHEDULE)}</td>
                 <td>{Math.round(item.DS_DRAWL)}</td>
-                <td>{Math.round(item.DS_LOAD)}</td>
                 <td>{Math.round(item.DS_OD_UD)}</td>
+                <td>{Math.round(item.DS_LOAD)}</td>
 
               </tr>
             ))}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; 
+
 
 const GridLoading = () => {
   // State to store data and loading/error state
@@ -47,7 +49,7 @@ const GridLoading = () => {
           <tbody>
             {data.map((item, index) => (
               <tr key={index}>
-                <td>{item.DG_GRID}</td>
+                <td><Link to={`${item.DG_GRID}`} target="_blank">{item.DG_GRID}</Link></td>
                 <td>{item.DG_STTS}</td>
                 <td>{Math.round(item.DG_MW)}</td>
                 <td>{Math.round(item.DG_MVAR)}</td>

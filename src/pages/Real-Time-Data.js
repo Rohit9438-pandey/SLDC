@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
+
 import DiscomDrawl from './Discom-Drawl'; 
 import DelhiGeneration from './Delhi-Generation'; 
 import StatesDrawl from './State-Drawl'; 
@@ -10,7 +11,7 @@ import DelhiImport from './Delhi-Import';
 import DelhiExport from './Delhi-Export';
 
 const RealTimeData = () => {
-  const [activeSection, setActiveSection] = useState(null);  
+  const [activeSection, setActiveSection] = useState(null); 
 
   // Functions to set the active section
   const handleDiscomDrawlClick = () => setActiveSection('discomDrawl');
@@ -20,6 +21,7 @@ const RealTimeData = () => {
   const handleCentralSectorClick = () => setActiveSection('centralSector');
   const handleDelhiImportClick = () => setActiveSection('delhiImport');
   const handleDelhiExportClick = () => setActiveSection('delhiExport');
+
 
   return (
     <div>
@@ -45,6 +47,7 @@ const RealTimeData = () => {
       {activeSection === 'centralSector' && <CentralSectorGeneration />}
       {activeSection === 'delhiImport' && <DelhiImport />}
       {activeSection === 'delhiExport' && <DelhiExport />}
+
     </div>
   );
 };
