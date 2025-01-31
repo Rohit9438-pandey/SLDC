@@ -1,18 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import useFetchGraphData from '../lib/getGraphData';
 
 const DrawlDetails = () => {
-  const [data, setData] = useState([]); // Holds the general drawl schedule data
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDiscom, setSelectedDiscom] = useState('');
   const [selectedRevisionNo, setSelectedRevisionNo] = useState('');
-  const [gencoData, setGencoData] = useState([]); // Holds the genco-specific data for the revision
+  const [gencoData, setGencoData] = useState([]); // Initialized as an empty array
+  const [formattedTotalTableData, setFormattedTotalTableData] = useState([]); // Initialized as an empty array
 
   const revisionNo = `${selectedRevisionNo}DS${selectedDiscom}${selectedDate}`;
 
-  // Fetch the general data (schedule revision data based on selected date)
+  const tableFilter = {
+    REVISIONNO: revisionNo,
+  };
+
+  // Serialize tableFilter into a query string
+  const queryParams = new URLSearchParams({
+    table: "DTL_DRAWL_TOTAL",
+    filters: JSON.stringify(tableFilter),
+  }).toString();
+
+  // Fetch total table data
+  const {
+    data: totalTableData,
+    loading: totalTableLoading,
+    error: totalTableError,
+  } = useFetchGraphData(`get-data?${queryParams}`);
+
+  useEffect(() => {
+    if (!totalTableLoading && totalTableData?.result?.metaData) {
+      const columnNames = totalTableData.result.metaData.map((col) => col.name);
+      const data = totalTableData.result.rows.map((row) => {
+        return row.reduce((obj, value, index) => {
+          obj[columnNames[index]] = value; // Map each value to the corresponding column name
+          return obj;
+        }, {});
+      });
+      setFormattedTotalTableData(data);
+    }
+  }, [totalTableData, totalTableLoading]);
+
+  // Fetch general data based on selected date
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,12 +67,12 @@ const DrawlDetails = () => {
     }
   }, [selectedDate]);
 
-  // Fetch the genco data based on selected revision number
+  // Fetch genco data based on selected revision number
   useEffect(() => {
     const fetchGencoData = async () => {
-      if (!selectedRevisionNo) return; // Don't fetch unless a revision number is selected
+      if (!selectedRevisionNo) return;
 
-      setLoading(true); // Start loading before fetching data
+      setLoading(true);
       try {
         const response = await fetch(
           `https://delhisldc.org/app-api/discom-drawl-schedule?revisionno=${revisionNo}`
@@ -50,7 +81,8 @@ const DrawlDetails = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const result = await response.json();
-        setGencoData(result.data || []); // Ensure we set empty array if no data is available
+        setGencoData(result.data || []); // If result.data is undefined, set to empty array
+        console.log("Genco Data:", result.data);  // Check the genco data in console
       } catch (err) {
         setError(err.message);
       } finally {
@@ -59,41 +91,9 @@ const DrawlDetails = () => {
     };
 
     fetchGencoData();
-  }, [selectedRevisionNo, selectedDiscom, selectedDate]); // Trigger when revision number, date or discom changes
+  }, [selectedRevisionNo, selectedDiscom, selectedDate]);
 
-  useEffect(() => {
-    // Set the default selectedDiscom to the first Discom option after data is fetched
-    if (data.length > 0) {
-      const uniqueDiscoms = Array.from(
-        new Set(
-          data.map((ele) => {
-            const match = ele.REVISIONNO.match(/DS([A-Z]+)/);
-            return match ? match[1] : null; // Extract the abbreviation or null
-          })
-        )
-      ).filter(Boolean); // Remove null values
-
-      if (uniqueDiscoms.length > 0) {
-        setSelectedDiscom(uniqueDiscoms[0]); // Set the default selected Discom to the first one
-      }
-    }
-
-    // Set selectedRevisionNo based on the fetched data (lowest revision number)
-    if (data.length > 0) {
-      const revisionNos = data
-        .map((ele) => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)
-        .sort((a, b) => a.localeCompare(b)); // Sort revision numbers
-      setSelectedRevisionNo(revisionNos[0]); // Set the default to the lowest revision number
-    }
-  }, [data]);
-
-  // Set the default selectedDate to today's date (formatted as yyyy/mm/dd)
-  useEffect(() => {
-    const today = new Date().toISOString().split("T")[0]; // Get today's date in yyyy-mm-dd format
-    setSelectedDate(today.split("-").join("/")); // Set it as yyyy/mm/dd
-  }, []);
-
-  // Format the table data into a timeslot-based structure
+  // Format genco data into a timeslot-based structure
   const formatTableData = () => {
     const timeslotData = {};
     gencoData.forEach((entry) => {
@@ -101,9 +101,9 @@ const DrawlDetails = () => {
       if (!timeslotData[TIMESLOT]) {
         timeslotData[TIMESLOT] = {};
       }
-      timeslotData[TIMESLOT][GENCOCODE] = QUANTUM;
+      timeslotData[TIMESLOT][GENCOCODE] = QUANTUM; // Store Quantum value for each GENCOCODE
     });
-    return timeslotData; // Return the data here
+    return timeslotData;
   };
 
   // Get the unique genco codes
@@ -117,21 +117,64 @@ const DrawlDetails = () => {
     return gencoCodes.sort();
   };
 
-  const tableData = formatTableData();
-  const gencoCodes = getGencoCodes();
+  // Combine genco data with formatted total table data
+  const mergeTablesData = () => {
+    const timeslotData = formatTableData();
+    const gencoCodes = getGencoCodes();
 
-  const handleSelectChange = (event) => {
-    setSelectedDiscom(event.target.value); // Update selected Discom
+    return formattedTotalTableData.map((formattedItem, index) => {
+      const timeslotRow = timeslotData[formattedItem.TIMESLOT] || {};
+      const rowData = {
+        TIMESLOT: formattedItem.TIMESLOT,
+        ...formattedItem,
+        ...gencoCodes.reduce((acc, genco) => {
+          acc[genco] = timeslotRow[genco] || 0; // Merge the genco data into the row
+          return acc;
+        }, {}),
+      };
+      return rowData;
+    });
   };
 
-  const handleDateChange = (event) => {
-    const formattedDate = event.target.value.split("-").join("/"); // Format date to yyyy/mm/dd
-    setSelectedDate(formattedDate);
-  };
+  const mergedData = mergeTablesData().sort((a, b) => {
+    // Numeric comparison for TIMESLOT
+    return a.TIMESLOT - b.TIMESLOT;
+  });
+    const gencoCodes = getGencoCodes();
 
-  const handleRevisionChange = (event) => {
-    setSelectedRevisionNo(event.target.value);
-  };
+  // Set the default selectedDiscom and maximum revision number when data is fetched
+  useEffect(() => {
+    if (data.length > 0) {
+      const uniqueDiscoms = Array.from(
+        new Set(
+          data.map((ele) => {
+            const match = ele.REVISIONNO.match(/DS([A-Z]+)/);
+            return match ? match[1] : null;
+          })
+        )
+      ).filter(Boolean);
+
+      if (uniqueDiscoms.length > 0 && !selectedDiscom) {
+        setSelectedDiscom(uniqueDiscoms[0]);
+      }
+
+      const filteredData = data.filter(
+        (ele) => ele.REVISIONNO.includes(`DS${selectedDiscom}`)
+      );
+      const revisionNos = filteredData
+        .map((ele) => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)
+        .sort((a, b) => b.localeCompare(a));
+      if (revisionNos.length > 0) {
+        setSelectedRevisionNo(revisionNos[0]);
+      }
+    }
+  }, [data, selectedDiscom]);
+
+  // Set the default selectedDate to today's date (formatted as yyyy/mm/dd)
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    setSelectedDate(today.split("-").join("/"));
+  }, []);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -140,25 +183,20 @@ const DrawlDetails = () => {
     return <p>Error: {error}</p>;
   }
 
-  const uniqueDiscoms = Array.from(
-    new Set(
-      data.map((ele) => {
-        const match = ele.REVISIONNO.match(/DS([A-Z]+)/);
-        return match ? match[1] : null; // Extract the abbreviation or null
-      })
-    )
-  ).filter(Boolean); // Remove null values
-
-  const uniqueRevisionNos = Array.from(
-    new Set(data.map((ele) => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`))
-  ).sort((a, b) => a.localeCompare(b)); // Sort the revision numbers from low to high
-
   return (
     <div className="container">
-      <h2 style={{ color: 'royalblue', fontWeight: 'bold', textAlign: 'center', marginTop: '10px' }}>
+      <h2
+        style={{
+          color: 'royalblue',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          marginTop: '10px',
+        }}
+      >
         Drawl Schedule of Discoms from Generating Stations (in MW)
       </h2>
 
+      {/* Filter Section for Revision No, Constituent, and Date */}
       <div
         className="form-row"
         style={{
@@ -185,10 +223,10 @@ const DrawlDetails = () => {
               width: '100%',
             }}
           >
-            <strong>Constituent:</strong> {selectedDiscom}
+            <strong>Constituent:</strong>
             <select
               value={selectedDiscom}
-              onChange={handleSelectChange}
+              onChange={(e) => setSelectedDiscom(e.target.value)}
               className="form-select"
               style={{
                 width: '100%',
@@ -202,7 +240,13 @@ const DrawlDetails = () => {
                 transition: 'border-color 0.3s, background-color 0.3s',
               }}
             >
-              {uniqueDiscoms.map((discom, i) => (
+              {/* Render unique Discoms */}
+              {Array.from(new Set(
+                data.map((ele) => {
+                  const match = ele.REVISIONNO.match(/DS([A-Z]+)/);
+                  return match ? match[1] : null;
+                })
+              )).filter(Boolean).map((discom, i) => (
                 <option key={i} value={discom}>
                   {discom}
                 </option>
@@ -226,7 +270,7 @@ const DrawlDetails = () => {
           <input
             type="date"
             value={selectedDate.split("/").join("-")}
-            onChange={handleDateChange}
+            onChange={(e) => setSelectedDate(e.target.value.split("-").join("/"))}
             className="form-input"
             style={{
               width: '100%',
@@ -242,7 +286,7 @@ const DrawlDetails = () => {
           />
         </div>
 
-        {/* Revision No. */}
+        {/* Revision No. Dropdown */}
         <div className="form-group" style={{ flex: '1 1 30%', marginBottom: '20px' }}>
           <p
             style={{
@@ -262,7 +306,7 @@ const DrawlDetails = () => {
             <strong style={{ color: '#2980b9' }}>Revision No:</strong>
             <select
               value={selectedRevisionNo}
-              onChange={handleRevisionChange}
+              onChange={(e) => setSelectedRevisionNo(e.target.value)}
               style={{
                 marginLeft: '10px',
                 padding: '5px 10px',
@@ -274,7 +318,10 @@ const DrawlDetails = () => {
                 cursor: 'pointer',
               }}
             >
-              {uniqueRevisionNos.map((revisionNo, i) => (
+              {/* Render unique revision numbers */}
+              {Array.from(new Set(
+                data.map((ele) => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)
+              )).sort((a, b) => b.localeCompare(a)).map((revisionNo, i) => (
                 <option key={i} value={revisionNo}>
                   {revisionNo}
                 </option>
@@ -284,34 +331,43 @@ const DrawlDetails = () => {
         </div>
       </div>
 
-      {/* Table displaying the data */}
-      <div className="table-wrapper">
-        {gencoData.length === 0 ? (
-          <p>No data available for the selected revision.</p>
-        ) : (
-          <div className="table-container">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="fixed-column">Timeslot</th>
-                  {gencoCodes.map((genco) => (
-                    <th key={genco} className="fixed-column">{genco}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(tableData).map((timeslot) => (
-                  <tr key={timeslot}>
-                    <td className="fixed-column">{timeslot}</td>
-                    {gencoCodes.map((genco) => (
-                      <td key={genco}>{tableData[timeslot][genco] || 0}</td>
-                    ))}
-                  </tr>
+      {/* Merged Data Table */}
+      <div className="table-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px'}}>
+        <div className="table-container">
+          <h3 style={{ textAlign: 'center', marginBottom: '10px' }}></h3>
+          <table className="genco-table" style={{ width: '100%' }}>
+            <thead>
+              <tr>
+                <th>Timeslot</th>
+                {gencoCodes.map((genco) => (
+                  <th key={genco}>{genco}</th>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                <th>Total Expenditure</th>
+                <th>Open Access</th>
+                <th>IDT</th>
+                <th>LOSSES</th>
+                <th>IDTEXBIL</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mergedData.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.TIMESLOT}</td>
+                  {gencoCodes.map((genco) => (
+                    <td key={genco}>{item[genco] || 0}</td>
+                  ))}
+                  <td>{item.TOTAL_EXPP}</td>
+                  <td>{item.OPENACCESS}</td>
+                  <td>{item.IDT}</td>
+                  <td>{item.LOSSES}</td>
+                  <td>{item.IDTEXBIL}</td>
+                  <td>{item.TOTAL}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
