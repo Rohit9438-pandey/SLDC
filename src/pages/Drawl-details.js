@@ -8,8 +8,9 @@ const DrawlDetails = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDiscom, setSelectedDiscom] = useState('');
   const [selectedRevisionNo, setSelectedRevisionNo] = useState('');
-  const [gencoData, setGencoData] = useState([]); // Initialized as an empty array
-  const [formattedTotalTableData, setFormattedTotalTableData] = useState([]); // Initialized as an empty array
+  const [gencoData, setGencoData] = useState([]); 
+  const [formattedTotalTableData, setFormattedTotalTableData] = useState([]); 
+   const [timeslotData, setTimeslotData] = useState([]);
 
   const revisionNo = `${selectedRevisionNo}DS${selectedDiscom}${selectedDate}`;
 
@@ -81,8 +82,7 @@ const DrawlDetails = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const result = await response.json();
-        setGencoData(result.data || []); // If result.data is undefined, set to empty array
-        console.log("Genco Data:", result.data);  // Check the genco data in console
+        setGencoData(result.data || []); 
       } catch (err) {
         setError(err.message);
       } finally {
@@ -93,6 +93,31 @@ const DrawlDetails = () => {
     fetchGencoData();
   }, [selectedRevisionNo, selectedDiscom, selectedDate]);
 
+
+
+
+  
+useEffect(() => {
+    const fetchTimeslotData = async () => {
+      try {
+        const response = await fetch('https://delhisldc.org/app-api/get-data?table=TIMESLOT');
+        const result = await response.json();
+        
+        if (result?.result?.rows) {
+          const timeslots = result.result.rows.map((row) => row[1]); 
+          setTimeslotData(timeslots); 
+        } else {
+          setError("No timeslot data found.");
+        }
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+  
+    fetchTimeslotData();
+}, []); 
+
+
   // Format genco data into a timeslot-based structure
   const formatTableData = () => {
     const timeslotData = {};
@@ -101,7 +126,7 @@ const DrawlDetails = () => {
       if (!timeslotData[TIMESLOT]) {
         timeslotData[TIMESLOT] = {};
       }
-      timeslotData[TIMESLOT][GENCOCODE] = QUANTUM; // Store Quantum value for each GENCOCODE
+      timeslotData[TIMESLOT][GENCOCODE] = QUANTUM; 
     });
     return timeslotData;
   };
@@ -128,7 +153,7 @@ const DrawlDetails = () => {
         TIMESLOT: formattedItem.TIMESLOT,
         ...formattedItem,
         ...gencoCodes.reduce((acc, genco) => {
-          acc[genco] = timeslotRow[genco] || 0; // Merge the genco data into the row
+          acc[genco] = timeslotRow[genco] || 0;
           return acc;
         }, {}),
       };
@@ -137,7 +162,7 @@ const DrawlDetails = () => {
   };
 
   const mergedData = mergeTablesData().sort((a, b) => {
-    // Numeric comparison for TIMESLOT
+  
     return a.TIMESLOT - b.TIMESLOT;
   });
     const gencoCodes = getGencoCodes();
@@ -169,6 +194,10 @@ const DrawlDetails = () => {
       }
     }
   }, [data, selectedDiscom]);
+
+
+
+  
 
   // Set the default selectedDate to today's date (formatted as yyyy/mm/dd)
   useEffect(() => {
@@ -335,7 +364,7 @@ const DrawlDetails = () => {
       <div className="table-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px'}}>
         <div className="table-container">
           <h3 style={{ textAlign: 'center', marginBottom: '10px' }}></h3>
-          <table className="genco-table" style={{ width: '100%' }}>
+          <table className="genco-table" style={{ width: '100%'}}>
             <thead>
               <tr>
                 <th>Timeslot</th>
@@ -348,21 +377,22 @@ const DrawlDetails = () => {
                 <th>LOSSES</th>
                 <th>IDTEXBIL</th>
                 <th>TOTAL</th>
+                
               </tr>
             </thead>
             <tbody>
-              {mergedData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.TIMESLOT}</td>
-                  {gencoCodes.map((genco) => (
-                    <td key={genco}>{item[genco] || 0}</td>
-                  ))}
-                  <td>{item.TOTAL_EXPP}</td>
-                  <td>{item.OPENACCESS}</td>
-                  <td>{item.IDT}</td>
-                  <td>{item.LOSSES}</td>
-                  <td>{item.IDTEXBIL}</td>
-                  <td>{item.TOTAL}</td>
+            {mergedData.map((rows, index) => (
+      <tr key={index}>
+        <td>{timeslotData[index]}</td> 
+        {gencoCodes.map((genco) => (
+          <td key={genco}>{rows[genco] || '0'}</td>
+        ))}
+        <td>{rows.TOTAL_EXPP}</td>
+        <td>{rows.OPENACCESS}</td>
+        <td>{rows.IDT}</td>
+        <td>{rows.LOSSES}</td>
+        <td>{rows.IDTEXBIL}</td>
+        <td>{rows.TOTAL}</td>
                 </tr>
               ))}
             </tbody>

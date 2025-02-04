@@ -1842,49 +1842,19 @@ select:focus {
 .table-wrapper td:first-child {
   background-color: #EFEEEC;
   font-weight: 700;
-}
-
-
-
-/* Table Header Styling */
-.table-wrapper th {
-  
-  text-transform: uppercase;
-  letter-spacing: 1px;
   position: sticky;
-  top: 0; 
-  z-index: 2; 
-  padding: 12px 15px;
-  text-align: center;
-  border: 2px solid #ddd;
-  word-wrap: break-word; 
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
+
+
 
 
 /* Colorful hover effect for table rows */
 .table-wrapper tr:hover td {
   background-color: #f39c12; /* Highlight row with orange */
   color: white;
-}
-
-
-/* Additional visual effects for table data */
-.table-wrapper td.numeric {
-  font-weight: 600;
-  background-color: #EFEEEC /* Light gray background for numeric cells */
-}
-
-
-/* Styling for even rows (light yellow) */
-.table-wrapper tr:nth-child(even) {
-  background-color: #f5f5f5; /* Light gray for even rows */
-  border-top: 1px solid #ccc;
-}
-
-/* Styling for odd rows (light peach) */
-.table-wrapper tr:nth-child(odd) {
-  background-color: #EFEEEC; 
-  border-top: 2px solid #ccc;
 }
 
 
