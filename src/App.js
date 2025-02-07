@@ -22,6 +22,7 @@ import CentralGeneration from './pages/Central-Generation';
 import DelhiImport from './pages/Delhi-Import';
 import RealTimeData from './pages/Real-Time-Data';
 import DelhiExport from './pages/Delhi-Export';
+import DataTable from './pages/DataTable';
 
 
 
@@ -50,6 +51,7 @@ const App = () => {
       <Route path="delhi-import" element={<DelhiImport />} />
       <Route path="real-time-data" element={<RealTimeData />} />
       <Route path="delhi-export"  element={<DelhiExport />} />
+      <Route path ="data-table/:discom"  element={<DataTable />} />
 
 
     </Routes>

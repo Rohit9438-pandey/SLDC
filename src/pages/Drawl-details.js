@@ -28,7 +28,6 @@ const DrawlDetails = () => {
   const {
     data: totalTableData,
     loading: totalTableLoading,
-    error: totalTableError,
   } = useFetchGraphData(`get-data?${queryParams}`);
 
   useEffect(() => {
@@ -358,24 +357,26 @@ useEffect(() => {
             </select>
           </p>
         </div>
+        <div className="issue-group">
+        <p><strong>Issued on: {selectedDate}</strong> </p>
+      </div>
+  
       </div>
 
       {/* Merged Data Table */}
       <div className="table-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px'}}>
-        <div className="table-container">
+         <div className="table-container" style={{ overflowX: 'auto' }}>
           <h3 style={{ textAlign: 'center', marginBottom: '10px' }}></h3>
           <table className="genco-table" style={{ width: '100%'}}>
             <thead>
               <tr>
-                <th>Timeslot</th>
-                {gencoCodes.map((genco) => (
+              <th style={{ position: 'sticky', left: 0 , zIndex: 2 }}>Timeslot</th>{gencoCodes.map((genco) => (
                   <th key={genco}>{genco}</th>
                 ))}
-                <th>Total Expenditure</th>
+                <th>Total_Expp</th>
                 <th>Open Access</th>
                 <th>IDT</th>
                 <th>LOSSES</th>
-                <th>IDTEXBIL</th>
                 <th>TOTAL</th>
                 
               </tr>
@@ -383,7 +384,7 @@ useEffect(() => {
             <tbody>
             {mergedData.map((rows, index) => (
       <tr key={index}>
-        <td>{timeslotData[index]}</td> 
+        <td style={{ position: 'sticky', left: 0 , zIndex: 1 }}>{timeslotData[index]}</td> 
         {gencoCodes.map((genco) => (
           <td key={genco}>{rows[genco] || '0'}</td>
         ))}
@@ -391,7 +392,6 @@ useEffect(() => {
         <td>{rows.OPENACCESS}</td>
         <td>{rows.IDT}</td>
         <td>{rows.LOSSES}</td>
-        <td>{rows.IDTEXBIL}</td>
         <td>{rows.TOTAL}</td>
                 </tr>
               ))}

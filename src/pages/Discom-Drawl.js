@@ -24,9 +24,16 @@ const DiscomDrawl = () => {
 
   const handleOpenDrawlDetails = (discom) => {
     const url = `/drawl-details/${discom}`;
-    window.open(url, '_blank');  // This opens the URL in a new tab
+    window.open(url, '_blank');
+
   };
 
+  const handleDataTable = (discom) => {
+    const url = `/data-table/${discom}`;
+    window.open(url , '_blank');
+  };
+
+  
   return (
     <div className="real-time-data-page">
       <h2 style={{color: '#0c6a98', fontWeight: 700}}>DISCOM DRAWL</h2>
@@ -46,9 +53,11 @@ const DiscomDrawl = () => {
               <tr key={index}>
                 {/* Discom Column - Link to the DrawlDetails page */}
                 <td>
-                  <Link to={`${item.DD_DISCOM}`} target="_blank">
-                    {item.DD_DISCOM}
-                  </Link>
+                  <button onClick={() => handleDataTable(item.DD_DISCOM)}
+                  style={{ cursor: 'pointer', backgroundColor: '#f1f1f1', border: 'none', padding: '5px 10px',color:"#0c6a98" , textDecoration: "underline" }}
+                  >
+                       {item.DD_DISCOM}
+                  </button>
                 </td>
                 
                 {/* Schedule Column - Button that opens in a new tab */}
