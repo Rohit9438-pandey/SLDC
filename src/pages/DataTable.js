@@ -35,8 +35,19 @@ const DiscomFeeders = () => {
         table: "DTL_DISCOM_FEEDER",
         filters: JSON.stringify(filter),
       }).toString();
-    console.log(discom);
+
   const apiURL = `https://delhisldc.org/app-api/get-data?${queryParams}`;
+  
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const period = hours >= 12 ? "PM" : "AM";
+
+    const formattedTime = `${((hours + 11) % 12 + 1)}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")} ${period}`;
+    return formattedTime;
+  };
   
   const { data, loading, error } = useFetchData(apiURL);
   // Handle the loading and error states
@@ -48,14 +59,17 @@ const DiscomFeeders = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  const extractedDate = data[0][0].split('T')[0];
+
+  const formattedTime = formatTime(data[0][0]);
+
   return (
     <div className="discom-feeder-table">
-      <h2 style={{textAlign:'center', color:'#0d6efd'}}>Discom Feeder Data at {data[0][0]} </h2>
+      <h3 style={{textAlign:'center', color:'#0d6efd'}}>Feeder wise load of {discom} at {extractedDate} {formattedTime} </h3>
       
       <table className="genco-table">
         <thead>
-          <tr>
-            
+          <tr>       
             <th>Discom</th>
             <th>Station</th>
             <th>Feeder</th>
