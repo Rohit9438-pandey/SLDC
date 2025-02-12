@@ -56,7 +56,7 @@ const DiscomDrawl = () => {
                   <button onClick={() => handleDataTable(item.DD_DISCOM)}
                   style={{ cursor: 'pointer', backgroundColor: '#f1f1f1', border: 'none', padding: '5px 10px',color:"#0c6a98" , textDecoration: "underline" }}
                   >
-                       {item.DD_DISCOM}
+                      {item.DD_DISCOM === 'NDPL' ? 'TPDDL' : item.DD_DISCOM}
                   </button>
                 </td>
                 
@@ -70,7 +70,7 @@ const DiscomDrawl = () => {
                   </button>
                 </td>
                 
-                {/* Drawl and OD/UD columns */}
+              
                 <td>{Math.round(item.DD_DRAWL)}</td>
                 <td>{Math.round(item.DD_ODUD)}</td>
               </tr>

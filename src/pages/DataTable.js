@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// Custom hook to fetch data from the API
 const useFetchData = (url) => {
     
   const [data, setData] = useState(null);
@@ -28,6 +27,7 @@ const useFetchData = (url) => {
 
 const DiscomFeeders = () => {
     const {discom} = useParams()
+   
     const filter = {
         "DD_DISCOM":discom
     }
@@ -65,7 +65,9 @@ const DiscomFeeders = () => {
 
   return (
     <div className="discom-feeder-table">
-      <h3 style={{textAlign:'center', color:'#0d6efd'}}>Feeder wise load of {discom} at {extractedDate} {formattedTime} </h3>
+   <h3 style={{textAlign:'center', color:'#0d6efd'}}>
+  Feeder wise load of {discom === 'NDPL' ? 'TPDDL' : discom} at {extractedDate} {formattedTime}
+</h3>
       
       <table className="genco-table">
         <thead>
@@ -79,7 +81,7 @@ const DiscomFeeders = () => {
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
-              <td>{row[1]}</td>
+              <td>{row[1] === 'NDPL' ? 'TPDDL' : row[1]}</td>
               <td>{row[2]}</td>
               <td>{row[3]}</td>
               <td>{row[4]}</td>

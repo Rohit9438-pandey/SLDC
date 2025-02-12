@@ -277,7 +277,7 @@ useEffect(() => {
                 })
               )).filter(Boolean).map((discom, i) => (
                 <option key={i} value={discom}>
-                  {discom}
+                 {discom === 'NDPL' ? 'TPDDL' : discom}
                 </option>
               ))}
             </select>
