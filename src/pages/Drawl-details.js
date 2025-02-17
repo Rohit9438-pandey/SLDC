@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import useFetchGraphData from '../lib/getGraphData';
+import { useParams } from 'react-router-dom';
 
 const DrawlDetails = () => {
+  const params = useParams();
+  console.log(params);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
-  const [selectedDiscom, setSelectedDiscom] = useState('');
+  const [selectedDiscom, setSelectedDiscom] = useState(params.discom);
   const [selectedRevisionNo, setSelectedRevisionNo] = useState('');
   const [gencoData, setGencoData] = useState([]); 
   const [formattedTotalTableData, setFormattedTotalTableData] = useState([]); 
-   const [timeslotData, setTimeslotData] = useState([]);
+  const [timeslotData, setTimeslotData] = useState([]);
+
 
   const revisionNo = `${selectedRevisionNo}DS${selectedDiscom}${selectedDate}`;
-
+console.log(revisionNo);
   const tableFilter = {
     REVISIONNO: revisionNo,
   };

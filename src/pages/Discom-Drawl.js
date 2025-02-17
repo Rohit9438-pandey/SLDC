@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'; 
+
 import useFetchData from '../lib/useFetchData';  
 
 const DiscomDrawl = () => {
@@ -22,7 +22,7 @@ const DiscomDrawl = () => {
     { scheduleTotal: 0, drawlTotal: 0, odudTotal: 0 }
   );
 
-  const handleOpenDrawlDetails = (discom) => {
+  const handleOpenDrawlDetails = (discom ) => {
     const url = `/drawl-details/${discom}`;
     window.open(url, '_blank');
 
@@ -53,7 +53,7 @@ const DiscomDrawl = () => {
               <tr key={index}>
                 {/* Discom Column - Link to the DrawlDetails page */}
                 <td>
-                  <button onClick={() => handleDataTable(item.DD_DISCOM)}
+                  <button onClick={() => handleDataTable(item.DD_DISCOM )}
                   style={{ cursor: 'pointer', backgroundColor: '#f1f1f1', border: 'none', padding: '5px 10px',color:"#0c6a98" , textDecoration: "underline" }}
                   >
                       {item.DD_DISCOM === 'NDPL' ? 'TPDDL' : item.DD_DISCOM}

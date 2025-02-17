@@ -327,8 +327,21 @@ export const RouterLinks = []
         href: "/real-time-data", 
         disabled: false,
         isTableVisible: false, // Control visibility of the table
-        // Add the actual data for the table here
+       
       
+      },
+      {
+        title:"Real Time Transformers Loading",
+        href:"/transformer-loading",
+        disabled:false,
+        isTableVisible:false,
+      },
+
+      {
+        title:"Line Loading",
+        href: "/line-loading",
+        disabled:false,
+        isTableVisible:false,
       },
 
      

@@ -14,7 +14,16 @@ const GridLoading = () => {
     fetch('https://www.delhisldc.org/app-api/grid-loading')
       .then((response) => response.json())
       .then((data) => {
-        setData(data.data);
+        // Modify the substation names here
+        const modifiedData = data.data.map((item) => {
+          return {
+            ...item, // Keep all other properties of the item
+            DG_GRID: item.DG_GRID.replace(/subzi mandi/i, 'Sabzi Mandi'), // Modify DG_GRID
+          };
+        });
+
+        // Set the modified data to the state
+        setData(modifiedData);
         setLoading(false);
       })
       .catch((err) => {
@@ -49,6 +58,14 @@ const GridLoading = () => {
   const closeModal = () => {
     setModalVisible(false);
     setSubstationData(null); 
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0'); // Adds leading zero if day < 10
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed, so we add 1
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -89,21 +106,20 @@ const GridLoading = () => {
       {/* MUI Modal to show substation data */}
       <Dialog open={modalVisible} onClose={closeModal}>
         <DialogTitle>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-      <strong>Date:</strong> {substationData ? new Date(substationData[0]?.GD_DATE).toLocaleDateString() : ''}
-       </div>
-   
-    <div>
-    <strong>Time:</strong> {substationData ? new Date(substationData[0]?.GD_DATE).toLocaleTimeString() : ''}
-    </div>
-    </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <strong>Date:</strong> {substationData ? formatDate(substationData[0]?.GD_DATE) : ''}
+            </div>
+            <div>
+              <strong>Time:</strong> {substationData ? new Date(substationData[0]?.GD_DATE).toLocaleTimeString() : ''}
+            </div>
+          </div>
         </DialogTitle>
         <DialogContent>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>substation</TableCell>
+                <TableCell>Substation</TableCell>
                 <TableCell>MW</TableCell>
                 <TableCell>MVAR</TableCell>
                 <TableCell>Voltage 220kv</TableCell>

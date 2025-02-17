@@ -1,10 +1,10 @@
 import React from 'react';
-import { useLanguage } from '../Hoc/LanguageContext'; // Import useLanguage hook
-import en from '../locale/en/en.json'; // Import English translations
-import hi from '../locale/hi/hi.json'; // Import Hindi translations
+import { useLanguage } from '../Hoc/LanguageContext'; 
+import en from '../locale/en/en.json'; 
+import hi from '../locale/hi/hi.json'; 
 
 const Contact = () => {
-  const { language } = useLanguage(); // Get the current language from the context
+  const { language } = useLanguage(); 
 
   // Select the appropriate translations based on the current language
   const translations = language === 'en' ? en : hi;

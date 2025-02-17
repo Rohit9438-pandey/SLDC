@@ -23,7 +23,9 @@ import DelhiImport from './pages/Delhi-Import';
 import RealTimeData from './pages/Real-Time-Data';
 import DelhiExport from './pages/Delhi-Export';
 import DataTable from './pages/DataTable';
-
+import TransformerLoading from './pages/Transformer-loading';
+import LineLoading from './pages/Line-loading';
+import ElectricityInfo from './pages/ElectricityInfo' ;
 
 
 
@@ -52,7 +54,9 @@ const App = () => {
       <Route path="real-time-data" element={<RealTimeData />} />
       <Route path="delhi-export"  element={<DelhiExport />} />
       <Route path ="data-table/:discom"  element={<DataTable />} />
-
+      <Route path ="transformer-loading" element={<TransformerLoading />} />
+      <Route path="line-loading" element={<LineLoading />} />
+      <Route path = "/power-system-in-delhi/about-electricity" element ={<ElectricityInfo />} />
 
     </Routes>
     </>
