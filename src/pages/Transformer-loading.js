@@ -50,7 +50,7 @@ const TransformerLoading = () => {
 
   return (
     <div className='genco'>
- <h2 style={{ color: '#0c6a98', fontWeight: 700 }}>
+ <h2 style={{ color: '#0c6a98', fontWeight: 700 , marginTop: '40px' }}>
         Transformer Loading 
         <br />
         <span style={{ fontSize: '17px', fontWeight: 'normal', color: '#008000' }}>

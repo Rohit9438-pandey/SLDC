@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'font-awesome/css/font-awesome.min.css';
 import MainLayout from './components/MainLayout';
-import Header from './components/Header';
 
 
 import Home from './pages/Homepage';
@@ -26,6 +25,7 @@ import DataTable from './pages/DataTable';
 import TransformerLoading from './pages/Transformer-loading';
 import LineLoading from './pages/Line-loading';
 import ElectricityInfo from './pages/ElectricityInfo' ;
+import LoadCurve from './pages/Load-curve';
 
 
 
@@ -33,7 +33,7 @@ import ElectricityInfo from './pages/ElectricityInfo' ;
 const App = () => {
   return (
     <>
-    <Header />
+   
 
     <Routes>
       <Route element={<MainLayout />}>
@@ -57,6 +57,7 @@ const App = () => {
       <Route path ="transformer-loading" element={<TransformerLoading />} />
       <Route path="line-loading" element={<LineLoading />} />
       <Route path = "/power-system-in-delhi/about-electricity" element ={<ElectricityInfo />} />
+      <Route path = "/load-curve" element={<LoadCurve />} />
 
     </Routes>
     </>

@@ -9,21 +9,21 @@ import Homepage from '../pages/Homepage';
 import CardSection from './CardSection';
 import HeaderWithContact from './HeaderWithContact';
 import Dashboard from './Dashboard';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import RealTimeDataPage from '../pages/Discom-Drawl';
-
+import Header from './Header';
+import LoadCurveDelhi from './LoadCurveDelhi';
 
 
 
 const MainLayout = ({ children }) => {
   return (
     <div>
-  
+      <Header />
       <HeaderWithContact />
       <SubNavbar />
       <ImageSlider />
       <ServiceLink />
       <Homepage />
+      <LoadCurveDelhi />
       < Dashboard />
       <CardSection />
 

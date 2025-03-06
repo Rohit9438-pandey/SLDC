@@ -344,6 +344,13 @@ export const RouterLinks = []
         isTableVisible:false,
       },
 
+      {
+        title:"Load Curve",
+        href:"/load-curve",
+        disabled:false,
+        isTableVisible:false,
+      },
+
      
     ],
   },

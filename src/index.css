@@ -19,67 +19,41 @@ code {
     monospace;
 }
 
-
-
-/* Header*/
+/*Header */
 
 .header {
+  position: absolute; 
+  width: 100%;
+  height: 70px;
   display: flex;
-  justify-content: flex-end; /* Align the navbar to the right */
-  padding: 10px;
-  background-color: #CAEBFB;
-}
-
-/* Mobile responsiveness for screens with max-width 480px */
-@media (max-width: 480px) {
-  .header {
-    justify-content: center; /* Align content to center for small screens */
-    padding: 5px; /* Adjust padding for smaller screens */
-  }
-
-  .header .navbar {
-    display: flex; 
-    align-items: center; /* Center-align the items */
-  }
-
-  .header .navbar a {
-    font-size: 14px; /* Reduce font size for mobile devices */
-    margin: 5px 0; /* Adjust spacing between links */
-  }
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #699ab3;
+ 
 }
 
 
-
-/* Normal layout */
+/* Navbar */
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  justify-content: space-between; /* Space between nav links and language button */
 }
 
+/* Nav List */
 .nav-list {
   display: flex;
-  list-style-type: none; 
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .nav-item {
-  margin-left: 20px;
-  margin-right: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  color: #4f6a68;
-}
-
-.nav-link {
-  color: #006400; 
-  text-decoration: none; 
-  font-size: 16px;
-}
-
-.nav-link:hover {
-  color: #228B22;
+  margin: 0 15px;
+  font-weight:650px;
+  font-size: 20px;
 }
 
 .btn-container {
@@ -96,17 +70,9 @@ button {
   font-family: inherit;
   background-color: #ff9a68;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #333;
-}
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
 
 /* Mobile responsiveness (max-width: 480px) */
 @media (max-width: 480px) {
@@ -160,7 +126,7 @@ button:focus-visible {
 }
 
 
-/*2nd  Header*/
+
 
 /* Default styles */
 .header-contact {
@@ -175,6 +141,7 @@ button:focus-visible {
 .contact-left {
   display: flex;
   align-items: flex-start; 
+  margin-top: 65px;
 }
 
 .image {
@@ -310,133 +277,160 @@ button:focus-visible {
 
 /* SubNavBar*/
 
-/* Default styles for the navbar */
-.sub-navbar .navbar-nav {
+.custom-navbar {
+  background-color: #699ab3;
   display: flex;
-  flex-wrap: nowrap; 
+  padding: 10px 20px;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
 }
 
-/* Links in the subnavbar */
-.sub-navbar .nav-link {
-  color: white !important; 
-  font-size: 16px; 
-  padding: 8px 15px; 
+.nav-list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  /* border:2px solid white */
+}
+.nav-list2 {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  max-height: 80px;
+  /* position:relative; */
+  width: 100%;
+}
+.nav-item {
+  margin-right: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap; /* Stops nav-item from wrapping */
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.nav-link2 {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+.nav-item2 {
+  margin-right: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
   white-space: nowrap; 
-}
 
-/* Hover effect for navbar links */
-.sub-navbar .nav-link:hover {
-  color: #ffc107 !important; 
-  background-color: #0c6a68;
-}
-
-/* Mobile navbar toggle */
-.sub-navbar .navbar-toggler {
-  border-color: #ffffff;
-}
-
-.sub-navbar .navbar-toggler-icon {
-  background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3e%3cpath fill="%23ffffff" d="M4 7h22M4 15h22M4 23h22"%3e%3c/path%3e%3c/svg%3e'); /* White toggler icon */
-}
-
-/* Fixing Dropdown - Positioning the dropdown above the button */
-.sub-navbar .dropdown {
   position: relative;
-  display: inline-block; 
 }
-
-/* Dropdown menu - Position above the button */
-.sub-navbar .dropdown-menu {
-  background-color: #0c6a68 !important;
-  border: none; 
-  box-shadow: 0 4px 8px #0c6a68;
-  position: absolute !important; 
-  top: -100%; 
+/* DROPDOWN MENU */
+.dropdown {
+  position: absolute;
+  top: 100%; /* Directly below the nav item */
   left: 0;
-  right: auto;
-  z-index: 9999; 
-  min-width: 200px; 
-  visibility: hidden !important; 
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  padding: 8px 0;
+  border-radius: 6px;
+  min-width: 220px; 
+  min-height: 100px; 
 }
 
-/* Show dropdown items when hovering over or clicking on the dropdown */
-.sub-navbar .dropdown.show .dropdown-menu {
-  display: block !important;
-  visibility: visible !important; 
-  opacity: 1; 
-  margin-top: 8px;
+/* SUBMENU LIST */
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* Dropdown items */
-.sub-navbar .dropdown-item {
-  color: white !important; 
-  font-size: 14px; 
-  padding: 8px 15px; 
-  white-space: nowrap; 
+/* SUBMENU ITEM */
+.submenu-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, padding-left 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px; 
+  font-size: 14px;
 }
 
-/* Hover effect for dropdown items */
-.sub-navbar .dropdown-item:hover {
-  background-color: #ffc107 !important; 
-  color: #0c6a68 !important; 
+/* Change text color */
+.submenu-item a {
+  text-decoration: none;
+  color: #555; /* Set your preferred text color */
+  display: block;
+  width: 100%;
+  font-weight: 500; /* Optional - makes text slightly bolder */
 }
 
-/* Active state for dropdown items */
-.sub-navbar .dropdown-item:active {
-  color: #0c6a68 !important; 
+/* Hover Effect */
+.submenu-item:hover {
+  background-color: #f7f7f7;
+  padding-left: 25px; /* Slight indentation on hover for modern look */
+  color: #007bff; /* Text color change on hover */
 }
 
-/* Dropdown toggle icon color */
-.sub-navbar .dropdown-toggle::after {
-  color: white; 
+/* Optional nested dropdown styling (if you need multi-level menus) */
+.nested-dropdown {
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-left: 3px solid #699ab3;
+  margin-top: 5px;
+  border-radius: 4px;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-  /* Navbar should be stacked vertically */
-  .sub-navbar .navbar-nav {
-    flex-direction: column; 
-    text-align: center; 
-    display: none; /* Initially hide the navbar items */
-    width: 100%; /* Ensure full width */
+.nested-dropdown span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #333;
+}
+
+
+
+
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .custom-navbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  /* Navbar item styles for mobile */
-  .sub-navbar .nav-item {
-    margin-bottom: 10px;
-    width: 100%; /* Ensure each item spans full width */
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
   }
 
-  /* Show navbar items when the hamburger menu is clicked */
-  .sub-navbar .navbar-toggler.collapsed + .navbar-nav {
-    display: flex; /* Display the menu when toggled */
+  .nav-item {
+    width: 100%;
+    text-align: left;
   }
 
-  /* Adjust the dropdown on mobile */
-  .sub-navbar .dropdown-menu {
-    position: relative !important; 
-    top: 0;
-    z-index: 999;
-  }
-
-  /* Style for the dropdown items in mobile */
-  .sub-navbar .dropdown-menu li {
-    white-space: nowrap; 
-  }
-
-  .sub-navbar .dropdown-menu .dropdown-item {
-    padding: 10px 20px; 
-    font-size: 14px; 
-  }
-
-  /* Adjust the hamburger icon to make it larger or more visible */
-  .sub-navbar .navbar-toggler-icon {
-    width: 35px;
-    height: 35px;
+  .dropdown {
+    position: static; /* On mobile, you might want to show inline instead */
+    box-shadow: none;
+    border: none;
   }
 }
+
 
 
 
@@ -2125,5 +2119,6 @@ select:focus {
 
 
 
-/* Electricity info*/
+/*graph */
+
 
