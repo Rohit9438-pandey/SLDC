@@ -5,18 +5,18 @@ import React from 'react';
 const ElectricityInfo = () => {
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', margin: '20px' , backgroundColor:'#f4f4f4'}}>
-      <h1 style ={{color: 'red' , fontSize:'2.5em' , textAlign:'center' , marginBottom:'20px'}}>From Electrons to Electricity!</h1>
+      <h1 style ={{color: 'red' , fontSize:'2.5em' , textAlign:'center' , marginTop:'40px'}}>From Electrons to Electricity!</h1>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
       <img 
         src="/images/Electricity1.jpg" 
         alt="Electricity Illustration" 
-        style={{ width: '40%', height: '20%', borderRadius: '8px', marginBottom: '20px' }}
+        style={{ width: '40%', height: '20%', borderRadius: '8px', marginTop: '40px' }}
       />
 
     <img 
         src="/images/Electricity2.jpg" 
         alt="Electricity Illustration" 
-        style={{ width: '40%', height: '20%', borderRadius: '8px', marginBottom: '20px' }}
+        style={{ width: '40%', height: '20%', borderRadius: '8px', marginTop: '40px' }}
       />
       </div>
 

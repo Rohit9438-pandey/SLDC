@@ -4,18 +4,28 @@ const DelhiExport = () => {
   const [exportData, setExportData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [latestTime, setLatestTime] = useState('');
+  
 
   useEffect(() => {
     // Fetch data from API
     fetch('https://www.delhisldc.org/app-api/delhi-import')
       .then((response) => response.json())
       .then((data) => {
-        console.log('Fetched data:', data);  // Debugging step to see raw response
+      
         if (data && data.data) {
-          // Filter export data where DI_TYPE = 0
+        
           const filteredData = data.data.filter(item => item.DI_TYPE === 0);
           setExportData(filteredData);
-        } else {
+
+          if (filteredData.length > 0) {
+            const formattedTime = new Date(filteredData[0].DI_DATE).toLocaleTimeString();
+            setLatestTime(formattedTime);
+          } else {
+            setLatestTime('No Data Available');
+          }
+
+        }else {
           setError('No data available');
         }
       })
@@ -38,14 +48,13 @@ const DelhiExport = () => {
 
   return (
     <div className="export-page">
-      <h2 style = {{color: '#0c6a98' , fontWeight: 700 , textAlign: 'center'}}>DELHI EXPORT</h2>
+      <h2 style = {{color: '#0c6a98' , fontWeight: 700 , textAlign: 'center'}}>DELHI EXPORT  {latestTime && `- ${latestTime}`} </h2>
       <table>
         <thead>
           <tr>
             <th>TRANSFORMER/Feeder</th>
             <th>MW</th>
             <th>MVAR</th>
-            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +63,6 @@ const DelhiExport = () => {
               <td>{entry.DI_FEEDER}</td>
               <td>{entry.DI_MW}</td>
               <td>{entry.DI_MVAR}</td>
-              <td>{new Date(entry.DI_DATE).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>

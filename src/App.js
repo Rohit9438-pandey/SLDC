@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'font-awesome/css/font-awesome.min.css';
 import MainLayout from './components/MainLayout';
 
-
+import Header from './components/Header';
 import Home from './pages/Homepage';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -33,11 +33,12 @@ import LoadCurve from './pages/Load-curve';
 const App = () => {
   return (
     <>
-   
+   <Header />
 
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
+      
+      <Route path="/" element={<Home />} />
       </Route>
       <Route path="/about" element={<About />} />  
       <Route path="/contact" element={<Contact />} />

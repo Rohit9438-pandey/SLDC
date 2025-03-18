@@ -4,17 +4,26 @@ const DelhiImport = () => {
   const [importData, setImportData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [latestTime, setLatestTime] = useState('');
 
   useEffect(() => {
-    // Fetch data from API
     fetch('https://www.delhisldc.org/app-api/delhi-import')
       .then((response) => response.json())
       .then((data) => {
-        console.log('Fetched data:', data);  // Debugging step to see raw response
+      
+        
         if (data && data.data) {
-          // Filter import data where DI_TYPE = 1
+        
           const filteredData = data.data.filter(item => item.DI_TYPE === 1);
           setImportData(filteredData);
+
+        
+          if (filteredData.length > 0) {
+            const formattedTime = new Date(filteredData[0].DI_DATE).toLocaleTimeString();
+            setLatestTime(formattedTime);
+          } else {
+            setLatestTime('No Data Available');
+          }
         } else {
           setError('No data available');
         }
@@ -28,33 +37,29 @@ const DelhiImport = () => {
       });
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="import-page">
-      <h2 style= {{color: '#0c6a98' , fontWeight: 700}}>DELHI IMPORT</h2>
-      <table>
+      <h2 style={{ color: '#0c6a98', fontWeight: 700 }}>
+        DELHI IMPORT {latestTime && `- ${latestTime}`}
+      </h2>
+      
+      <table >
         <thead>
           <tr>
-            <th>TRANSFORMER/Feeder</th>
-            <th>MW</th>
-            <th>MVAR</th>
-            <th>Date</th>
+          <th>TRANSFORMER/Feeder</th>
+          <th>MW</th>
+          <th>MVAR</th>          
           </tr>
         </thead>
         <tbody>
           {importData.map((entry, index) => (
             <tr key={index}>
-              <td>{entry.DI_FEEDER}</td>
-              <td>{entry.DI_MW}</td>
+            <td>{entry.DI_FEEDER}</td>          
+             <td>{entry.DI_MW}</td>
               <td>{entry.DI_MVAR}</td>
-              <td>{new Date(entry.DI_DATE).toLocaleString()}</td>
             </tr>
           ))}
         </tbody>

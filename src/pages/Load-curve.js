@@ -14,7 +14,7 @@ const ENTITY_COLORS = {
     BYPL: '#e63946',
     Delhi: '#ff6347',
     NDMC: '#2a9d8f',
-    NDPL: '#e9c46a',
+    NDPL: '#8b0000',
     MES: '#8b0000',
     ALL: '#6a0572'
 };
@@ -39,21 +39,25 @@ const LoadCurve = () => {
 
                 for (const ent of ENTITIES.filter(e => e !== 'ALL')) {
                     const response = await axios.get(`https://delhisldc.org/app-api/load-curve?fordate=${formattedDate}&entity=${ent}`);
-                    const entityData = response.data.map(item => {
-                        allTimeslots.add(item.TIMESLOT);
-                        return { TIMESLOT: item.TIMESLOT, VALUE: Number(item.VALUE) };
-                    });
+                    let entityData = response.data.map(item => ({
+                        TIMESLOT: item.TIMESLOT,
+                        VALUE: Number(item.VALUE)
+                    }));
+    
+                    entityData.sort((a, b) => parseTime(a.TIMESLOT) - parseTime(b.TIMESLOT));
+    
                     allData[ent] = entityData;
+                    entityData.forEach(item => allTimeslots.add(item.TIMESLOT));
                 }
-
                 const unifiedData = generateUnifiedData(allData, Array.from(allTimeslots).sort());
                 setData(unifiedData);
             } else {
                 const response = await axios.get(`https://delhisldc.org/app-api/load-curve?fordate=${formattedDate}&entity=${entity}`);
-                const entityData = response.data.map(item => ({
+                let entityData = response.data.map(item => ({
                     TIMESLOT: item.TIMESLOT,
                     [entity]: Number(item.VALUE)
                 }));
+                entityData.sort((a, b) => parseTime(a.TIMESLOT) - parseTime(b.TIMESLOT));
                 setData(entityData);
             }
 
@@ -95,6 +99,11 @@ const LoadCurve = () => {
             return row;
         });
     };
+
+    function parseTime(time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes; // Convert to total minutes
+    }
 
     const cardStyles = {
         peakLoad: { backgroundColor: '#FFEB3B', color: '#333', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
@@ -164,16 +173,20 @@ const LoadCurve = () => {
 
             {!loading && !error && data.length > 0 && (
                 <ResponsiveContainer width="90%" height={500}>
-                    <LineChart data={data}>
+                      <LineChart data={data} margin={{ top: 10, right: 10, left: 10 , bottom: 10 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
                         <XAxis
                             dataKey="TIMESLOT"
+                          
+                            padding={{ left: 10 }}
                             stroke="#4f46e5"
                             tick={{ fill: '#4f46e5', fontWeight: 'bold' }}
                             tickFormatter={(value, index) => {
-                              // Only show label for every 8th timeslot (adjust as needed)
-                              return index % 8 === 0 ? value : '';
+                               
+                              return index % 8 === 0 ? value  : '';
                           }}
+                         
+                        
                         />
                         <YAxis
                             label={{
@@ -250,18 +263,18 @@ const LoadCurve = () => {
                                     transition: 'background-color 0.3s ease',
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#f1f1f1'; // Highlight on hover
+                                    e.currentTarget.style.backgroundColor = '#f1f1f1'; 
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#ffffff'; // Reset color on leave
                                 }}
                             >
                                 <td style={{ ...tableCellStyle, backgroundColor: '#f4a261' }}>{row.entity}</td>
-                                <td style={{ ...tableCellStyle, backgroundColor: '#e63946' }}>{Math.round(row.maxValue)}</td>
-                                <td style={{ ...tableCellStyle, backgroundColor: '#03a9f4' }}>{row.maxValTime}</td>
-                                <td style={{ ...tableCellStyle, backgroundColor: '#4CAF50' }}>{Math.round(row.minValue)}</td>
-                                <td style={{ ...tableCellStyle, backgroundColor: '#ffeb3b' }}>{row.minValTime}</td>
-                                <td style={{ ...tableCellStyle, backgroundColor: '#9c27b0' }}>{Math.round(row.avgValue)}</td>
+                                <td style={{ ...tableCellStyle }}>{Math.round(row.maxValue)}</td>
+                                <td style={{ ...tableCellStyle}}>{row.maxValTime}</td>
+                                <td style={{ ...tableCellStyle }}>{Math.round(row.minValue)}</td>
+                                <td style={{ ...tableCellStyle }}>{row.minValTime}</td>
+                                <td style={{ ...tableCellStyle }}>{Math.round(row.avgValue)}</td>
                             </tr>
                         ))}
                 </tbody>

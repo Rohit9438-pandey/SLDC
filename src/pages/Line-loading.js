@@ -67,7 +67,15 @@ const LineLoading = () => {
 
   return (
     <div className="genco">
-      <h1 style={{textAlign: 'center' , color:'#800000' , marginTop: '40px'}}>Real Time Loadings on 400/220kV Circuit</h1>
+        <h2 style={{
+                textAlign: 'center',
+                backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                fontSize: '28px',
+                fontWeight: 'bold',
+                marginTop: '30px'
+            }}>Real Time Loadings on 400/220kV Circuit</h2>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
 
         {/* Button for Delhi Transmission Circuits */}

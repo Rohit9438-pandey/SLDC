@@ -218,14 +218,15 @@ useEffect(() => {
 
   return (
     <div className="container">
-      <h2
-        style={{
-          color: 'royalblue',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginTop: '10px',
-        }}
-      >
+       <h2 style={{
+                textAlign: 'center',
+                backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                fontSize: '28px',
+                fontWeight: 'bold',
+                marginTop: '20px'
+            }}>
         Drawl Schedule of Discoms from Generating Stations (in MW)
       </h2>
 

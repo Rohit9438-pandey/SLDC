@@ -22,14 +22,16 @@ code {
 /*Header */
 
 .header {
-  position: absolute; 
+  position: sticky; 
   width: 100%;
-  height: 70px;
+  height: 80px;
   display: flex;
   justify-content: space-between; 
   align-items: center;
   padding: 10px 20px;
   background-color: #699ab3;
+
+ 
  
 }
 
@@ -39,7 +41,9 @@ code {
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-between; /* Space between nav links and language button */
+  justify-content: space-between;
+
+ 
 }
 
 /* Nav List */
@@ -141,7 +145,8 @@ button {
 .contact-left {
   display: flex;
   align-items: flex-start; 
-  margin-top: 65px;
+  margin-bottom: 40px;
+  margin-top: 20px;
 }
 
 .image {
@@ -176,8 +181,10 @@ button {
   display: flex;
   flex-direction: column; 
   text-align: right;
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
+  margin-bottom: 30px;
+  margin-top: 20px;
 }
 
 /* Ensure icons are visible and properly sized */
@@ -185,20 +192,21 @@ button {
 .email-info i {
   font-size: 20px; 
   color: #006400;  
-  margin-right: 8px;
+ 
 }
 
 /* Styling for contact and email info */
 .contact-info,
 .email-info {
   font-size: 14px;
-  margin-bottom: 8px; 
+  margin-bottom: 20px; 
 }
 
 .contact-info a,
 .email-info a {
   color: #006400; 
   text-decoration: none; 
+  margin-bottom: 20px;
 }
 
 .contact-info a:hover,
@@ -222,55 +230,54 @@ button {
 /* Mobile responsiveness (max-width: 480px) */
 @media (max-width: 480px) {
   .header-contact {
-    flex-direction: column; /* Stack the contact header vertically */
-    align-items: flex-start; /* Align items to the left */
-    padding: 10px; /* Reduce padding on mobile */
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding: 10px; 
   }
 
   .contact-left {
-    flex-direction: column; /* Stack the image and text vertically */
-    align-items: flex-start; /* Align items to the left */
-    margin-bottom: 10px; /* Add space between left and right sections */
+    flex-direction: column; 
+    align-items: flex-start;
+    margin-bottom: 10px; 
   }
 
   .image {
-    width: 60px; /* Smaller image size for mobile */
+    width: 60px; 
     height: 60px; 
-    margin-bottom: 10px; /* Add space between image and text */
+    margin-bottom: 10px; 
   }
 
   .text-container {
-    flex-direction: column; /* Stack the state name and subtitle vertically */
+    flex-direction: column; 
   }
 
   .state-name {
-    font-size: 18px; /* Slightly smaller font size for mobile */
+    font-size: 18px; 
   }
 
   .sub-title {
-    font-size: 10px; /* Smaller font size for mobile */
+    font-size: 10px; 
   }
 
   .contact-right {
-    text-align: left; /* Align text to the left on mobile */
-    font-size: 12px; /* Smaller font size for mobile */
-    align-items: flex-start; /* Align items to the left */
+    text-align: left; 
+    font-size: 12px; 
+    align-items: flex-start; 
   }
 
   .contact-info,
   .email-info {
-    font-size: 12px; /* Smaller font size for contact and email */
+    font-size: 12px; 
   }
 
   .contact-info a,
   .email-info a {
-    font-size: 12px; /* Smaller font size for links */
+    font-size: 12px; 
   }
-
   /* Ensure icons and links are appropriately sized on mobile */
   .contact-info i,
   .email-info i {
-    font-size: 16px; /* Adjust icon size for mobile */
+    font-size: 16px; 
   }
 }
 
@@ -300,7 +307,6 @@ button {
   margin: 0;
   padding: 0;
   max-height: 80px;
-  /* position:relative; */
   width: 100%;
 }
 .nav-item {
@@ -310,7 +316,8 @@ button {
   color: white;
   font-weight: bold;
   font-size: 14px;
-  white-space: nowrap; /* Stops nav-item from wrapping */
+  white-space: nowrap;
+  position: sticky;
 }
 
 .nav-link {
@@ -1615,6 +1622,8 @@ ul {
   font-weight: 700;
 }
 
+
+
 /* Table Styles */
 table {
   width: 100%;
@@ -2003,38 +2012,41 @@ select:focus {
   margin-bottom: 20px;
 }
 
+
 .import-page table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-}
-
-.import-page th, .import-page td {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  text-align: center;
+  table-layout: fixed; 
 }
 
 .import-page th {
-  background-color: #f4f4f4;
-}
-
-.import-page tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.import-page tr:hover {
-  background-color: #f1f1f1;
-}
-
-.import-page th{
   background-color: #007bff;
   color: #fff;
   position: sticky;
   top: 0;
-  z-index: 2; /* Ensures header stays on top */
+  z-index: 2;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Ensures the header text does not wrap */
 }
+
+.import-page th:first-child { /* Specifically for Transformer/Feeder column */
+  width: 150px !important; /* Explicit width with !important to enforce it */
+  text-align: center;
+}
+
+.import-page th:nth-child(2),
+.import-page th:nth-child(3) {
+  width: 80px !important; /* Adjusts MW & MVAR column width */
+  text-align: center;
+}
+
+.import-page td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 
 /*Export Page */
 
@@ -2044,7 +2056,7 @@ select:focus {
   font-family: Arial, sans-serif;
 }
 
-.export-page h1 {
+.export-page h2 {
   font-size: 2em;
   text-align: center;
   margin-bottom: 20px;
@@ -2053,35 +2065,37 @@ select:focus {
 .export-page table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-}
-
-.export-page th, .export-page td {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  text-align: center;
+  table-layout: fixed; /* Ensures the column widths are enforced */
 }
 
 .export-page th {
-  background-color: #f4f4f4;
-}
-
-.export-page tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.export-page tr:hover {
-  background-color: #f1f1f1;
-}
-
-.export-page th{
   background-color: #007bff;
   color: #fff;
   position: sticky;
   top: 0;
-  z-index: 2; /* Ensures header stays on top */
+  z-index: 2;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Ensures the header text does not wrap */
 }
+
+.export-page th:first-child { 
+  width: 150px !important; 
+  text-align: center;
+}
+
+.export-page th:nth-child(2),
+.export-page th:nth-child(3) {
+  width: 80px !important; /* Adjusts MW & MVAR column width */
+  text-align: center;
+}
+
+.export-page td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 
 
 

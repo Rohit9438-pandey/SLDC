@@ -65,7 +65,15 @@ const DiscomFeeders = () => {
 
   return (
     <div className="discom-feeder-table">
-   <h3 style={{textAlign:'center', color:'#0d6efd'}}>
+   <h3 style={{
+                textAlign: 'center',
+                backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                fontSize: '28px',
+                fontWeight: 'bold',
+                marginBottom: '20px'
+            }}>
   Feeder wise load of {discom === 'NDPL' ? 'TPDDL' : discom} at {extractedDate} {formattedTime}
 </h3>
       

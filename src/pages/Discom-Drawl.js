@@ -1,8 +1,8 @@
-
-import useFetchData from '../lib/useFetchData';  
+import useFetchData from '../lib/useFetchData';
 
 const DiscomDrawl = () => {
   const { data, loading, error } = useFetchData("discom-drawl");
+  const latestTime = data.length > 0 ? new Date(data[0].DD_DATE).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'No Time Available';
 
   if (loading) {
     return <div>Loading...</div>;
@@ -22,21 +22,21 @@ const DiscomDrawl = () => {
     { scheduleTotal: 0, drawlTotal: 0, odudTotal: 0 }
   );
 
-  const handleOpenDrawlDetails = (discom ) => {
+  const handleOpenDrawlDetails = (discom) => {
     const url = `/drawl-details/${discom}`;
     window.open(url, '_blank');
-
   };
 
   const handleDataTable = (discom) => {
     const url = `/data-table/${discom}`;
-    window.open(url , '_blank');
+    window.open(url, '_blank');
   };
 
-  
   return (
     <div className="real-time-data-page">
-      <h2 style={{color: '#0c6a98', fontWeight: 700}}>DISCOM DRAWL</h2>
+      <h2 style={{ color: '#0c6a98', fontWeight: 700 }}>
+        DISCOM DRAWL - {latestTime}
+      </h2>
 
       {data && Array.isArray(data) && data.length > 0 ? (
         <table className="genco-table">
@@ -51,26 +51,38 @@ const DiscomDrawl = () => {
           <tbody>
             {data.map((item, index) => (
               <tr key={index}>
-                {/* Discom Column - Link to the DrawlDetails page */}
                 <td>
-                  <button onClick={() => handleDataTable(item.DD_DISCOM )}
-                  style={{ cursor: 'pointer', backgroundColor: '#f1f1f1', border: 'none', padding: '5px 10px',color:"#0c6a98" , textDecoration: "underline" }}
+                  <button
+                    onClick={() => handleDataTable(item.DD_DISCOM)}
+                    style={{
+                      cursor: 'pointer',
+                      backgroundColor: '#f1f1f1',
+                      border: 'none',
+                      padding: '5px 10px',
+                      color: "#0c6a98",
+                      textDecoration: "underline"
+                    }}
                   >
-                      {item.DD_DISCOM === 'NDPL' ? 'TPDDL' : item.DD_DISCOM}
+                    {item.DD_DISCOM === 'NDPL' ? 'TPDDL' : item.DD_DISCOM}
                   </button>
                 </td>
-                
-                {/* Schedule Column - Button that opens in a new tab */}
+
                 <td>
                   <button
                     onClick={() => handleOpenDrawlDetails(item.DD_DISCOM)}
-                    style={{ cursor: 'pointer', backgroundColor: '#f1f1f1', border: 'none', padding: '5px 10px',color:"#0c6a98" , textDecoration: "underline" }}
+                    style={{
+                      cursor: 'pointer',
+                      backgroundColor: '#f1f1f1',
+                      border: 'none',
+                      padding: '5px 10px',
+                      color: "#0c6a98",
+                      textDecoration: "underline"
+                    }}
                   >
                     {Math.round(item.DD_SCHEDULE)}
                   </button>
                 </td>
-                
-              
+
                 <td>{Math.round(item.DD_DRAWL)}</td>
                 <td>{Math.round(item.DD_ODUD)}</td>
               </tr>

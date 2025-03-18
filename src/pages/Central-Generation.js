@@ -1,37 +1,50 @@
 import React, { useState, useEffect } from 'react';
 
 const CentralGeneration = () => {
-  // State to store data and loading/error state
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [latestTime, setLatestTime] = useState('');
 
- 
   useEffect(() => {
-    // Fetch the data when the component mounts
     fetch('https://www.delhisldc.org/app-api/sector-gen')
       .then((response) => response.json())
       .then((data) => {
-        setData(data.data);  // Store the fetched data
-        setLoading(false);  // Set loading to false when data is fetched
+        if (data && data.data.length > 0) {
+          setData(data.data);
+
+          // Find the latest valid date entry
+          const latestRecord = data.data.find(item => item.DC_DATE); 
+          
+          if (latestRecord && latestRecord.DC_DATE) {
+            const parsedDate = new Date(latestRecord.DC_DATE);
+            
+            if (!isNaN(parsedDate)) {
+              setLatestTime(parsedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            } else {
+              setLatestTime('Invalid Date');
+            }
+          } else {
+            setLatestTime('No Date Available');
+          }
+        } else {
+          setError('No data available');
+        }
       })
       .catch((err) => {
-        setError(err.message);  // Set error message in case of failure
+        setError(err.message);
+      })
+      .finally(() => {
         setLoading(false);
       });
-  }, []);  // Empty dependency array means it runs once when the component mounts
+  }, []);
 
-  // Handling loading and error states
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-
-
-
   return (
-    <div className='sector'>
-      <h2> CENTRAL SECTOR GENERATION</h2>
+    <div className="sector">
+      <h2> CENTRAL SECTOR GENERATION - {latestTime} </h2>
       {data.length > 0 ? (
         <table className="sector-table">
           <thead>
@@ -39,7 +52,6 @@ const CentralGeneration = () => {
               <th>GENCO NAME</th>
               <th>Schedule</th>
               <th>Actual</th>
-
             </tr>
           </thead>
           <tbody>
@@ -48,7 +60,6 @@ const CentralGeneration = () => {
                 <td>{item.DC_GENCONAME}</td>
                 <td>{Math.round(item.DC_SCHEDULE)}</td>
                 <td>{Math.round(item.DC_ACTUAL)}</td>
-
               </tr>
             ))}
           </tbody>
@@ -60,4 +71,4 @@ const CentralGeneration = () => {
   );
 };
 
-export default  CentralGeneration;
+export default CentralGeneration;

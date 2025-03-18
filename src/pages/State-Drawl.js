@@ -1,37 +1,52 @@
 import React, { useState, useEffect } from 'react';
 
 const StateDrawl = () => {
-  // State to store data and loading/error state
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-
+  const [latestTime, setLatestTime] = useState('');
 
   useEffect(() => {
-    // Fetch the data when the component mounts
     fetch('https://www.delhisldc.org/app-api/state-drawl')
       .then((response) => response.json())
       .then((data) => {
-        setData(data.data);  // Store the fetched data
-        setLoading(false);  // Set loading to false when data is fetched
+        if (data && data.data.length > 0) {
+          setData(data.data);
+
+          // Find the latest valid date entry
+          const latestRecord = data.data.find(item => item.DS_DATE); 
+          
+          if (latestRecord && latestRecord.DS_DATE) {
+            const parsedDate = new Date(latestRecord.DS_DATE);
+            
+            if (!isNaN(parsedDate)) {
+              setLatestTime(parsedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            } else {
+              setLatestTime('Invalid Time');
+            }
+          } else {
+            setLatestTime('No Time Available');
+          }
+        } else {
+          setError('No data available');
+        }
       })
       .catch((err) => {
-        setError(err.message);  // Set error message in case of failure
+        setError(err.message);
+      })
+      .finally(() => {
         setLoading(false);
       });
-  }, []);  // Empty dependency array means it runs once when the component mounts
+  }, []);
 
-  // Handling loading and error states
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-
-
-
   return (
-    <div className='genco'>
-      <h2 style ={{color: '#0c6a98' , fontWeight: 700}}> STATES DRAWL</h2>
+    <div className="genco">
+      <h2 style={{ color: '#0c6a98', fontWeight: 700 }}>
+        STATE DRAWL - {latestTime}
+      </h2>
       {data.length > 0 ? (
         <table className="genco-table">
           <thead>
@@ -41,7 +56,6 @@ const StateDrawl = () => {
               <th>Drawl</th>
               <th>OD/UD</th>
               <th>Load</th>
-
             </tr>
           </thead>
           <tbody>
@@ -52,7 +66,6 @@ const StateDrawl = () => {
                 <td>{Math.round(item.DS_DRAWL)}</td>
                 <td>{Math.round(item.DS_OD_UD)}</td>
                 <td>{Math.round(item.DS_LOAD)}</td>
-
               </tr>
             ))}
           </tbody>
@@ -64,4 +77,4 @@ const StateDrawl = () => {
   );
 };
 
-export default  StateDrawl;
+export default StateDrawl;

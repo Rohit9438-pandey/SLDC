@@ -9,7 +9,6 @@ import Homepage from '../pages/Homepage';
 import CardSection from './CardSection';
 import HeaderWithContact from './HeaderWithContact';
 import Dashboard from './Dashboard';
-import Header from './Header';
 import LoadCurveDelhi from './LoadCurveDelhi';
 
 
@@ -17,7 +16,6 @@ import LoadCurveDelhi from './LoadCurveDelhi';
 const MainLayout = ({ children }) => {
   return (
     <div>
-      <Header />
       <HeaderWithContact />
       <SubNavbar />
       <ImageSlider />

@@ -25,7 +25,16 @@ const RealTimeData = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center', color: '#0C6A98', fontWeight: '700' , marginTop : '30px'}}>DELHI POWER SUMMARY</h2>
+     <h2 style={{
+                textAlign: 'center',
+                backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                fontSize: '28px',
+                fontWeight: 'bold',
+                marginTop: '20px'
+                
+            }}>DELHI POWER SUMMARY</h2>
 
       <div className="btn">
         <Button variant="primary" onClick={handleDiscomDrawlClick}>Discom Drawl</Button>

@@ -8,23 +8,25 @@ const GridLoading = () => {
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [substationData, setSubstationData] = useState(null);
+  const [time, setTime] = useState("");  
 
   useEffect(() => {
-    // Fetch the grid loading data
     fetch('https://www.delhisldc.org/app-api/grid-loading')
       .then((response) => response.json())
       .then((data) => {
-        // Modify the substation names here
-        const modifiedData = data.data.map((item) => {
-          return {
-            ...item, // Keep all other properties of the item
-            DG_GRID: item.DG_GRID.replace(/subzi mandi/i, 'Sabzi Mandi'), // Modify DG_GRID
-          };
-        });
+        const modifiedData = data.data.map((item) => ({
+          ...item,
+          DG_GRID: item.DG_GRID.replace(/subzi mandi/i, 'Sabzi Mandi'),
+        }));
 
-        // Set the modified data to the state
         setData(modifiedData);
         setLoading(false);
+
+        if (data.data.length > 0) {
+          const dateTime = new Date(data.data[0].DG_DATE);
+          const formattedTime = dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          setTime(formattedTime);
+        }
       })
       .catch((err) => {
         setError(err.message);
@@ -35,7 +37,6 @@ const GridLoading = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Fetch substation data when clicked
   const fetchSubstationData = (substation) => {
     const encodedSubstation = encodeURIComponent(substation);
 
@@ -44,7 +45,7 @@ const GridLoading = () => {
       .then((data) => {
         if (data.data && data.data.length > 0) {
           setSubstationData(data.data);
-          setModalVisible(true); 
+          setModalVisible(true);
         } else {
           setSubstationData(null);
         }
@@ -57,20 +58,14 @@ const GridLoading = () => {
 
   const closeModal = () => {
     setModalVisible(false);
-    setSubstationData(null); 
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0'); // Adds leading zero if day < 10
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed, so we add 1
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    setSubstationData(null);
   };
 
   return (
     <div className="genco">
-      <h2 style={{ color: '#0c6a98', fontWeight: 700 }}>GRID LOADING</h2>
+      <h2 style={{ color: '#0c6a98', fontWeight: 700 }}>
+        GRID LOADING - {time || "No Time Available"}
+      </h2>
 
       {data.length > 0 ? (
         <table className="grid-table">
@@ -103,49 +98,66 @@ const GridLoading = () => {
         <p>No data available</p>
       )}
 
-      {/* MUI Modal to show substation data */}
-      <Dialog open={modalVisible} onClose={closeModal}>
-        <DialogTitle>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+<Dialog open={modalVisible} onClose={closeModal} maxWidth="md" fullWidth>
+  <DialogTitle style={{ backgroundColor: "#0c6a98", color: "white", fontWeight: "bold", textAlign: "center" }}>
+    Substation Details
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <strong>Date:</strong> {substationData ? formatDate(substationData[0]?.GD_DATE) : ''}
+              <strong>Date:</strong> {substationData ? new Date(substationData[0]?.GD_DATE).toLocaleDateString() : ''}
             </div>
             <div>
               <strong>Time:</strong> {substationData ? new Date(substationData[0]?.GD_DATE).toLocaleTimeString() : ''}
             </div>
           </div>
-        </DialogTitle>
-        <DialogContent>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Substation</TableCell>
-                <TableCell>MW</TableCell>
-                <TableCell>MVAR</TableCell>
-                <TableCell>Voltage 220kv</TableCell>
-                <TableCell>Voltage 66/33kv</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {substationData &&
-                substationData.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{substationData ? item.GD_SUBSTATION : ''}</TableCell> 
-                    <TableCell>{Math.round(item.GD_MW)}</TableCell>
-                    <TableCell>{Math.round(item.GD_MVAR)}</TableCell>
-                    <TableCell>{Math.round(item.GD_VOLTAGE)}</TableCell>
-                    <TableCell>{Math.round(item.GD_VOLT66)}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeModal} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+  </DialogTitle>
+  <DialogContent style={{ padding: "20px", backgroundColor: "#f9f9f9" }}>
+    <Table style={{ minWidth: 600, borderRadius: "8px", overflow: "hidden" }}>
+      <TableHead>
+        <TableRow style={{ backgroundColor: "#0c6a98" }}>
+          <TableCell style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Substation</TableCell>
+          <TableCell style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>MW</TableCell>
+          <TableCell style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>MVAR</TableCell>
+          <TableCell style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Voltage 220kv</TableCell>
+          <TableCell style={{ color: "white", fontWeight: "bold", textAlign: "center" }}>Voltage 66/33kv</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {substationData &&
+          substationData.map((item, index) => (
+            <TableRow
+              key={index}
+              style={{
+                backgroundColor: index % 2 === 0 ? "#eef7fc" : "white",
+                transition: "background 0.3s",
+              }}
+            >
+              <TableCell style={{ textAlign: "center", fontWeight: "500" }}>{item.GD_SUBSTATION}</TableCell>
+              <TableCell style={{ textAlign: "center", fontWeight: "500" }}>{Math.round(item.GD_MW)}</TableCell>
+              <TableCell style={{ textAlign: "center", fontWeight: "500" }}>{Math.round(item.GD_MVAR)}</TableCell>
+              <TableCell style={{ textAlign: "center", fontWeight: "500" }}>{Math.round(item.GD_VOLTAGE)}</TableCell>
+              <TableCell style={{ textAlign: "center", fontWeight: "500" }}>{Math.round(item.GD_VOLT66)}</TableCell>
+            </TableRow>
+          ))}
+      </TableBody>
+    </Table>
+  </DialogContent>
+  <DialogActions style={{ justifyContent: "center", padding: "10px 20px" }}>
+    <Button
+      onClick={closeModal}
+      style={{
+        backgroundColor: "#0c6a98",
+        color: "white",
+        fontWeight: "bold",
+        borderRadius: "6px",
+        padding: "8px 16px",
+        textTransform: "none",
+      }}
+    >
+      Close
+    </Button>
+  </DialogActions>
+</Dialog>
+
     </div>
   );
 };
