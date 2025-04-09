@@ -6,8 +6,12 @@ import {
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const ENTITIES = ['BRPL', 'BYPL', 'Delhi', 'NDMC', 'NDPL', 'MES', 'ALL'];
+
 
 const ENTITY_COLORS = {
     BRPL: '#0ea5e9',
@@ -26,6 +30,7 @@ const LoadCurve = () => {
     const [profileData, setProfileData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const fetchData = async (entity, date) => {
         try {
@@ -130,6 +135,19 @@ const LoadCurve = () => {
         fontSize: '18px',
         borderRadius: '5px',
     };
+
+
+    const getCurrentTimeLabel = () => {
+    const now = new Date();
+    const selectedDateString = selectedDate.toDateString();
+    const todayString = new Date().toDateString();
+
+    if (selectedDateString === todayString) {
+        return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}Hrs`;
+    } else {
+        return '23:55Hrs';
+    }
+};
     
     
 
@@ -194,7 +212,7 @@ const LoadCurve = () => {
                                 angle: -90,
                                 position: 'insideLeft',
                                 dy: 50,
-                                style: { textAnchor: 'middle', fill: '#10b981', fontWeight: 'bold' }
+                                style: { textAnchor: 'middle', fill: '#fffff', fontWeight: 'bold' }
                             }}
                             stroke="#10b981"
                             tick={{ fill: '#10b981', fontWeight: 'bold' }}
@@ -222,8 +240,23 @@ const LoadCurve = () => {
             )}
 
 {/* Show Data Table Below Graph */}
+
 {!loading && profileData.length > 0 && (
     <div style={{ marginTop: 30 }}>
+    <h2 style={{
+        textAlign: 'center',
+        color: '#ff5733', 
+        fontSize: '24px',
+        fontWeight: 'bold',
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f4f4f4',
+        padding: '10px',
+        borderRadius: '8px',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+    }}>
+        Data Analysis (upto {getCurrentTimeLabel()})
+    </h2>
+    
         <div style={{ overflowX: 'auto' }}>
             <table
                 style={{
@@ -243,12 +276,12 @@ const LoadCurve = () => {
                             borderBottom: '2px solid #ddd',
                         }}
                     >
-                        <th style={{ ...tableHeaderStyle}}>Entity</th>
-                        <th style={{ ...tableHeaderStyle}}>Peak Load</th>
+                        <th style={{ ...tableHeaderStyle }}>Entity</th>
+                        <th style={{ ...tableHeaderStyle }}>Peak Load</th>
                         <th style={{ ...tableHeaderStyle }}>Peak Load Time</th>
                         <th style={{ ...tableHeaderStyle }}>Min Load</th>
-                        <th style={{ ...tableHeaderStyle  }}>Min Load Time</th>
-                        <th style={{ ...tableHeaderStyle  }}>Avg Load</th>
+                        <th style={{ ...tableHeaderStyle }}>Min Load Time</th>
+                        <th style={{ ...tableHeaderStyle }}>Avg Load</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -263,15 +296,22 @@ const LoadCurve = () => {
                                     transition: 'background-color 0.3s ease',
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#f1f1f1'; 
+                                    e.currentTarget.style.backgroundColor = '#f1f1f1';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#ffffff'; // Reset color on leave
+                                    e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#ffffff';
                                 }}
                             >
-                                <td style={{ ...tableCellStyle, backgroundColor: '#f4a261' }}>{row.entity}</td>
+                                <td style={{ ...tableCellStyle, backgroundColor: '#f4a261', cursor: 'pointer' }}>
+                                    <a 
+                                        onClick={() => navigate(`/entity-details`)}
+                                        style={{ textDecoration: 'none', color: 'blue', fontWeight: 'bold' }}
+                                    >
+                                        {row.entity}
+                                    </a>
+                                </td>
                                 <td style={{ ...tableCellStyle }}>{Math.round(row.maxValue)}</td>
-                                <td style={{ ...tableCellStyle}}>{row.maxValTime}</td>
+                                <td style={{ ...tableCellStyle }}>{row.maxValTime}</td>
                                 <td style={{ ...tableCellStyle }}>{Math.round(row.minValue)}</td>
                                 <td style={{ ...tableCellStyle }}>{row.minValTime}</td>
                                 <td style={{ ...tableCellStyle }}>{Math.round(row.avgValue)}</td>
@@ -279,6 +319,7 @@ const LoadCurve = () => {
                         ))}
                 </tbody>
             </table>
+
         </div>
     </div>
 )}

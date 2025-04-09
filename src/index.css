@@ -283,7 +283,6 @@ button {
 
 
 /* SubNavBar*/
-
 .custom-navbar {
   background-color: #699ab3;
   display: flex;
@@ -437,6 +436,7 @@ button {
     border: none;
   }
 }
+
 
 
 
@@ -2134,5 +2134,6 @@ select:focus {
 
 
 /*graph */
+
 
 

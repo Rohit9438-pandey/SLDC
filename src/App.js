@@ -26,7 +26,9 @@ import TransformerLoading from './pages/Transformer-loading';
 import LineLoading from './pages/Line-loading';
 import ElectricityInfo from './pages/ElectricityInfo' ;
 import LoadCurve from './pages/Load-curve';
-
+import EntityDetails from './pages/EntityDetails';
+import FrequencyCurve from './pages/FrequencyCurve';
+import CurveDetails from './pages/CurveDetails';
 
 
 
@@ -59,6 +61,9 @@ const App = () => {
       <Route path="line-loading" element={<LineLoading />} />
       <Route path = "/power-system-in-delhi/about-electricity" element ={<ElectricityInfo />} />
       <Route path = "/load-curve" element={<LoadCurve />} />
+      <Route path="/entity-details" element={<EntityDetails />} />
+      <Route path ="/frequency-curve" element={<FrequencyCurve />} />
+      <Route path="/curve-details" element={<CurveDetails/>} />
 
     </Routes>
     </>

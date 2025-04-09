@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 
 const ENTITY_COLORS = {
@@ -59,8 +59,6 @@ const LoadCurveDelhi = () => {
             </h2>
 
             <div style={{ 
-                border: '3px solid #4f46e5', 
-                borderRadius: '10px', 
                 padding: '15px', 
                 boxShadow: '0 4px 10px rgba(0,0,0,0.2)', 
                 backgroundColor: '#ffffff', 
@@ -89,7 +87,7 @@ const LoadCurveDelhi = () => {
                                 tick={{ fill: '#10b981', fontWeight: 'bold' }}
                             />
                             <Tooltip />
-                            <Legend />
+                            
                             <Line
                                 type="monotone"
                                 dataKey="Delhi"

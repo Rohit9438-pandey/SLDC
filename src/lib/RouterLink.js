@@ -351,6 +351,13 @@ export const RouterLinks = []
         isTableVisible:false,
       },
 
+      {
+        title:"Frequency Curve",
+        href:"/frequency-curve",
+        disabled:false,
+        isTableVisible:false,
+      },
+
      
     ],
   },
