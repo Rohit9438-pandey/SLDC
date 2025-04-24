@@ -29,6 +29,8 @@ import LoadCurve from './pages/Load-curve';
 import EntityDetails from './pages/EntityDetails';
 import FrequencyCurve from './pages/FrequencyCurve';
 import CurveDetails from './pages/CurveDetails';
+import StationWiseLoadCurve from './pages/StationWiseLoadCurve';
+import OD_UD  from './pages/OD_UD Curve';
 
 
 
@@ -64,6 +66,8 @@ const App = () => {
       <Route path="/entity-details" element={<EntityDetails />} />
       <Route path ="/frequency-curve" element={<FrequencyCurve />} />
       <Route path="/curve-details" element={<CurveDetails/>} />
+      <Route path="/station-wise load-curve" element={<StationWiseLoadCurve />} />
+      <Route path="/OD-UD Curve" element={<OD_UD Curve/>} />
 
     </Routes>
     </>

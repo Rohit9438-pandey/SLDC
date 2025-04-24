@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 const DrawlDetails = () => {
   const params = useParams();
-  console.log(params);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,13 +21,13 @@ console.log(revisionNo);
     REVISIONNO: revisionNo,
   };
 
-  // Serialize tableFilter into a query string
+  
   const queryParams = new URLSearchParams({
     table: "DTL_DRAWL_TOTAL",
     filters: JSON.stringify(tableFilter),
   }).toString();
 
-  // Fetch total table data
+  
   const {
     data: totalTableData,
     loading: totalTableLoading,
@@ -39,7 +38,7 @@ console.log(revisionNo);
       const columnNames = totalTableData.result.metaData.map((col) => col.name);
       const data = totalTableData.result.rows.map((row) => {
         return row.reduce((obj, value, index) => {
-          obj[columnNames[index]] = value; // Map each value to the corresponding column name
+          obj[columnNames[index]] = value; 
           return obj;
         }, {});
       });
@@ -47,7 +46,7 @@ console.log(revisionNo);
     }
   }, [totalTableData, totalTableLoading]);
 
-  // Fetch general data based on selected date
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -71,7 +70,7 @@ console.log(revisionNo);
     }
   }, [selectedDate]);
 
-  // Fetch genco data based on selected revision number
+
   useEffect(() => {
     const fetchGencoData = async () => {
       if (!selectedRevisionNo) return;
@@ -121,7 +120,7 @@ useEffect(() => {
 }, []); 
 
 
-  // Format genco data into a timeslot-based structure
+  
   const formatTableData = () => {
     const timeslotData = {};
     gencoData.forEach((entry) => {
@@ -145,7 +144,7 @@ useEffect(() => {
     return gencoCodes.sort();
   };
 
-  // Combine genco data with formatted total table data
+  
   const mergeTablesData = () => {
     const timeslotData = formatTableData();
     const gencoCodes = getGencoCodes();
@@ -170,7 +169,7 @@ useEffect(() => {
   });
     const gencoCodes = getGencoCodes();
 
-  // Set the default selectedDiscom and maximum revision number when data is fetched
+
   useEffect(() => {
     if (data.length > 0) {
       const uniqueDiscoms = Array.from(
@@ -203,7 +202,6 @@ useEffect(() => {
 
   
 
-  // Set the default selectedDate to today's date (formatted as yyyy/mm/dd)
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
     setSelectedDate(today.split("-").join("/"));
@@ -230,7 +228,6 @@ useEffect(() => {
         Drawl Schedule of Discoms from Generating Stations (in MW)
       </h2>
 
-      {/* Filter Section for Revision No, Constituent, and Date */}
       <div
         className="form-row"
         style={{

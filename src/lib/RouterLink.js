@@ -358,6 +358,20 @@ export const RouterLinks = []
         isTableVisible:false,
       },
 
+      {
+        title:"Station-Wise Load Curve",
+        href:"/station-wise load-curve",
+        disabled:false,
+        isTableVisible:false,
+      },
+
+      {
+        title:"OD/UD Curve For DELHI/DISCOMS",
+        href:"/OD-UD Curve",
+        disabled:false,
+        isTableVisible:false,
+      },
+
      
     ],
   },
