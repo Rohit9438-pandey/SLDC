@@ -1,0 +1,2143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*Header */
+
+.header {
+  position: sticky; 
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #699ab3;
+
+ 
+ 
+}
+
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+ 
+}
+
+/* Nav List */
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 0 15px;
+  font-weight:650px;
+  font-size: 20px;
+}
+
+.btn-container {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ff9a68;
+  cursor: pointer;
+}
+
+
+
+/* Mobile responsiveness (max-width: 480px) */
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start; /* Align navbar items to the left */
+  }
+
+  .nav-list {
+    flex-direction: column; /* Stack nav items vertically */
+    width: 100%; /* Make the nav list take full width */
+    align-items: flex-start; /* Align items to the left */
+    margin-top: 10px;
+  }
+
+  .nav-item {
+    margin: 10px 0; /* Add margin between items */
+    font-size: 14px; /* Adjust font size for small screens */
+  }
+
+  .nav-link {
+    font-size: 14px; /* Smaller font size for mobile */
+  }
+
+  .btn-container {
+    flex-direction: column; /* Stack buttons vertically */
+    width: 100%; /* Make buttons full width */
+    gap: 10px; /* Add space between buttons */
+    align-items: flex-start; /* Align buttons to the left */
+  }
+
+  .btn-container button {
+    width: 100%; /* Make buttons take full width */
+    padding: 0.8em 1.2em; /* Adjust padding for larger buttons */
+  }
+
+  .navbar .nav-item {
+    margin-left: 0; /* Remove left margin for stacked items */
+    margin-right: 0; /* Remove right margin for stacked items */
+  }
+
+  /* Optional: Change color for better visibility on small screens */
+  .nav-link {
+    font-size: 14px;
+    color: #006400; 
+  }
+
+  .nav-link:hover {
+    color: #228B22;
+  }
+}
+
+
+
+
+/* Default styles */
+.header-contact {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 15px;
+  background-color: #f1f1f1; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.contact-left {
+  display: flex;
+  align-items: flex-start; 
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.image {
+  width: 80px; 
+  height: 80px; 
+  border-radius: 50%;  
+  object-fit: cover; 
+  margin-right: 10px; 
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+}
+
+.state-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff; 
+  margin-bottom: 4px;
+}
+
+.sub-title {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 2px; 
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contact-right {
+  display: flex;
+  flex-direction: column; 
+  text-align: right;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+/* Ensure icons are visible and properly sized */
+.contact-info i,
+.email-info i {
+  font-size: 20px; 
+  color: #006400;  
+ 
+}
+
+/* Styling for contact and email info */
+.contact-info,
+.email-info {
+  font-size: 14px;
+  margin-bottom: 20px; 
+}
+
+.contact-info a,
+.email-info a {
+  color: #006400; 
+  text-decoration: none; 
+  margin-bottom: 20px;
+}
+
+.contact-info a:hover,
+.email-info a:hover {
+  color: #228B22; 
+}
+
+.contact-right a {
+  color: #006400;
+  text-decoration: none;
+}
+
+.contact-right a:hover {
+  color: #228B22; 
+}
+
+.contact-right span {
+  font-weight: bold; 
+}
+
+/* Mobile responsiveness (max-width: 480px) */
+@media (max-width: 480px) {
+  .header-contact {
+    flex-direction: column; 
+    align-items: flex-start; 
+    padding: 10px; 
+  }
+
+  .contact-left {
+    flex-direction: column; 
+    align-items: flex-start;
+    margin-bottom: 10px; 
+  }
+
+  .image {
+    width: 60px; 
+    height: 60px; 
+    margin-bottom: 10px; 
+  }
+
+  .text-container {
+    flex-direction: column; 
+  }
+
+  .state-name {
+    font-size: 18px; 
+  }
+
+  .sub-title {
+    font-size: 10px; 
+  }
+
+  .contact-right {
+    text-align: left; 
+    font-size: 12px; 
+    align-items: flex-start; 
+  }
+
+  .contact-info,
+  .email-info {
+    font-size: 12px; 
+  }
+
+  .contact-info a,
+  .email-info a {
+    font-size: 12px; 
+  }
+  /* Ensure icons and links are appropriately sized on mobile */
+  .contact-info i,
+  .email-info i {
+    font-size: 16px; 
+  }
+}
+
+
+/* SubNavBar*/
+.custom-navbar {
+  background-color: #699ab3;
+  display: flex;
+  padding: 10px 20px;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  /* border:2px solid white */
+}
+.nav-list2 {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  max-height: 80px;
+  width: 100%;
+}
+.nav-item {
+  margin-right: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
+  position: sticky;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.nav-link2 {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+.nav-item2 {
+  margin-right: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap; 
+
+  position: relative;
+}
+/* DROPDOWN MENU */
+.dropdown {
+  position: absolute;
+  top: 100%; /* Directly below the nav item */
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  padding: 8px 0;
+  border-radius: 6px;
+  min-width: 220px; 
+  min-height: 100px; 
+}
+
+/* SUBMENU LIST */
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* SUBMENU ITEM */
+.submenu-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, padding-left 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px; 
+  font-size: 14px;
+}
+
+/* Change text color */
+.submenu-item a {
+  text-decoration: none;
+  color: #555; /* Set your preferred text color */
+  display: block;
+  width: 100%;
+  font-weight: 500; /* Optional - makes text slightly bolder */
+}
+
+/* Hover Effect */
+.submenu-item:hover {
+  background-color: #f7f7f7;
+  padding-left: 25px; /* Slight indentation on hover for modern look */
+  color: #007bff; /* Text color change on hover */
+}
+
+/* Optional nested dropdown styling (if you need multi-level menus) */
+.nested-dropdown {
+  padding: 8px;
+  background-color: #f8f8f8;
+  border-left: 3px solid #699ab3;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+
+.nested-dropdown span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #333;
+}
+
+
+
+
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .custom-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-item {
+    width: 100%;
+    text-align: left;
+  }
+
+  .dropdown {
+    position: static; /* On mobile, you might want to show inline instead */
+    box-shadow: none;
+    border: none;
+  }
+}
+
+
+
+
+
+/*Swiper */
+
+/* Default styles for Swiper */
+.mySwiper {
+  width: 100%;  
+  height: 450px; /* Adjust this height based on your design */
+  border: none; 
+}
+
+/* Each swiper slide should be centered */
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;  
+}
+
+/* Define the image wrapper */
+.swiperimage {
+  width: 100%; 
+  height: 100%; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  overflow: hidden; 
+  margin: 0; 
+}
+
+/* Image inside swiper */
+.swiperimage img {
+  width: 100%;   
+  height: auto;  
+  object-fit: cover; 
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .mySwiper {
+    height: 350px; /* Adjust height on tablets */
+  }
+
+  /* Swiper slide text size adjustment */
+  .swiper-slide {
+    font-size: 16px; /* Make text a little smaller on tablets */
+  }
+
+  .swiperimage img {
+    object-fit: cover;
+  }
+}
+
+/* For very small screens like phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .mySwiper {
+    height: 300px; /* Adjust height for small mobile screens */
+  }
+
+  /* Adjust swiper slide text size */
+  .swiper-slide {
+    font-size: 14px; /* Smaller text size on mobile */
+  }
+
+  .swiperimage img {
+    object-fit: cover; /* Ensure images cover the area */
+  }
+}
+
+
+/* Home*/
+
+.home-container {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 40px;
+  gap: 30px; 
+  flex-wrap: wrap; 
+  text-align: left; 
+}
+
+/* Image container */
+.image-container {
+  flex: 1; 
+  max-width: 50%; 
+  padding: 5px; 
+}
+
+/* Adjust image styling */
+.left-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px; 
+  object-fit: cover; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+/* Content container */
+.content-container {
+  flex: 1; 
+  max-width: 50%; 
+  text-align: left; 
+  padding: 20px;
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.content-container h1 {
+  font-size: 28px; 
+  color: #0c6a68;
+  margin-bottom: 15px;
+  font-weight: 500; 
+  line-height: 1.4; 
+}
+
+/* Paragraph styling */
+.content-container p {
+  font-size: 16px; 
+  color: #333; 
+  line-height: 1.8; 
+  font-family: 'Arial', sans-serif; 
+  margin-bottom: 20px; 
+}
+
+/* Shortened content (collapsed) */
+.content-text.collapsed {
+  max-height: 120px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  transition: max-height 0.3s ease; 
+}
+
+/* Expanded content */
+.content-text.expanded {
+  max-height: none; 
+  transition: max-height 0.3s ease; 
+}
+
+/* Bullet points for lists */
+ul {
+  list-style-type: disc; 
+  margin-left: 20px; 
+  font-size: 16px;
+  line-height: 1.8; 
+  margin-bottom: 20px;
+}
+
+/* Styling the Read More/Read Less link */
+.read-more-link {
+  background-color: #0c6a68; 
+  color: white; 
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none; 
+  border-radius: 25px; 
+  cursor: pointer; 
+  text-align: center; 
+  display: inline-block;
+  transition: background-color 0.3s ease; 
+  margin-top: 20px; 
+}
+
+.read-more-link:hover {
+  background-color: #ffc107; 
+  color: #0c6a68; 
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  
+  .home-container {
+    flex-direction: column; 
+    text-align: center; 
+    gap: 20px; 
+    padding: 10px;
+  }
+
+  /* Adjust image container to take full width on mobile */
+  .image-container {
+    max-width: 100%; 
+  }
+
+  .left-image {
+    max-height: 300px; /* Reduced max-height for mobile */
+  }
+
+  /* Content container also takes full width on small screens */
+  .content-container {
+    max-width: 100%; 
+    text-align: center;
+  }
+
+  /* Adjust font size of title and text on small screens */
+  .content-container h1 {
+    font-size: 24px; 
+  }
+
+  .content-container p {
+    font-size: 14px; 
+  }
+
+  .read-more-link {
+    font-size: 14px; 
+    padding: 8px 16px; 
+  }
+}
+
+/* Further adjustments for very small screens (under 480px) */
+@media (max-width: 480px) {
+
+  .home-container {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .left-image {
+    max-height: 250px; /* Further reduce the image height on very small screens */
+  }
+
+  .content-container h1 {
+    font-size: 22px; /* Smaller font size for the title */
+  }
+
+  .content-container p {
+    font-size: 13px; /* Smaller font size for paragraph text */
+  }
+
+  .read-more-link {
+    font-size: 13px; 
+    padding: 6px 12px; 
+  }
+}
+
+
+
+
+
+/* ServiceLink*/
+
+.service-links-container {
+  background-color: #0c6a68; 
+  border-radius: 8px; 
+  padding: 20px; 
+  margin-top: 0px;
+  margin-bottom:0px;
+}
+
+/* Layout for the service links */
+.service-links {
+  display: flex;
+  justify-content: space-around; 
+  flex-wrap: wrap; 
+  gap: 20px; 
+}
+
+/* Individual service items */
+.service-item {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+}
+
+.service-icon {
+  font-size: 30px;
+  padding: 20px; 
+  background-color: #fff; 
+  color: #0c6a68; 
+  border-radius: 50%; 
+  display: inline-block; 
+  margin-bottom: 10px; 
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.service-icon:hover {
+  background-color: #0c6a68; 
+  color: white; 
+}
+
+.service-item span {
+  display: block; 
+  margin-top: 10px; 
+  font-weight: 500; 
+}
+
+
+
+
+@media (max-width: 600px) {
+  .service-links {
+    justify-content: center;  /* Align items in the center */
+  }
+
+  .service-item {
+    font-size: 14px; /* Reduce font size for small screens */
+    flex: 1 1 150px; /* Make items smaller and allow them to wrap */
+    max-width: 180px; /* Prevent service items from becoming too wide */
+  }
+
+  .service-icon {
+    font-size: 24px; /* Smaller icons on mobile */
+    padding: 15px; /* Adjust icon padding for mobile */
+  }
+
+  .service-item span {
+    font-size: 14px;  /* Smaller text for mobile */
+  }
+}
+
+/* For larger tablets or small laptops (up to 768px) */
+@media (max-width: 768px) {
+  .service-links {
+    justify-content: space-evenly; /* Adjust spacing for medium screens */
+  }
+
+  .service-item {
+    font-size: 15px; /* Slightly smaller font for tablets */
+    flex: 1 1 200px; /* Allow items to grow on medium screens */
+    max-width: 220px; /* Prevent service items from becoming too wide */
+  }
+
+  .service-icon {
+    font-size: 26px; /* Adjust icon size */
+    padding: 18px;  /* Adjust icon padding */
+  }
+
+  .service-item span {
+    font-size: 15px; /* Adjust text size */
+  }
+}
+
+
+
+
+
+/* CardSection.css */
+
+.card-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: 70px;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 30%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover; 
+  border-bottom: 1px solid #ddd;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-content i {
+  margin-left: 10px;
+  font-size: 1.2rem;
+  color: #0056b3;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-content i:hover {
+  transform: translateX(5px); /* Adds a slight animation on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+
+  .card-section {
+    justify-content: center; /* Centers cards on smaller screens */
+    margin-left: 0; /* Removes left margin */
+    gap: 20px;
+  }
+
+  .card {
+    width: 45%; /* Cards take up 45% width on tablets */
+  }
+
+  .card-content h3 {
+    font-size: 1.3rem; /* Adjust font size */
+  }
+
+  .card-content i {
+    font-size: 1.1rem; /* Adjust icon size */
+  }
+}
+
+/* Mobile-first adjustments for very small screens (max-width: 480px) */
+@media (max-width: 480px) {
+
+  .card-section {
+    gap: 15px;
+    padding: 0 10px; /* Adds padding to avoid touching edges */
+  }
+
+  .card {
+    width: 100%; /* Cards take up full width on mobile */
+  }
+
+  .card-content h3 {
+    font-size: 1.2rem; /* Smaller font size for mobile */
+  }
+
+  .card-content i {
+    font-size: 1rem; /* Smaller icon size for mobile */
+  }
+}
+
+
+
+/* dashboard */
+
+/* Base styles for the table */
+.dynamic-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.dynamic-data-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+  color: #333; /* Set text color to dark for contrast */
+}
+
+.dynamic-data-table td:first-child {
+  font-weight: bold;
+  width: 50%;
+  color: #333; /* Set text color to dark for labels as well */
+}
+
+.dynamic-data-table td:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.dynamic-data-table td:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+.dynamic-data-table tr:nth-child(odd) td {
+  background-color: #f1f1f1;
+}
+
+.dynamic-data-table td,
+.dynamic-data-table tr {
+  font-size: 14px; /* Set a readable font size */
+}
+
+.dynamic-data-table th {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4CAF50; /* Adjust header color */
+  color: white;
+}
+
+/* Styling for Latest News Link */
+.latest-news-link {
+  color: #6699db; /* Light color for text */
+  font-size: 18px;
+  text-decoration: none;
+  padding: 5px 0;
+  display: block;
+  font-weight: bold;
+}
+
+.latest-news-link:hover {
+  color: #fff;
+  background-color: #008080;  /* Change to any color you like */
+  padding-left: 10px;  /* Optional: adds a little indent effect */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+
+  /* Responsive table styling for smaller screens */
+  .dynamic-data-table {
+    width: 100%;
+    font-size: 12px;  /* Adjust font size for smaller screens */
+  }
+
+  .dynamic-data-table td, .dynamic-data-table th {
+    padding: 12px 8px;  /* Adjust padding to ensure content fits well */
+  }
+
+  .dynamic-data-table td:first-child {
+    font-weight: bold;
+    color: #333; /* Ensure label text is bold and dark */
+  }
+
+  .dynamic-data-table th {
+    font-size: 14px; /* Adjust header font size for smaller screens */
+  }
+
+  /* Adjusting column layout for smaller screens */
+  .dynamic-data-table td, .dynamic-data-table th {
+    word-wrap: break-word;  /* Ensure text breaks within table cells */
+  }
+  
+  /* Make the table scrollable horizontally for very small screens */
+  .dynamic-data-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+  }
+
+  .dynamic-data-table td, .dynamic-data-table th {
+    min-width: 120px;  /* Ensure columns have a minimum width to maintain readability */
+  }
+
+  /* Styling for links on smaller screens */
+  .latest-news-link {
+    font-size: 16px; /* Adjust font size for mobile */
+    padding: 8px 0; /* Add padding for better tap experience */
+  }
+}
+
+/* Mobile-first adjustments (max-width: 480px) */
+@media (max-width: 480px) {
+  .dynamic-data-table td, .dynamic-data-table th {
+    font-size: 12px; /* Smaller font size for mobile */
+  }
+
+  .dynamic-data-table td:first-child {
+    font-weight: bold;
+  }
+
+  .latest-news-link {
+    font-size: 14px;  /* Adjust the link size */
+    padding: 8px 0; /* Adjust padding */
+  }
+}
+
+
+
+
+
+
+
+/* Footer.css */
+.footer {
+  background-color: #223645;
+  color: white;
+  padding: 20px 0;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 25px;
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-left: 10px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.footer-section li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-section a {
+  color: white;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-section i {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Add some space between the sections */
+  }
+
+  .footer-section {
+    text-align: center;
+    flex: 1 1 100%; /* Allow sections to take full width */
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem; /* Slightly smaller heading font size */
+    margin-left: 0; /* Remove left margin for better alignment */
+  }
+
+  .footer-section li {
+    font-size: 0.9rem; /* Adjust font size for smaller screens */
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    margin-top: 10px;
+  }
+
+  /* Adjust icons in the footer section for smaller screens */
+  .footer-section i {
+    font-size: 1rem; /* Reduce the icon size */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 0 10px; /* Add padding for smaller screens */
+    gap: 15px; /* Reduced gap between sections */
+  }
+
+  .footer-section h3 {
+    font-size: 1rem; /* Further reduce the heading font size */
+    margin-left: 0;
+  }
+
+  .footer-section li {
+    font-size: 0.85rem; /* Reduce font size for mobile */
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem; /* Smaller font for copyright text */
+    margin-top: 10px;
+  }
+
+  .footer-section a {
+    font-size: 0.85rem; /* Adjust link font size for better readability */
+  }
+
+  .footer-section i {
+    font-size: 0.9rem; /* Smaller icon size for mobile */
+  }
+}
+
+
+
+
+
+/* Disclaimer Section */
+.disclaimer {
+  padding: 20px;
+  background-color: #f7f7f7; /* Light background with a soft gray tone */
+  border-left: 6px solid #3498db; /* Blue left border to grab attention */
+  border-radius: 8px; /* Slightly rounded corners for a modern look */
+  font-size: 1rem; /* Slightly larger font for better readability */
+  font-weight: normal; /* Normal weight for better contrast */
+  color: #333; /* Dark text color for readability */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin: 20px 0; /* Space between other elements */
+  line-height: 1.6; /* Increased line-height for better readability */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Smooth modern font */
+}
+
+/* Disclaimer Text */
+.disclaimer p {
+  margin: 0;
+  padding: 0;
+  color: #555; /* Softer gray text for a friendly vibe */
+  font-size: 1rem;
+  transition: all 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Hover effect for Disclaimer */
+.disclaimer:hover {
+  background-color: #e0f7fa; /* Light blue background when hovered */
+  border-left: 6px solid #1e90ff; /* Slightly darker blue border on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow for more focus */
+}
+
+.disclaimer p:hover {
+  color: #3498db; /* Change text color to blue on hover */
+  text-decoration: underline; /* Underline on hover for interactivity */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .disclaimer {
+    padding: 15px;
+    font-size: 0.95rem; /* Slightly smaller font on smaller screens */
+  }
+}
+
+/* About*/
+
+
+
+
+
+/* Contact Container */
+.contact-container {
+  padding: 30px;
+  background-color: #f0f8ff;  /* Light blue background for a refreshing look */
+  border-radius: 12px;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contact Title */
+.contact-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #2c3e50;  /* Dark color for readability */
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #3498db;  /* Blue underline for emphasis */
+  padding-bottom: 10px;
+}
+
+/* Contact Information */
+.contact-info {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #555;
+  text-align: left;  /* Align text to the left for readability */
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.contact-info h3 {
+  margin-top: 15px;
+  color: #3498db;  /* Use blue color for headings */
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Additional Styling for Contact Information */
+.contact-info p {
+  margin-bottom: 15px;
+  color: #7f8c8d;  /* Lighter text for the body */
+  font-size: 16px;
+}
+
+/* Contact Information Links */
+.contact-info a {
+  color: #3498db;  /* Make links blue */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+  color: #2c3e50;  /* Dark color for links on hover */
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .contact-title {
+    font-size: 26px;
+  }
+
+  .contact-info {
+    font-size: 16px;
+  }
+}
+
+/* Disclaimer section remains untouched */
+.disclaimer {
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-left: 4px solid #007bff;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.disclaimer p {
+  user-select: none;
+  pointer-events: none;
+  margin: 0;
+}
+
+
+
+/*Feedback */
+
+/* Feedback Container */
+.feedback-container {
+  padding: 30px;
+  background-color: #caebfb; /* Clean white background */
+  border-radius: 12px;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading Style */
+.feedback-container h2 {
+  text-align: center;
+  color: #333; /* Dark gray color for a clean look */
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Input Fields and Textarea */
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Light background for inputs */
+  transition: all 0.3s ease;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* Placeholder Text Color */
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #888;
+}
+
+/* Focused State */
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #0056b3; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.3); /* Soft blue glow effect */
+}
+
+/* Textarea Styling */
+.form-textarea {
+  min-height: 200px; /* Increased height for a more comfortable text area */
+  resize: vertical;
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff; /* Blue button color */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+/* Hover Effect on Form Fields */
+.form-input:hover,
+.form-textarea:hover {
+  border-color: #66cc66; /* Light green border on hover */
+  box-shadow: 0 0 5px rgba(102, 204, 102, 0.3);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .feedback-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .submit-button {
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* peakdemand*/
+
+.peak-demand-box {
+  background-color: #4e73df; 
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+  color: #fff;  
+  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;  
+}
+
+.demand-info {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;  /* Allow the items to wrap on smaller screens */
+  justify-content: space-between;
+}
+
+.demand-item {
+  flex: 1;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 10px;  /* Add some spacing between the items */
+}
+
+.demand-item h3 {
+  font-size: 1.2rem;
+  color: #f1f1f1; 
+}
+
+.peak-demand {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.timestamp {
+  color: #ddd;
+  font-size: 0.9rem;
+}
+
+.current-revision {
+  background-color: #2e3a59;  
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.current-revision h3 {
+  font-size: 1.3rem;
+  color: #ffcc00;  
+}
+
+.last-update {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+.transmission-info {
+  background-color: #1c1f3f;  
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.transmission-info h3 {
+  font-size: 1.4rem;
+  color: #ffcc00;  
+}
+
+.target, .achieved {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #7FFF00;  
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .peak-demand-box {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;  /* Reduce padding on smaller screens */
+  }
+
+  .demand-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%; /* Ensure demand info fills the container */
+  }
+
+  .demand-item {
+    width: 100%; /* Ensure each demand item takes full width */
+    margin: 10px 0; /* Space between demand items */
+  }
+
+  .transmission-info {
+    width: 100%;  /* Ensure transmission info takes full width */
+  }
+
+  .current-revision {
+    margin-top: 20px;
+    width: 100%; /* Ensure current revision box is full width */
+  }
+}
+
+/* Further adjustments for very small screens (mobile) */
+@media (max-width: 480px) {
+  .peak-demand-box {
+    padding: 10px;  /* Reduce padding even more on very small screens */
+  }
+
+  .demand-info {
+    gap: 10px;  /* Reduce space between items */
+  }
+
+  .demand-item h3 {
+    font-size: 1.1rem; /* Slightly smaller heading for mobile */
+  }
+
+  .peak-demand {
+    font-size: 1.4rem;  /* Adjust font size for better readability */
+  }
+
+  .timestamp {
+    font-size: 0.8rem;  /* Adjust timestamp size */
+  }
+
+  .current-revision h3 {
+    font-size: 1.1rem;  /* Slightly smaller revision heading */
+  }
+
+  .transmission-info h3 {
+    font-size: 1.2rem;  /* Smaller transmission info title */
+  }
+
+  .target, .achieved {
+    font-size: 1rem; /* Slightly smaller font for these values */
+  }
+
+  .highlight {
+    font-size: 1rem; /* Adjust the highlighted value font size */
+  }
+}
+
+
+
+/* Main Dashboard Container */
+.dashboard-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-right: 20px;
+  
+}
+
+/* Card Styles */
+.card {
+  background-color: #3b8e8c;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  min-height: 200px;
+  margin-right: 20px;
+}
+
+/* Flexbox Layout for Cards */
+.cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+
+
+
+
+/* General Styles for the Real-Time Data Page */
+.real-time-data-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.real-time-data-page h2 {
+  font-size: 2rem;
+  color: #050470;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+table td, table th {
+  text-align: center;
+  padding: 12px;
+  font-size: 17px;
+}
+
+/* Add a background color to the <th> elements */
+table th {
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 1px; /* Add some spacing to the letters */
+}
+
+
+
+table td a:hover{
+  text-decoration: underline;
+}
+
+
+table tr:first-child th {
+
+  background-color:#0c6a98;
+  font-weight: 800;
+
+}
+
+/* Styling for the total values */
+table tr:last-child td {
+  color: black;
+}
+
+/* Add a border to the table cells */
+table td, table th {
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+/* Drawl Details Page Styling */
+
+
+select:hover {
+  border-color: #3498db; /* Change border color on hover */
+  background-color: #f1f8ff; /* Light blue background on hover */
+}
+
+select:focus {
+  border-color: #2980b9; /* Darker blue when the select box is focused */
+  background-color: #f1f8ff; /* Maintain background color on focus */
+  outline: none; /* Remove default focus outline */
+}
+
+
+/* Flexbox layout for form rows */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Form Group Styling */
+.form-group {
+  flex: 1 1 300px; /* Allowing the form groups to grow and shrink */
+  margin-bottom: 20px;
+}
+
+/* Styling for the select container */
+.select-container {
+  width: 100%;
+}
+
+
+
+/* Styling for the input */
+.form-input {
+  width: 50%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Flexbox for the inline form to align select and date input parallel */
+.inline-form {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between the label and input */
+}
+
+/* Styling for the "For Date" label */
+.inline-form p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* Styling for select box to ensure consistent width with date input */
+.form-select {
+  width: 60%; /* You can adjust this value as needed */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+
+/* Table Styling */
+.table-wrapper table {
+  width: 100%;        /* Allow the table to use the full width of the container */
+  min-width: 500px;   /* Ensure the table is not too small and allows scrolling */
+  table-layout: auto; /* Automatically adjust the column widths */
+  border-collapse: collapse;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Table Row Styling */
+.table-container td {
+  padding: 13px 16px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  color: #333;
+  word-wrap: break-word; /* Ensure text wraps within the cells */
+}
+
+
+/* Scrollbar Styling */
+.table-wrapper::-webkit-scrollbar {
+  height: 10px;  /* Horizontal scrollbar height */
+  width: 10px;   /* Vertical scrollbar width */
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color:#0C6A98;
+  border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #3498db;
+}
+
+
+
+
+
+/* Table Data Styling */
+.table-wrapper td {
+  background-color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+
+
+/* Colorful hover effect for table rows */
+.table-wrapper tr:hover td {
+  background-color: #f39c12; /* Highlight row with orange */
+  color: white;
+}
+
+
+
+
+/* Table Wrapper Styling (vertical scroll) */
+.table-wrapper {
+  max-height: 600px; /* Limit the height of the table */
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.issue-group{
+  margin-left: 20px;
+  font-weight: 200px;
+  font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Border Styling */
+.table-wrapper th, .table-wrapper td {
+  border: 2px solid #ccc;
+}
+
+/* Responsive Layout for smaller screens */
+@media (max-width: 768px) {
+  /* Stack form elements on mobile */
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Full width for form groups on mobile */
+  .form-group {
+    width: 100%;
+  }
+
+  .form-select,
+  .form-input {
+    width: 100%; /* Full width on mobile */
+  }
+
+  table,
+  th,
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Adjust the sticky columns on mobile */
+  .fixed-column {
+    position: relative;
+    background-color: inherit;
+  }
+}
+
+
+/*Delhi- Generation */
+
+.genco h2{
+  text-align: center;
+  color: #0c6a98;
+}
+
+.genco-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.genco-table th{
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 400;
+  font-size: medium;
+  height: auto;
+}
+
+
+
+/* Table Body Styles */
+.genco-table td {
+  padding: 10px;
+  text-align: center;
+  font-size: 16px; 
+}
+
+
+/* Footer row with totals */
+.genco-table tfoot td {
+  font-weight: bold;
+  background-color: #d3f9d8; /* Light green background for totals row */
+}
+
+/* Border and Box-shadow for better visibility */
+.genco-table th, .genco-table td {
+  border: 2px solid #ddd;
+}
+
+.genco-table td strong {
+  color: black;
+}
+
+
+
+
+
+/* Grid -loading*/
+
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.grid-table th,
+.grid-table td {
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.grid-table th {
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.grid-table tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.grid-table td {
+  background-color: #fff;
+  font-size: 18px;
+}
+
+.grid-table td,
+.grid-table th {
+  border-bottom: 1px solid #ddd;
+}
+
+.grid-table td {
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-table th,
+  .grid-table td {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+
+
+
+
+
+/* Central-section*/
+
+.sector h2{
+  text-align: center;
+  color: #0C6A98;
+  font-weight: 700;
+}
+
+
+.sector-table th {
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2; /* Ensures header stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* Delhi Import*/
+
+.import-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.import-page h2{
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.import-page table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+.import-page th {
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Ensures the header text does not wrap */
+}
+
+.import-page th:first-child { /* Specifically for Transformer/Feeder column */
+  width: 150px !important; /* Explicit width with !important to enforce it */
+  text-align: center;
+}
+
+.import-page th:nth-child(2),
+.import-page th:nth-child(3) {
+  width: 80px !important; /* Adjusts MW & MVAR column width */
+  text-align: center;
+}
+
+.import-page td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+/*Export Page */
+
+
+.export-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.export-page h2 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.export-page table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Ensures the column widths are enforced */
+}
+
+.export-page th {
+  background-color: #007bff;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Ensures the header text does not wrap */
+}
+
+.export-page th:first-child { 
+  width: 150px !important; 
+  text-align: center;
+}
+
+.export-page th:nth-child(2),
+.export-page th:nth-child(3) {
+  width: 80px !important; /* Adjusts MW & MVAR column width */
+  text-align: center;
+}
+
+.export-page td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+/*Real time data */
+.btn {
+  justify-content: center;
+  flex-wrap: wrap; 
+  margin-top: 20px;
+  margin-bottom: 10px;
+  gap: 15px; 
+  margin-left: 30px;
+}
+
+.btn button {
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin: 8px; /* Add margin to each button for spacing */
+}
+
+/* Add hover effect */
+.btn button:hover {
+  background-color: #0C6A98; 
+  color: white; 
+  transform: translateY(-3px); 
+}
+
+.btn button:active {
+  transform: translateY(1px); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.custom-datepicker {
+  padding: 8px;
+  font-size: 14px;
+}
+
+
+
+

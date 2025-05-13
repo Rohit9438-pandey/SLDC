@@ -1,0 +1,220 @@
+{
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "meetings": "Meetings",
+    "feedback": "Feedback",
+    "switchToHindi": "Switch to Hindi",
+    "switchToEnglish": "Switch to English",
+
+  
+    "stateName": "State Load Dispatch Center, Delhi",
+    "subTitle1": "Power Transmission Corporation Of Delhi Limited",
+    "subTitle2": "(A Govt of Delhi Enterprise)",
+    "isoCertification": "An ISO 9001:2015 Organisation",
+    "contactNo": "Contact No",
+    "phoneNumbers": "23221091, 23216823",
+    "emailUs": "E-Mail Us",
+    "emailAddress": "nodal@delhisldc.org",
+
+
+
+
+      "heading": "Welcome To SLDC, Delhi",
+      "description": "The State Load Dispatch Center, Delhi is the apex body to ensure integrated operation of the power system in Delhi. SLDC Delhi is responsible for discharging various functions specified under Section 32 of the Indian Electricity Act 2003. It is responsible for the transmission of power at 220 kV and 400 kV level and for upgrading, operating, and maintaining the high voltage network.",
+      "responsibilitiesTitle": "The State Load Despatch Centre shall:",
+      "responsibilities": [
+        "Responsible for optimum scheduling and dispatch of electricity within Delhi, in accordance with the contracts entered into with the licensees or the generating companies operating in that State.",
+        "Monitor grid operations.",
+        "Keep accounts of the quantity of electricity transmitted through the State grid.",
+        "Exercise supervision and control over the intra-state transmission system.",
+        "Responsible for carrying out real-time operations for grid control and dispatch of electricity within Delhi through secure and economic operation of the State grid in accordance with the Grid Standards and the Delhi Grid Code."
+      ],
+      "moreDetailsTitle": "More detailed activities include:",
+      "moreDetails": [
+        "Ensuring compliance with the national grid code.",
+        "Coordinating with the power producers to optimize generation.",
+        "Ensuring the operational safety and stability of the power grid in Delhi."
+      ],
+      "readMore": "Read More...",
+      "readLess": "Read Less",
+
+
+
+
+
+
+  "latestNewsTitle": "Latest News And Updates",
+  "newsContent": "Here is the latest news content...",
+  "dynamicDataTitle": "Dynamic Data",
+  "frequency": "Current Frequency (Hz)",
+  "dsmRate": "DSM Rate (Paise/Unit)",
+  "delhiLoad": "Delhi Load (MW)",
+  "delhiSchedule": "Delhi Schedule (MW)",
+  "delhiDrawal": "Delhi Drawal (MW)",
+  "odUd": "OD/UD (MW)",
+  "delhiGeneration": "Delhi Generation (MW)",
+  "maxLoadToday": "Max Load (Today, so far)",
+  "minLoadToday": "Min Load (Today, so far)",
+  "maxLoadYesterday": "Max Load (Yesterday)",
+  "minLoadYesterday": "Min Load (Yesterday)",
+
+
+   
+  
+    "outage-plant": "Outage of Generation Plant within Delhi",
+    "license-transmission": "License for Transmission and Bulk Supply of Electricity",
+    "transmission-losses": "Transmission Losses with details of Input to Discoms from FY 07-08 to FY 16-17",
+    "public-notice": "Public Notice",
+    "Load-Curve-Details": "Load Curve Details",
+    "Load-shedding-Details": "Load shedding Details",
+    "Latest-Break-Down": "Latest Break Down Details",
+    "Demand-Availability": "Demand-Availability Detail",
+  
+  
+
+
+
+        
+          "generationTitle": "Generation",
+          "generationAlt": "Generation Image",
+          "transmissionTitle": "Transmission",
+          "transmissionAlt": "Transmission Image",
+          "distributionTitle": "Distribution",
+          "distributionAlt": "Distribution Image",
+
+
+
+
+
+
+          
+            "peakDemandFY": "Peak Demand in FY 2024-25",
+            "allTimePeakDemand": "All-Time Peak Demand",
+            "timestamp": "Date",
+            "currentRevision": "Current-Revision",
+            "lastUpdate": "Last Update",
+            "transmissionSystem": "Transmission System Availability",
+            "targetFixedByDERC": "Target Fixed By DERC",
+            "achievedSEPT": "Achieved (SEPTEMBER 2024)",
+
+
+
+
+
+
+            
+              "downloads": "Downloads",
+              "publicGrievance": "Public Grievance Cell",
+              "employeeMail": "Employee Mail",
+              "registeredUtilities": "Registered Utilities",
+              "electricityAct": "Electricity Act/Reforms",
+              "delhiGridCode": "Delhi Grid Code",
+
+
+
+
+
+              
+                "contactUs": "Contact Us",
+                "sldcAddress": "State Load Dispatch Centre - New Delhi",
+                "email": "nodal@delhisldc.org",
+                "phone": "23221091,23216823",
+                "aboutUs": "About Us",
+                "profile": "Profile",
+                "missionAndVision": "Mission & Vision",
+                "evolution": "Evolution of SLDC",
+                "functions": "Functions",
+                "orgChart": "Organization Chart",
+                "sldcOfficials": "SLDC Officials",
+                "quickLinks": "Quick Links",
+                "acts": "Acts",
+                "systemAvailability": "System Availability",
+                "loadForecast": "Load Forecast",
+                "downloads": "Downloads",
+                "registration": "Registration",
+                "importantRegulations": "Important Regulations",
+                "webPolicies": "Web Policies",
+                "privacyPolicy": "Privacy Policy",
+                "hyperlinkPolicy": "Hyperlink Policy",
+                "copyrightPolicy": "Copyright Policy",
+                "termsConditions": "Terms & Conditions",
+                "accessibilityStatement": "Accessibility Statement",
+                "allRightsReserved": "All Rights Reserved",
+
+
+
+
+
+
+                
+                  "aboutTitle": "About Delhi Transco Limited",
+                  "intro": "Delhi Transco Limited is the State Transmission Utility responsible for augmenting and maintaining the existing Transmission System consisting of 220kV and 400kV sub-stations and Transmission Lines Network, efficiently and effectively in the National Capital Territory of Delhi. DTL also takes care of the power needs of Delhi by arranging power on a short-term and long-term basis.",
+                  "slcIntro": "After the enactment of the Electricity Act 2003, a new department under the name and style of State Load Dispatch Center (SLDC) under Delhi Transco Limited was created, as an Apex Body to ensure integrated operation of the power system in Delhi. SLDC Delhi started its function on the First of January 2004. SLDC is responsible for the real-time Load Dispatch function, O&M of SCADA System, and Energy Accounting.",
+                  "slcFunctions": [
+                    "To ensure integrated operation of the power system.",
+                    "To give directions and exercise supervision and control for maximum economy and efficiency in power system operation.",
+                    "Scheduling and Re-Scheduling of available resources for optimum and economic operation of the power system.",
+                    "To coordinate shutdowns for the Generating Units and Sub-station equipment, including transmission lines, considering Continuity of Supply.",
+                    "System Restoration in a systematic manner in the shortest possible duration, following Grid Disturbances.",
+                    "Accounting of Energy handled by the State System.",
+                    "Compiling & Furnishing data pertaining to Power System Operation.",
+                    "System Operation, ABT Scheduling & Energy Accounting.",
+                    "SCADA System Operation & Maintenance."
+                  ],
+               
+
+
+
+
+
+
+
+                    "contactTitle": "Contact Information",
+                    "companyName": "DELHI TRANSCO LIMITED",
+                    "companyDescription": "(A Govt. of NCT of Delhi Undertaking)",
+                    "address1": "Shakti Sadan, Kotla Road,",
+                    "address2": "New Delhi-110 002.",
+                    "sldcName": "STATE LOAD DESPATCH CENTRE",
+                    "address3": "Delhi Transco Limited",
+                    "address4": "33 KV Sub Station Building",
+                    "address5": "Minto Road",
+                    "address6": "New Delhi - 110 002",
+                    "phone": "Ph: 23221091, 23216823",
+                    "fax": "Fax: 23221012, 23221059",
+                    "disclaimer": "While every care has been taken to ensure the accuracy of information furnished in this website, SLDC shall not be responsible for any inadvertent error or omission. However, SLDC shall be obliged if errors/omissions are brought to its notice for carrying out corrections in the next update. The real-time data shown on this site is only for monitoring purposes and has no commercial impact.",
+
+
+
+
+
+
+
+
+
+
+
+                    
+                      "feedbackTitle": "Please Enter Your Valuable Feedback",
+                      "nameLabel": "Name:",
+                      "emailLabel": "Valid Email ID:",
+                      "commentsLabel": "Please Enter Comments:",
+                      "captchaLabel": "Please Enter Captcha:",
+                      "submitButton": "Submit",
+                      "disclaimer": "While every care has been taken to ensure the accuracy of information furnished in this website, SLDC shall not be responsible for any inadvertent error or omission. However, SLDC shall be obliged if errors/omissions are brought to its notice for carrying out corrections in the next update. The real-time data shown on this site is only for monitoring purposes and has no commercial impact."
+                  
+                    
+                  
+                
+              
+      
+      
+    }
+    
+
+    
+   
+      
+      
+  
+  
