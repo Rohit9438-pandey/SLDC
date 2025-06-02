@@ -33,6 +33,7 @@ import StationWiseLoadCurve from './pages/StationWiseLoadCurve';
 import OD_UD  from './pages/OD_UD Curve';
 import VoltageProfile from './pages/VoltageProfile';
 import VoltagePivotPage from './pages/VoltagePivotPage';
+import OrganisationChart from './pages/OrganisationChart';
 
 
 
@@ -72,6 +73,7 @@ const App = () => {
       <Route path="/OD-UD Curve" element={<OD_UD Curve/>} />
       <Route path="voltage-profile" element={<VoltageProfile />} />
       <Route path="/voltage-detail-page" element={<VoltagePivotPage />} />
+      <Route path="/directory/sldc-organisation-chart" element={<OrganisationChart />} />
 
     </Routes>
     </>

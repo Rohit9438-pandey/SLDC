@@ -104,6 +104,8 @@ export const RouterLinks = []
         {
           title: "SLDC Organisation Chart",
           href: "/directory/sldc-organisation-chart",
+          disabled:false,
+          isTableVisible:false,
         },
       ],
     },
