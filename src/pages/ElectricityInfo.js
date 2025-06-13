@@ -1,4 +1,11 @@
 import React from 'react';
+import electricity1 from '../Images/Electricity1.jpg';
+import electricity2 from '../Images/Electricity2.jpg';
+import electron2 from '../Images/Electron2.jpg';
+import bulb from '../Images/Bulb.avif';
+import conductor from '../Images/Conductor.jpg';
+import conductor1 from '../Images/Conductor1.jpg';
+
 
 
 // Functional Component for the page
@@ -8,13 +15,13 @@ const ElectricityInfo = () => {
       <h1 style ={{color: 'red' , fontSize:'2.5em' , textAlign:'center' , marginTop:'40px'}}>From Electrons to Electricity!</h1>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
       <img 
-        src="/images/Electricity1.jpg" 
+        src={electricity1}
         alt="Electricity Illustration" 
         style={{ width: '40%', height: '20%', borderRadius: '8px', marginTop: '40px' }}
       />
 
     <img 
-        src="/images/Electricity2.jpg" 
+        src={electricity2}
         alt="Electricity Illustration" 
         style={{ width: '40%', height: '20%', borderRadius: '8px', marginTop: '40px' }}
       />
@@ -24,13 +31,13 @@ const ElectricityInfo = () => {
         <h2 style = {{color:'red' , textAlign:'center' ,fontSize:'2em' ,marginBottom:'10px' , textTransform:'upperCase' , paddingButtom:'5px'}}>What is Electricity?</h2>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <img 
-        src="/images/Electron2.jpg" 
+        src={electron2}
         alt="Electricity Illustration" 
         style={{ width: '40%', height: '20%', borderRadius: '8px', marginBottom: '20px' }}
       />
 
     <img 
-        src="/images/Bulb.avif" 
+        src={bulb}
         alt="Electricity Illustration" 
         style={{ width: '20%', height: '30%', borderRadius: '8px', marginBottom: '20px' }}
       />
@@ -49,14 +56,14 @@ const ElectricityInfo = () => {
         <h2 style = {{color:'red' , textAlign:'center'}}>Conductors and Insulators</h2>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <img 
-        src="/images/Conductor.jpg" 
+        src={conductor} 
         alt="Electricity Illustration" 
         style={{ width: '30%', height: '30%', borderRadius: '8px', marginBottom: '20px' }}
       />
         
 
           <img 
-        src="/images/Conductor1.jpg" 
+        src={conductor1}
         alt="Electricity Illustration" 
         style={{ width: '40%', height: '30%', borderRadius: '8px', marginBottom: '20px' }}
       />

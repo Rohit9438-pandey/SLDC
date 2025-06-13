@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useLanguage } from  '../Hoc/LanguageContext';
+import sldcImage from '../Images/sldc1.png'; 
 
 const Home = () => {
-  const { translations } = useLanguage(); // Destructure language and translations from context
+  const { translations } = useLanguage();  
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleContent = () => {
@@ -13,7 +14,7 @@ const Home = () => {
     <div className="home-container">
       <div className="image-container">
         <img
-          src="/Images/images1.jfif" // Replace with your image path
+          src={sldcImage} 
           alt="SLDC Image"
           className="left-image"
         />
