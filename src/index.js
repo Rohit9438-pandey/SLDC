@@ -21,7 +21,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
       <I18nextProvider i18n={i18next}>
       <LanguageProvider >
-        <BrowserRouter>
+        <BrowserRouter basename={"/sldc-new"}>
       <App />
 
         </BrowserRouter>

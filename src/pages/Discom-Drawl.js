@@ -23,12 +23,12 @@ const DiscomDrawl = () => {
   );
 
   const handleOpenDrawlDetails = (discom) => {
-    const url = `/drawl-details/${discom}`;
+    const url = `/sldc-new/drawl-details/${discom}`;
     window.open(url, '_blank');
   };
 
   const handleDataTable = (discom) => {
-    const url = `/data-table/${discom}`;
+    const url = `/sldc-new/data-table/${discom}`;
     window.open(url, '_blank');
   };
 

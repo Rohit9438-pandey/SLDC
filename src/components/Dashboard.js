@@ -53,7 +53,7 @@ const Dashboard = () => {
       }}
     >
       {/* Latest news and updates */}
-      <div style={{ display: "flex", justifyContent: "space-between", gap: "20px" }}>
+        <div className="dashboard-cards-wrapper">
         <div style={{ flex: "1" }}>
           <Card
             title={translations.latestNewsTitle || "Latest News And Updates"}

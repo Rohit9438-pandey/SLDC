@@ -14,8 +14,7 @@ const HeaderWithContact = () => {
           className="image" 
         />
         <div className="text-container">
-          <span className="state-name">{translations.stateName}</span> {/* Dynamic text based on language */}
-          <span className="sub-title">{translations.subTitle1}</span>
+          <span className="state-name highlighted-name">{translations.stateName}</span> 
           <span className="sub-title">{translations.subTitle2}</span>
           <span className="sub-title font-bold">{translations.isoCertification}</span>
         </div>

@@ -1,32 +1,63 @@
- import { Link } from "react-router-dom";
- import { useLanguage } from '../Hoc/LanguageContext';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useLanguage } from "../Hoc/LanguageContext";
+import { Menu, X } from "lucide-react";
 
-const Header = ()=> {
+const Header = () => {
   const { language, toggleLanguage, translations } = useLanguage();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <header className="header">
       <nav className="navbar">
-        <ul className="nav-list">
+        <div className="logo">
+          
+        </div>
+
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <ul className={`nav-list ${isMobileMenuOpen ? "open" : ""}`}>
           <li className="nav-item">
-            <Link className="nav-link" to="/">{translations.home}</Link> {/* Dynamic text based on language */}
+            <Link className="nav-link" to="/" onClick={() => setIsMobileMenuOpen(false)}>
+              {translations.home}
+            </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/about">{translations.about}</Link>
+            <Link className="nav-link" to="/about" onClick={() => setIsMobileMenuOpen(false)}>
+              {translations.about}
+            </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/contact">{translations.contact}</Link>
+            <Link className="nav-link" to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+              {translations.contact}
+            </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/meetings">{translations.meetings}</Link>
+            <Link className="nav-link" to="/meetings" onClick={() => setIsMobileMenuOpen(false)}>
+              {translations.meetings}
+            </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/feedback">{translations.feedback}</Link>
+            <Link className="nav-link" to="/feedback" onClick={() => setIsMobileMenuOpen(false)}>
+              {translations.feedback}
+            </Link>
+          </li>
+          <li className="nav-item">
+            <button onClick={toggleLanguage} className="language-toggle">
+              {language === "en"
+                ? translations.switchToHindi
+                : translations.switchToEnglish}
+            </button>
           </li>
         </ul>
-        <button onClick={toggleLanguage}>
-          {language === 'en' ? translations.switchToHindi : translations.switchToEnglish} {/* Toggle button */}
-        </button>
       </nav>
     </header>
-)};
+  );
+};
+
 export default Header;

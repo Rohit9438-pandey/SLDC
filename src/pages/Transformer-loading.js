@@ -25,9 +25,11 @@ const TransformerLoading = () => {
   if (error) return <div>Error: {error}</div>;
 
   // Filter the data based on the search term
-  const filteredData = data.filter(item => 
-    item.GD_SUBSTATION.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+const filteredData = data.filter(item =>
+  item.GD_SUBSTATION &&
+  item.GD_SUBSTATION.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
 
   const formatDateTime = (dateString) => {
     const date = new Date(dateString);

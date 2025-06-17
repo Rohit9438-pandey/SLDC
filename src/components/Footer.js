@@ -1,27 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../Hoc/LanguageContext'; // Import the useLanguage hook
+import { useLanguage } from '../Hoc/LanguageContext';
 
 const Footer = () => {
-  const { translations } = useLanguage(); // Access translations from the context
+  const { translations } = useLanguage();
 
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Contact Info Section */}
+        {/* Contact Us Section */}
         <div className="footer-section contact-info">
           <h3>{translations.contactUs}</h3>
           <ul>
             <li>
-              <i className="fas fa-map-marker-alt"></i> {translations.sldcAddress}
+              <div className="footer-icon-text">
+                <i className="fas fa-map-marker-alt"></i>
+                <span>{translations.sldcAddress}</span>
+              </div>
             </li>
             <li>
-              <i className="fas fa-envelope"></i>
-              <a href="mailto:info@uksldc.in">{translations.email}</a>
+              <div className="footer-icon-text">
+                <i className="fas fa-envelope"></i>
+                <a href="mailto:info@uksldc.in">{translations.email}</a>
+              </div>
             </li>
             <li>
-              <i className="fas fa-phone"></i>
-              <a href="tel:+91352645768">{translations.phone}</a>
+              <div className="footer-icon-text">
+                <i className="fas fa-phone"></i>
+                <a href="tel:+91352645768">{translations.phone}</a>
+              </div>
             </li>
           </ul>
         </div>
