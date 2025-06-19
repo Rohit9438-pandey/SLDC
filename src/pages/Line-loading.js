@@ -1,49 +1,45 @@
 import React, { useState, useEffect } from 'react';
 
 const LineLoading = () => {
-  // State to store data, loading/error state, and table visibility
   const [delhiData, setDelhiData] = useState([]);
   const [northernRegionData, setNorthernRegionData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isDelhiButtonClicked, setIsDelhiButtonClicked] = useState(false); // State to toggle Delhi table visibility
-  const [isNorthernRegionButtonClicked, setIsNorthernRegionButtonClicked] = useState(false); // State to toggle Northern Region table visibility
+  const [isDelhiButtonClicked, setIsDelhiButtonClicked] = useState(false); 
+  const [isNorthernRegionButtonClicked, setIsNorthernRegionButtonClicked] = useState(false); 
 
   useEffect(() => {
-    // Fetch data for both APIs when the component mounts
     fetch('https://www.delhisldc.org/app-api/line-data')
       .then((response) => response.json())
       .then((data) => {
-        setDelhiData(data.data); // Store the fetched data for Delhi circuits
-        setLoading(false); // Set loading to false
+        setDelhiData(data.data); 
+        setLoading(false); 
       })
       .catch((err) => {
-        setError(err.message); // Handle error
+        setError(err.message); 
         setLoading(false);
       });
 
     fetch('https://delhisldc.org/app-api/ir-line')
       .then((response) => response.json())
       .then((data) => {
-        setNorthernRegionData(data.data); // Store the fetched data for Northern Region circuits
+        setNorthernRegionData(data.data); 
       })
       .catch((err) => {
-        setError(err.message); // Handle error
+        setError(err.message); 
       });
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  }, []);
 
-  // Handling loading and error states
+  
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Toggle function for Delhi button
   const handleDelhiButtonClick = () => {
-    setIsDelhiButtonClicked((prevState) => !prevState); // Toggle visibility of Delhi data
+    setIsDelhiButtonClicked((prevState) => !prevState); 
   };
 
-  // Toggle function for Northern Region button
   const handleNorthernRegionButtonClick = () => {
-    setIsNorthernRegionButtonClicked((prevState) => !prevState); // Toggle visibility of Northern Region data
+    setIsNorthernRegionButtonClicked((prevState) => !prevState);
   };
 
   const formatDateTime = (dateString) => {
@@ -51,15 +47,13 @@ const LineLoading = () => {
 
     // Get the day, month, and year
     const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
     const year = date.getFullYear();
 
-    // Get the hours, minutes, and seconds
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    // Return the formatted string
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   };
 
@@ -78,7 +72,6 @@ const LineLoading = () => {
             }}>Real Time Loadings on 400/220kV Circuit</h2>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
 
-        {/* Button for Delhi Transmission Circuits */}
         <button
           onClick={handleDelhiButtonClick}
           style={{
@@ -96,7 +89,6 @@ const LineLoading = () => {
           Transmission Circuits of Delhi
         </button>
 
-        {/* Button for Northern Region Transmission Circuits */}
         <button
           onClick={handleNorthernRegionButtonClick}
           style={{
@@ -115,9 +107,7 @@ const LineLoading = () => {
         </button>
       </div>
 
-      {/* Conditionally render the data tables */}
       <div>
-        {/* Display Delhi Circuits table */}
         {isDelhiButtonClicked && (
           <div>
             <h3 style={{ textAlign: 'center', color: '#008000' }}>
@@ -148,7 +138,6 @@ const LineLoading = () => {
           </div>
         )}
 
-        {/* Display Northern Region Circuits table */}
         {isNorthernRegionButtonClicked && (
           <div>
             {northernRegionData.length > 0 ? (

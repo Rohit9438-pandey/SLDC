@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../Hoc/LanguageContext";
 import { Menu, X } from "lucide-react";
+import { Globe } from "lucide-react"; // if you prefer icons over emoji
+
 
 const Header = () => {
   const { language, toggleLanguage, translations } = useLanguage();
@@ -47,13 +49,21 @@ const Header = () => {
               {translations.feedback}
             </Link>
           </li>
-          <li className="nav-item">
-            <button onClick={toggleLanguage} className="language-toggle">
-              {language === "en"
-                ? translations.switchToHindi
-                : translations.switchToEnglish}
-            </button>
-          </li>
+
+  <li className="nav-item">
+  <button onClick={toggleLanguage} className="language-toggle">
+    <span className="language-text">
+      {language === "en"
+        ? translations.switchToHindi
+        : translations.switchToEnglish}
+    </span>
+   <span className="language-icon" aria-hidden="true">
+  <Globe size={18} />
+</span>
+  </button>
+</li>
+
+
         </ul>
       </nav>
     </header>

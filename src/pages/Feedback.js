@@ -52,7 +52,7 @@ const Feedback = () => {
           <label>{translations.captchaLabel}: {captcha}</label>
           <input type="text" required className="form-input" />
         </div>
-        <button type="submit" className="submit-button bg-blue-500 text-white p-2 rounded">{translations.submitButton}</button>
+        <button type="submit" className="submit-button">{translations.submitButton}</button>
       </form>
 
       <div className="disclaimer mt-8 text-lg text-gray-700">

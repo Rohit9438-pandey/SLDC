@@ -6,6 +6,7 @@ import { subnav } from '../lib/RouterLink';
 const SubNavbar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileOpenDropdowns, setMobileOpenDropdowns] = useState(new Set());
   const dropdownRefs = useRef({});
   const timeoutRef = useRef(null);
 
@@ -33,33 +34,90 @@ const SubNavbar = () => {
     }, 150);
   };
 
-  const renderLinks = (links, depth = 0) => {
+  const toggleMobileDropdown = (dropdownId) => {
+    const newOpenDropdowns = new Set(mobileOpenDropdowns);
+    if (newOpenDropdowns.has(dropdownId)) {
+      newOpenDropdowns.delete(dropdownId);
+    } else {
+      newOpenDropdowns.add(dropdownId);
+    }
+    setMobileOpenDropdowns(newOpenDropdowns);
+  };
+
+  const renderLinks = (links, depth = 0, isMobile = false, parentId = '') => {
     if (!links || !Array.isArray(links)) return null;
 
-    return (
-     <div
-  className={`absolute ${depth === 0 ? 'top-full left-0' : 'top-0 left-full'} mt-1 w-max bg-white shadow-xl rounded-md border border-gray-200 z-[60]`}
->
+    const containerClass = isMobile
+      ? 'ml-4 border-l border-gray-200'
+      : `absolute ${depth === 0 ? 'top-full left-0' : 'top-0 left-full'} mt-1 w-max bg-white shadow-xl rounded-md border border-gray-200 z-[60]`;
 
-        {links.map((link, index) => (
-          <div key={index} className="relative group">
-            {link.sublinks ? (
-              <div className="flex items-center justify-between px-3 py-2 hover:bg-blue-100 text-gray-700 font-medium cursor-pointer">
-                <span>{link.title}</span>
-                <ChevronRight className="w-3 h-3" />
-                {renderLinks(link.sublinks, depth + 1)}
-              </div>
-            ) : (
-              <Link
-                to={link.href}
-                className="block px-3 py-2 hover:bg-blue-100 text-gray-700 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.title}
-              </Link>
-            )}
-          </div>
-        ))}
+    return (
+      <div className={containerClass}>
+        {links.map((link, index) => {
+          const dropdownId = `${parentId}-${index}`;
+          
+          return (
+            <div key={index} className="relative group">
+              {link.sublinks ? (
+                <>
+                  {isMobile ? (
+                    // Mobile: Make parent clickable and add toggle for sublinks
+                    <div>
+                      {link.href && link.href !== "#" && link.href !== "" ? (
+                        <Link
+                          to={link.href}
+                          className="block px-3 py-2 text-gray-700 font-medium hover:bg-blue-100"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {link.title}
+                        </Link>
+                      ) : (
+                        <div className="px-3 py-2 text-gray-700 font-medium">
+                          {link.title}
+                        </div>
+                      )}
+                      <button
+                        onClick={() => toggleMobileDropdown(dropdownId)}
+                        className="w-full text-left px-3 py-1 flex justify-between items-center text-gray-600 text-sm hover:bg-gray-50"
+                      >
+                        <span>View {link.title} Options</span>
+                        <ChevronDown
+                          className={`w-3 h-3 transition-transform ${
+                            mobileOpenDropdowns.has(dropdownId) ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      {mobileOpenDropdowns.has(dropdownId) && (
+                        <div className="ml-2">
+                          {renderLinks(link.sublinks, depth + 1, isMobile, dropdownId)}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    // Desktop: Keep existing hover behavior
+                    <div
+                      className={`flex items-center justify-between px-3 py-2 text-gray-700 font-medium hover:bg-blue-100 ${
+                        link.sublinks ? 'cursor-pointer' : ''
+                      }`}
+                    >
+                      <span>{link.title}</span>
+                      <ChevronRight className="w-3 h-3" />
+                      {renderLinks(link.sublinks, depth + 1, isMobile, dropdownId)}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link
+                  to={link.href}
+                  className="block px-3 py-2 hover:bg-blue-100 text-gray-700 font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.title}
+                </Link>
+              )}
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -93,7 +151,7 @@ const SubNavbar = () => {
               onMouseLeave={handleMouseLeave}
               className="relative"
             >
-            <button className="px-3 py-1.5 text-white hover:bg-blue-600 rounded-md font-semibold flex items-center space-x-1">
+              <button className="px-3 py-1.5 text-white hover:bg-blue-600 rounded-md font-semibold flex items-center space-x-1">
                 <span className="whitespace-nowrap">{navItem.title}</span>
                 {navItem.sublinks && <ChevronDown className="w-3 h-3" />}
               </button>
@@ -105,30 +163,66 @@ const SubNavbar = () => {
         {/* Mobile Dropdown */}
         {isMobileMenuOpen && (
           <div className="lg:hidden mt-2 bg-white rounded-md shadow-md max-h-[70vh] overflow-y-auto">
-            {subnav.map((navItem, index) => (
-              <div key={index} className="border-b">
-                <button
-                  onClick={() =>
-                    setOpenDropdown(openDropdown === index ? null : index)
-                  }
-                  className="w-full text-left px-4 py-2 flex justify-between items-center text-gray-800 font-medium hover:bg-blue-100"
-                >
-                  <span>{navItem.title}</span>
-                  {navItem.sublinks && (
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform ${
-                        openDropdown === index ? 'rotate-180' : ''
-                      }`}
-                    />
+            {subnav.map((navItem, index) => {
+              const mainDropdownId = `main-${index}`;
+              
+              return (
+                <div key={index} className="border-b">
+                  {navItem.sublinks ? (
+                    <>
+                      {/* If main nav item has its own href, make it clickable */}
+                      {navItem.href && navItem.href !== "#" && navItem.href !== "" ? (
+                        <Link
+                          to={navItem.href}
+                          className="block px-4 py-2 text-gray-800 font-medium hover:bg-blue-100"
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            setMobileOpenDropdowns(new Set());
+                          }}
+                        >
+                          {navItem.title}
+                        </Link>
+                      ) : (
+                        <div className="px-4 py-2 text-gray-800 font-medium">
+                          {navItem.title}
+                        </div>
+                      )}
+                      
+                      {/* Toggle button for sublinks */}
+                      <button
+                        onClick={() => toggleMobileDropdown(mainDropdownId)}
+                        className="w-full text-left px-4 py-2 flex justify-between items-center text-gray-600 hover:bg-blue-50"
+                      >
+                        <span>View {navItem.title} Options</span>
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform ${
+                            mobileOpenDropdowns.has(mainDropdownId) ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      
+                      {/* Sublinks */}
+                      {mobileOpenDropdowns.has(mainDropdownId) && (
+                        <div className="ml-4">
+                          {renderLinks(navItem.sublinks, 0, true, mainDropdownId)}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      to={navItem.href}
+                      className="block px-4 py-2 text-gray-800 font-medium hover:bg-blue-100"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setMobileOpenDropdowns(new Set());
+                      }}
+                    >
+                      {navItem.title}
+                    </Link>
                   )}
-                </button>
-                {openDropdown === index && (
-                  <div className="ml-4">
-                    {renderLinks(navItem.sublinks)}
-                  </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         )}
       </nav>

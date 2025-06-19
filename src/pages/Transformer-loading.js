@@ -4,7 +4,7 @@ const TransformerLoading = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // State to store the search input
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(() => {
     // Fetch the data when the component mounts
@@ -24,7 +24,7 @@ const TransformerLoading = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Filter the data based on the search term
+
 const filteredData = data.filter(item =>
   item.GD_SUBSTATION &&
   item.GD_SUBSTATION.toLowerCase().includes(searchTerm.toLowerCase())
@@ -33,16 +33,16 @@ const filteredData = data.filter(item =>
 
   const formatDateTime = (dateString) => {
     const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0'); // Add leading 0 if day is less than 10
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so we add 1
+    const day = String(date.getDate()).padStart(2, '0'); 
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
     
     return {
-      date: `${day}/${month}/${year}`,  // formatted date: dd/mm/yyyy
-      time: `${hours}:${minutes}:${seconds}`  // formatted time: hh:mm:ss
+      date: `${day}/${month}/${year}`,  
+      time: `${hours}:${minutes}:${seconds}`  
     };
   };
 
@@ -73,7 +73,7 @@ const filteredData = data.filter(item =>
         type="text"
         placeholder="Search by Transformer Name"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} // Update the search term
+        onChange={(e) => setSearchTerm(e.target.value)} 
         style={{ padding: '10px', width: '20%', marginBottom: '20px', fontSize: '16px' ,marginLeft: '80%' , padding:'10px'}}
       />
 

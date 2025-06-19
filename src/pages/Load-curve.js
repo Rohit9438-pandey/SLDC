@@ -23,7 +23,19 @@ const ENTITY_COLORS = {
     ALL: '#6a0572'
 };
 
+
+const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    return isMobile;
+};
+
 const LoadCurve = () => {
+    const isMobile = useIsMobile();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedEntity, setSelectedEntity] = useState('ALL');
     const [data, setData] = useState([]);
@@ -151,7 +163,8 @@ const LoadCurve = () => {
     
     
 
-    return (
+   return (
+    <div className="load-curve-container"> {/* Wrap entire return content */}
         <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>
             <h2 style={{
                 textAlign: 'center',
@@ -165,7 +178,7 @@ const LoadCurve = () => {
                 Load Curve Visualization
             </h2>
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 15, marginBottom: 20 }}>
+            <div className="filter-controls" style={{ display: 'flex', justifyContent: 'center', gap: 15, marginBottom: 20 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <label style={{ marginBottom: 5, color: '#2a9d8f', fontWeight: 'bold' }}>Select Date</label>
                     <DatePicker
@@ -191,20 +204,14 @@ const LoadCurve = () => {
 
             {!loading && !error && data.length > 0 && (
                 <ResponsiveContainer width="90%" height={500}>
-                      <LineChart data={data} margin={{ top: 10, right: 10, left: 10 , bottom: 10 }}>
+                    <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
                         <XAxis
                             dataKey="TIMESLOT"
-                          
                             padding={{ left: 10 }}
                             stroke="#4f46e5"
                             tick={{ fill: '#4f46e5', fontWeight: 'bold' }}
-                            tickFormatter={(value, index) => {
-                               
-                              return index % 8 === 0 ? value  : '';
-                          }}
-                         
-                        
+                            tickFormatter={(value, index) => index % 8 === 0 ? value : ''}
                         />
                         <YAxis
                             label={{
@@ -217,8 +224,8 @@ const LoadCurve = () => {
                             stroke="#10b981"
                             tick={{ fill: '#10b981', fontWeight: 'bold' }}
                         />
-                        <Tooltip />
-                        <Legend />
+                          <Tooltip wrapperStyle={{ zIndex: 1000 }} />
+                                {!isMobile && <Legend />}
                         {selectedEntity === 'ALL' ? (
                             ENTITIES.filter(e => e !== 'ALL').map(entity => (
                                 <Line
@@ -239,94 +246,86 @@ const LoadCurve = () => {
                 </ResponsiveContainer>
             )}
 
-{/* Show Data Table Below Graph */}
+            {!loading && profileData.length > 0 && (
+                <div style={{ marginTop: 30 }}>
+                    <h2 style={{
+                        textAlign: 'center',
+                        color: '#ff5733',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        fontFamily: 'Arial, sans-serif',
+                        backgroundColor: '#f4f4f4',
+                        padding: '10px',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                    }}>
+                        Data Analysis (upto {getCurrentTimeLabel()})
+                    </h2>
 
-{!loading && profileData.length > 0 && (
-    <div style={{ marginTop: 30 }}>
-    <h2 style={{
-        textAlign: 'center',
-        color: '#ff5733', 
-        fontSize: '24px',
-        fontWeight: 'bold',
-        fontFamily: 'Arial, sans-serif',
-        backgroundColor: '#f4f4f4',
-        padding: '10px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-    }}>
-        Data Analysis (upto {getCurrentTimeLabel()})
-    </h2>
-    
-        <div style={{ overflowX: 'auto' }}>
-            <table
-                style={{
-                    width: '100%',
-                    borderCollapse: 'collapse',
-                    marginTop: 10,
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                }}
-            >
-                <thead>
-                    <tr
-                        style={{
-                            backgroundColor: '#2C6A70',
-                            color: '#fff',
-                            textAlign: 'center',
-                            borderBottom: '2px solid #ddd',
-                        }}
-                    >
-                        <th style={{ ...tableHeaderStyle }}>Entity</th>
-                        <th style={{ ...tableHeaderStyle }}>Peak Load</th>
-                        <th style={{ ...tableHeaderStyle }}>Peak Load Time</th>
-                        <th style={{ ...tableHeaderStyle }}>Min Load</th>
-                        <th style={{ ...tableHeaderStyle }}>Min Load Time</th>
-                        <th style={{ ...tableHeaderStyle }}>Avg Load</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {profileData
-                        .filter(row => ENTITIES.includes(row.entity))
-                        .map((row, index) => (
-                            <tr
-                                key={index}
-                                style={{
-                                    backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#ffffff',
+                    <div style={{ overflowX: 'auto' }}>
+                        <table className="data-table" style={{
+                            width: '100%',
+                            borderCollapse: 'collapse',
+                            marginTop: 10,
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                        }}>
+                            <thead>
+                                <tr style={{
+                                    backgroundColor: '#2C6A70',
+                                    color: '#fff',
                                     textAlign: 'center',
-                                    transition: 'background-color 0.3s ease',
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#f1f1f1';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#ffffff';
-                                }}
-                            >
-                                <td style={{ ...tableCellStyle, backgroundColor: '#f4a261', cursor: 'pointer' }}>
-                                    <a 
-                                        onClick={() => navigate(`/entity-details`)}
-                                        style={{ textDecoration: 'none', color: 'blue', fontWeight: 'bold' }}
-                                    >
-                                        {row.entity}
-                                    </a>
-                                </td>
-                                <td style={{ ...tableCellStyle }}>{Math.round(row.maxValue)}</td>
-                                <td style={{ ...tableCellStyle }}>{row.maxValTime}</td>
-                                <td style={{ ...tableCellStyle }}>{Math.round(row.minValue)}</td>
-                                <td style={{ ...tableCellStyle }}>{row.minValTime}</td>
-                                <td style={{ ...tableCellStyle }}>{Math.round(row.avgValue)}</td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
-
+                                    borderBottom: '2px solid #ddd',
+                                }}>
+                                    <th style={{ ...tableHeaderStyle }}>Entity</th>
+                                    <th style={{ ...tableHeaderStyle }}>Peak Load</th>
+                                    <th style={{ ...tableHeaderStyle }}>Peak Load Time</th>
+                                    <th style={{ ...tableHeaderStyle }}>Min Load</th>
+                                    <th style={{ ...tableHeaderStyle }}>Min Load Time</th>
+                                    <th style={{ ...tableHeaderStyle }}>Avg Load</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {profileData
+                                    .filter(row => ENTITIES.includes(row.entity))
+                                    .map((row, index) => (
+                                        <tr key={index}
+                                            style={{
+                                                backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#ffffff',
+                                                textAlign: 'center',
+                                                transition: 'background-color 0.3s ease',
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.backgroundColor = '#f1f1f1';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#ffffff';
+                                            }}
+                                        >
+                                            <td style={{ ...tableCellStyle, backgroundColor: '#f4a261', cursor: 'pointer' }}>
+                                                <a
+                                                    onClick={() => navigate(`/entity-details`)}
+                                                    style={{ textDecoration: 'none', color: 'blue', fontWeight: 'bold' }}
+                                                >
+                                                    {row.entity}
+                                                </a>
+                                            </td>
+                                            <td style={{ ...tableCellStyle }}>{Math.round(row.maxValue)}</td>
+                                            <td style={{ ...tableCellStyle }}>{row.maxValTime}</td>
+                                            <td style={{ ...tableCellStyle }}>{Math.round(row.minValue)}</td>
+                                            <td style={{ ...tableCellStyle }}>{row.minValTime}</td>
+                                            <td style={{ ...tableCellStyle }}>{Math.round(row.avgValue)}</td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
         </div>
     </div>
-)}
+);
 
-
-        </div>
-    );
 };
 
 export default LoadCurve;

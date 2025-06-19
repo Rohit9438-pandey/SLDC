@@ -10,28 +10,26 @@ const Contact = () => {
   const translations = language === 'en' ? en : hi;
 
   return (
-    <div className="contact-container p-8">
-      <h2 className="contact-title text-4xl font-bold text-gray-800 mb-4">{translations.contactTitle}</h2>
-      <div className="contact-info">
-        <h3>{translations.companyName}</h3>
-        <p>{translations.companyDescription}</p>
-        <p>{translations.address1}</p>
-        <p>{translations.address2}</p>
-        <h3>{translations.sldcName}</h3>
-        <p>{translations.address3}</p>
-        <p>{translations.address4}</p>
-        <p>{translations.address5}</p>
-        <p>{translations.address6}</p>
-        <p>{translations.phone}</p>
-        <p>{translations.fax}</p>
-
-        <div className="disclaimer mt-8 text-lg text-gray-700">
-          <p>
-            <strong>Disclaimer:</strong> {translations.disclaimer}
-          </p>
-        </div>
-      </div>
-    </div>
+   <div className="contact-container">
+  <h2 className="contact-title">{translations.contactTitle}</h2>
+  <div className="contact-info">
+    <h3>{translations.companyName}</h3>
+    <p>{translations.companyDescription}</p>
+    <p>{translations.address1}</p>
+    <p>{translations.address2}</p>
+    <h3>{translations.sldcName}</h3>
+    <p>{translations.address3}</p>
+    <p>{translations.address4}</p>
+    <p>{translations.address5}</p>
+    <p>{translations.address6}</p>
+    <p>{translations.phone}</p>
+    <p>{translations.fax}</p>
+  </div>
+  <div className="disclaimer">
+    <p><strong>Disclaimer:</strong> {translations.disclaimer}</p>
+  </div>
+</div>
+   
   );
 };
 

@@ -69,8 +69,8 @@ const App = () => {
       <Route path="/entity-details" element={<EntityDetails />} />
       <Route path ="/frequency-curve" element={<FrequencyCurve />} />
       <Route path="/curve-details" element={<CurveDetails/>} />
-      <Route path="/station-wise load-curve" element={<StationWiseLoadCurve />} />
-      <Route path="/OD-UD Curve" element={<OD_UD Curve/>} />
+      <Route path="/station-wise-load-curve" element={<StationWiseLoadCurve />} />
+      <Route path="/OD-UD-Curve" element={<OD_UD Curve/>} />
       <Route path="voltage-profile" element={<VoltageProfile />} />
       <Route path="/voltage-detail-page" element={<VoltagePivotPage />} />
       <Route path="/directory/sldc-organisation-chart" element={<OrganisationChart />} />
