@@ -45,7 +45,8 @@ const VoltageProfileTable = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 max-w-screen-xl mx-auto font-sans">
+    <div className="p-4 sm:p-6 max-w-screen-xl mx-auto font-sans bg-gray-100 min-h-screen">
+      {/* Header and Date Picker */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h1 className="text-xl sm:text-2xl font-semibold text-white bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 py-2 px-4 rounded-lg shadow-md text-center w-full sm:w-auto">
           Voltage Profile for {date}
@@ -62,18 +63,20 @@ const VoltageProfileTable = () => {
         </div>
       </div>
 
-      <div className="overflow-x-auto bg-white rounded-lg shadow-md border border-gray-200">
+      {/* Table Section */}
+      <div className="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow-lg">
         <table className="min-w-full text-sm text-center">
-          <thead className="bg-blue-100 text-gray-700">
-            <tr className="whitespace-nowrap">
-              <th className="py-3 px-4 text-white bg-blue-500">Line</th>
-              <th className="py-3 px-4 text-white bg-blue-500">Peak Voltage</th>
-              <th className="py-3 px-4 text-white bg-blue-500">Peak Time</th>
-              <th className="py-3 px-4 text-white bg-blue-500">Min Voltage</th>
-              <th className="py-3 px-4 text-white bg-blue-500">Min Time</th>
-              <th className="py-3 px-4 text-white bg-blue-500">Avg Voltage</th>
-            </tr>
-          </thead>
+         <thead>
+  <tr className="bg-blue-600 text-white whitespace-nowrap">
+    <th className="py-3 px-4">Line</th>
+    <th className="py-3 px-4">Peak Voltage</th>
+    <th className="py-3 px-4">Peak Time</th>
+    <th className="py-3 px-4">Min Voltage</th>
+    <th className="py-3 px-4">Min Time</th>
+    <th className="py-3 px-4">Avg Voltage</th>
+  </tr>
+</thead>
+
           <tbody>
             {data.length > 0 ? (
               data.map((item) => (

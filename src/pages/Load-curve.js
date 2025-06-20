@@ -203,9 +203,10 @@ const LoadCurve = () => {
             </div>
 
             {!loading && !error && data.length > 0 && (
-                <ResponsiveContainer width="90%" height={500}>
-                    <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
+        <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto' }}>
+        <ResponsiveContainer width="100%" height={isMobile ? 300 : 500}>
+        <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
                         <XAxis
                             dataKey="TIMESLOT"
                             padding={{ left: 10 }}
@@ -244,6 +245,7 @@ const LoadCurve = () => {
                         )}
                     </LineChart>
                 </ResponsiveContainer>
+                </div>
             )}
 
             {!loading && profileData.length > 0 && (
@@ -251,7 +253,7 @@ const LoadCurve = () => {
                     <h2 style={{
                         textAlign: 'center',
                         color: '#ff5733',
-                        fontSize: '24px',
+                        fontSize: 'clamp(12px, 2vw, 16px)',
                         fontWeight: 'bold',
                         fontFamily: 'Arial, sans-serif',
                         backgroundColor: '#f4f4f4',
@@ -262,9 +264,10 @@ const LoadCurve = () => {
                         Data Analysis (upto {getCurrentTimeLabel()})
                     </h2>
 
-                    <div style={{ overflowX: 'auto' }}>
+                      <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
                         <table className="data-table" style={{
                             width: '100%',
+                            minWidth:'700px',
                             borderCollapse: 'collapse',
                             marginTop: 10,
                             borderRadius: '8px',

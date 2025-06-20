@@ -2901,6 +2901,21 @@ select:focus {
 
 /*Load-curve responsivness */
 
+/* Base */
+.load-curve-container {
+  padding: 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Mobile (<=768px) */
 @media (max-width: 768px) {
   .load-curve-container {
     padding: 10px;
@@ -2908,19 +2923,15 @@ select:focus {
 
   .filter-controls {
     flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .filter-controls label {
-    font-size: 14px;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
   }
 
   .filter-controls select,
   .filter-controls input {
-    width: 100%;
-    max-width: 100%;
-    padding: 6px;
+    width: 90%;
+    font-size: 14px;
   }
 
   .recharts-wrapper {
@@ -2929,7 +2940,7 @@ select:focus {
 
   .recharts-responsive-container {
     width: 100% !important;
-    height: 320px !important;
+    height: 300px !important;
   }
 
   .data-table th,
@@ -2937,25 +2948,17 @@ select:focus {
     font-size: 13px;
     padding: 6px;
   }
-
-  .data-table thead {
-    font-size: 14px;
-  }
-
-  .data-table a {
-    font-size: 14px;
-  }
 }
 
-/* Small screens */
+/* Extra Small Screens (<=480px) */
 @media (max-width: 480px) {
   .recharts-responsive-container {
-    height: 260px !important;
+    height: 250px !important;
   }
 
   .data-table th,
   .data-table td {
-    font-size: 11.5px;
+    font-size: 12px;
     padding: 5px;
   }
 
