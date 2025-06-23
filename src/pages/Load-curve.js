@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-
-
 
 const ENTITIES = ['BRPL', 'BYPL', 'Delhi', 'NDMC', 'NDPL', 'MES', 'ALL'];
-
 
 const ENTITY_COLORS = {
     BRPL: '#0ea5e9',
@@ -22,7 +15,6 @@ const ENTITY_COLORS = {
     MES: '#8b0000',
     ALL: '#6a0572'
 };
-
 
 const useIsMobile = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -43,6 +35,8 @@ const LoadCurve = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    
+   
 
     const fetchData = async (entity, date) => {
         try {
@@ -55,22 +49,28 @@ const LoadCurve = () => {
                 const allTimeslots = new Set();
 
                 for (const ent of ENTITIES.filter(e => e !== 'ALL')) {
-                    const response = await axios.get(`https://delhisldc.org/app-api/load-curve?fordate=${formattedDate}&entity=${ent}`);
-                    let entityData = response.data.map(item => ({
-                        TIMESLOT: item.TIMESLOT,
-                        VALUE: Number(item.VALUE)
-                    }));
-    
-                    entityData.sort((a, b) => parseTime(a.TIMESLOT) - parseTime(b.TIMESLOT));
-    
-                    allData[ent] = entityData;
-                    entityData.forEach(item => allTimeslots.add(item.TIMESLOT));
+                    try {
+                        const response = await fetch(`https://delhisldc.org/app-api/load-curve?fordate=${formattedDate}&entity=${ent}`);
+                        const responseData = await response.json();
+                        let entityData = responseData.map(item => ({
+                            TIMESLOT: item.TIMESLOT,
+                            VALUE: Number(item.VALUE)
+                        }));
+        
+                        entityData.sort((a, b) => parseTime(a.TIMESLOT) - parseTime(b.TIMESLOT));
+        
+                        allData[ent] = entityData;
+                        entityData.forEach(item => allTimeslots.add(item.TIMESLOT));
+                    } catch (entityError) {
+                        console.error(`Error fetching data for ${ent}:`, entityError);
+                    }
                 }
                 const unifiedData = generateUnifiedData(allData, Array.from(allTimeslots).sort());
                 setData(unifiedData);
             } else {
-                const response = await axios.get(`https://delhisldc.org/app-api/load-curve?fordate=${formattedDate}&entity=${entity}`);
-                let entityData = response.data.map(item => ({
+                const response = await fetch(`https://delhisldc.org/app-api/load-curve?fordate=${formattedDate}&entity=${entity}`);
+                const responseData = await response.json();
+                let entityData = responseData.map(item => ({
                     TIMESLOT: item.TIMESLOT,
                     [entity]: Number(item.VALUE)
                 }));
@@ -78,8 +78,10 @@ const LoadCurve = () => {
                 setData(entityData);
             }
 
-            const profileResponse = await axios.get(`https://delhisldc.org/app-api/get-data?table=dtl_webprofile`);
-            const allProfiles = profileResponse.data.result.rows.map(row => ({
+            // Fetch profile data
+            const profileResponse = await fetch(`https://delhisldc.org/app-api/get-data?table=dtl_webprofile`);
+            const profileResponseData = await profileResponse.json();
+            const allProfiles = profileResponseData.result.rows.map(row => ({
                 forDate: row[0],
                 entity: row[1],
                 type: row[2],
@@ -96,7 +98,8 @@ const LoadCurve = () => {
             );
             setProfileData(filteredProfileData);
         } catch (err) {
-            setError(`Failed to fetch data for ${entity}`);
+            setError(`Failed to fetch data for ${entity}: ${err.message}`);
+            console.error('API Error:', err);
         } finally {
             setLoading(false);
         }
@@ -122,78 +125,123 @@ const LoadCurve = () => {
         return hours * 60 + minutes; // Convert to total minutes
     }
 
-    const cardStyles = {
-        peakLoad: { backgroundColor: '#FFEB3B', color: '#333', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
-        peakLoadTime: { backgroundColor: '#03A9F4', color: '#fff', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
-        minLoad: { backgroundColor: '#FF5722', color: '#fff', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
-        minLoadTime: { backgroundColor: '#4CAF50', color: '#fff', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
-        avgValue: { backgroundColor: '#9C27B0', color: '#fff', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' }
-    };
-
     const tableHeaderStyle = {
-        padding: '12px',
+        padding: isMobile ? '8px 4px' : '12px',
         fontWeight: 'bold',
         color: '#fff',
         textAlign: 'center',
         border: '1px solid #ddd',
-        fontSize: '16px',
+        fontSize: isMobile ? '12px' : '16px',
         borderRadius: '5px',
+        minWidth: isMobile ? '60px' : 'auto'
     };
     
     const tableCellStyle = {
-        padding: '10px',
+        padding: isMobile ? '6px 4px' : '10px',
         border: '1px solid #ddd',
         textAlign: 'center',
-        fontSize: '18px',
+        fontSize: isMobile ? '11px' : '18px',
         borderRadius: '5px',
+        minWidth: isMobile ? '60px' : 'auto'
     };
 
-
     const getCurrentTimeLabel = () => {
-    const now = new Date();
-    const selectedDateString = selectedDate.toDateString();
-    const todayString = new Date().toDateString();
+        const now = new Date();
+        const selectedDateString = selectedDate.toDateString();
+        const todayString = new Date().toDateString();
 
-    if (selectedDateString === todayString) {
-        return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}Hrs`;
-    } else {
-        return '23:55Hrs';
-    }
-};
-    
-    
+        if (selectedDateString === todayString) {
+            return `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}Hrs`;
+        } else {
+            return '23:55Hrs';
+        }
+    };
 
-   return (
-    <div className="load-curve-container"> {/* Wrap entire return content */}
-        <div style={{ padding: 20, fontFamily: 'Arial, sans-serif' }}>
+    const containerStyle = {
+        width: '100%',
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+        boxSizing: 'border-box',
+        padding: isMobile ? '10px' : '20px',
+        fontFamily: 'Arial, sans-serif'
+    };
+
+    const filterControlsStyle = {
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: isMobile ? '12px' : '15px',
+        marginBottom: '20px',
+        width: '100%'
+    };
+
+    const chartContainerStyle = {
+        width: '100%',
+        overflowX: isMobile ? 'auto' : 'visible',
+        overflowY: 'visible',
+        marginBottom: '20px'
+    };
+
+    const chartMinWidth = isMobile ? '800px' : '100%';
+
+    return (
+        <div style={containerStyle}>
             <h2 style={{
                 textAlign: 'center',
                 backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
                 WebkitBackgroundClip: 'text',
                 color: 'transparent',
-                fontSize: '28px',
+                fontSize: isMobile ? '20px' : '28px',
                 fontWeight: 'bold',
                 marginBottom: '20px'
             }}>
                 Load Curve Visualization
             </h2>
 
-            <div className="filter-controls" style={{ display: 'flex', justifyContent: 'center', gap: 15, marginBottom: 20 }}>
+            <div style={filterControlsStyle}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <label style={{ marginBottom: 5, color: '#2a9d8f', fontWeight: 'bold' }}>Select Date</label>
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={(date) => setSelectedDate(date)}
-                        dateFormat="dd/MM/yyyy"
+                    <label style={{ 
+                        marginBottom: 5, 
+                        color: '#2a9d8f', 
+                        fontWeight: 'bold',
+                        fontSize: isMobile ? '14px' : '16px'
+                    }}>
+                        Select Date
+                    </label>
+                    <input
+                        type="date"
+                        value={selectedDate.toISOString().split('T')[0]}
+                        onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                        style={{
+                            width: isMobile ? '150px' : '200px',
+                            padding: '8px',
+                            fontSize: isMobile ? '14px' : '16px',
+                            borderRadius: '4px',
+                            border: '1px solid #ccc'
+                        }}
                     />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <label style={{ marginBottom: 5, color: '#e63946', fontWeight: 'bold' }}>Select Constituent</label>
+                    <label style={{ 
+                        marginBottom: 5, 
+                        color: '#e63946', 
+                        fontWeight: 'bold',
+                        fontSize: isMobile ? '14px' : '16px'
+                    }}>
+                        Select Constituent
+                    </label>
                     <select
                         value={selectedEntity}
                         onChange={(e) => setSelectedEntity(e.target.value)}
-                        style={{ width: '200px', padding: '5px' }}
+                        style={{ 
+                            width: isMobile ? '150px' : '200px', 
+                            padding: '8px',
+                            fontSize: isMobile ? '14px' : '16px',
+                            borderRadius: '4px',
+                            border: '1px solid #ccc'
+                        }}
                     >
                         {ENTITIES.map(entity => (
                             <option key={entity} value={entity}>{entity}</option>
@@ -202,58 +250,128 @@ const LoadCurve = () => {
                 </div>
             </div>
 
-            {!loading && !error && data.length > 0 && (
-        <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto' }}>
-        <ResponsiveContainer width="100%" height={isMobile ? 300 : 500}>
-        <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
-                        <XAxis
-                            dataKey="TIMESLOT"
-                            padding={{ left: 10 }}
-                            stroke="#4f46e5"
-                            tick={{ fill: '#4f46e5', fontWeight: 'bold' }}
-                            tickFormatter={(value, index) => index % 8 === 0 ? value : ''}
-                        />
-                        <YAxis
-                            label={{
-                                value: 'Load (MW)',
-                                angle: -90,
-                                position: 'insideLeft',
-                                dy: 50,
-                                style: { textAnchor: 'middle', fill: '#fffff', fontWeight: 'bold' }
-                            }}
-                            stroke="#10b981"
-                            tick={{ fill: '#10b981', fontWeight: 'bold' }}
-                        />
-                          <Tooltip wrapperStyle={{ zIndex: 1000 }} />
-                                {!isMobile && <Legend />}
-                        {selectedEntity === 'ALL' ? (
-                            ENTITIES.filter(e => e !== 'ALL').map(entity => (
-                                <Line
-                                    key={entity}
-                                    type="monotone"
-                                    dataKey={entity}
-                                    stroke={ENTITY_COLORS[entity]}
-                                />
-                            ))
-                        ) : (
-                            <Line
-                                type="monotone"
-                                dataKey={selectedEntity}
-                                stroke={ENTITY_COLORS[selectedEntity]}
-                            />
-                        )}
-                    </LineChart>
-                </ResponsiveContainer>
+            {loading && (
+                <div style={{ 
+                    textAlign: 'center', 
+                    padding: '20px',
+                    fontSize: isMobile ? '14px' : '16px',
+                    color: '#666'
+                }}>
+                    Loading data...
                 </div>
             )}
 
-            {!loading && profileData.length > 0 && (
-                <div style={{ marginTop: 30 }}>
+            {error && (
+                <div style={{ 
+                    textAlign: 'center', 
+                    padding: '20px',
+                    color: '#e63946',
+                    fontSize: isMobile ? '14px' : '16px',
+                    backgroundColor: '#fee',
+                    borderRadius: '8px',
+                    margin: '10px 0'
+                }}>
+                    {error}
+                </div>
+            )}
+
+            {!loading && !error && data.length > 0 && (
+                <div style={chartContainerStyle}>
+                    <div style={{ 
+                        minWidth: chartMinWidth,
+                        width: '100%',
+                        height: isMobile ? '350px' : '500px'
+                    }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart 
+                                data={data} 
+                                margin={{ 
+                                    top: 20, 
+                                    right: isMobile ? 10 : 30, 
+                                    left: isMobile ? 10 : 20, 
+                                    bottom: isMobile ? 40 : 20 
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" />
+                                <XAxis
+                                    dataKey="TIMESLOT"
+                                    stroke="#4f46e5"
+                                    tick={{ 
+                                        fill: '#4f46e5', 
+                                        fontWeight: 'bold',
+                                        fontSize: isMobile ? 10 : 12
+                                    }}
+                                    tickFormatter={(value, index) => {
+                                        if (isMobile) {
+                                            return index % 6 === 0 ? value : '';
+                                        }
+                                        return index % 3 === 0 ? value : '';
+                                    }}
+                                    angle={isMobile ? -45 : 0}
+                                    textAnchor={isMobile ? 'end' : 'middle'}
+                                    height={isMobile ? 60 : 30}
+                                />
+                                <YAxis
+                                    label={{
+                                        value: 'Load (MW)',
+                                        angle: -90,
+                                        position: 'insideLeft',
+                                        style: { 
+                                            textAnchor: 'middle', 
+                                            fill: '#10b981', 
+                                            fontWeight: 'bold',
+                                            fontSize: isMobile ? 12 : 14
+                                        }
+                                    }}
+                                    stroke="#10b981"
+                                    tick={{ 
+                                        fill: '#10b981', 
+                                        fontWeight: 'bold',
+                                        fontSize: isMobile ? 10 : 12
+                                    }}
+                                    width={isMobile ? 60 : 80}
+                                />
+                                <Tooltip 
+                                    wrapperStyle={{ 
+                                        zIndex: 1000,
+                                        fontSize: isMobile ? '12px' : '14px'
+                                    }} 
+                                />
+                                {!isMobile && <Legend />}
+                                {selectedEntity === 'ALL' ? (
+                                    ENTITIES.filter(e => e !== 'ALL').map(entity => (
+                                        <Line
+                                            key={entity}
+                                            type="monotone"
+                                            dataKey={entity}
+                                            stroke={ENTITY_COLORS[entity]}
+                                            strokeWidth={isMobile ? 1.5 : 2}
+                                            dot={false}
+                                            activeDot={{ r: isMobile ? 3 : 4 }}
+                                        />
+                                    ))
+                                ) : (
+                                    <Line
+                                        type="monotone"
+                                        dataKey={selectedEntity}
+                                        stroke={ENTITY_COLORS[selectedEntity]}
+                                        strokeWidth={isMobile ? 2 : 3}
+                                        dot={false}
+                                        activeDot={{ r: isMobile ? 4 : 6 }}
+                                    />
+                                )}
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            )}
+
+            {!loading && !error && profileData.length > 0 && (
+                <div style={{ marginTop: '30px' }}>
                     <h2 style={{
                         textAlign: 'center',
                         color: '#ff5733',
-                        fontSize: 'clamp(12px, 2vw, 16px)',
+                        fontSize: isMobile ? '14px' : '18px',
                         fontWeight: 'bold',
                         fontFamily: 'Arial, sans-serif',
                         backgroundColor: '#f4f4f4',
@@ -264,14 +382,16 @@ const LoadCurve = () => {
                         Data Analysis (upto {getCurrentTimeLabel()})
                     </h2>
 
-                      <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
-                        <table className="data-table" style={{
+                    <div style={{ 
+                        overflowX: 'auto', 
+                        width: '100%',
+                        WebkitOverflowScrolling: 'touch'
+                    }}>
+                        <table style={{
+                            minWidth: isMobile ? '600px' : '720px',
                             width: '100%',
-                            minWidth:'700px',
                             borderCollapse: 'collapse',
-                            marginTop: 10,
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                            marginTop: '15px'
                         }}>
                             <thead>
                                 <tr style={{
@@ -280,12 +400,12 @@ const LoadCurve = () => {
                                     textAlign: 'center',
                                     borderBottom: '2px solid #ddd',
                                 }}>
-                                    <th style={{ ...tableHeaderStyle }}>Entity</th>
-                                    <th style={{ ...tableHeaderStyle }}>Peak Load</th>
-                                    <th style={{ ...tableHeaderStyle }}>Peak Load Time</th>
-                                    <th style={{ ...tableHeaderStyle }}>Min Load</th>
-                                    <th style={{ ...tableHeaderStyle }}>Min Load Time</th>
-                                    <th style={{ ...tableHeaderStyle }}>Avg Load</th>
+                                    <th style={tableHeaderStyle}>Entity</th>
+                                    <th style={tableHeaderStyle}>Peak Load</th>
+                                    <th style={tableHeaderStyle}>Peak Time</th>
+                                    <th style={tableHeaderStyle}>Min Load</th>
+                                    <th style={tableHeaderStyle}>Min Time</th>
+                                    <th style={tableHeaderStyle}>Avg Load</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -298,26 +418,31 @@ const LoadCurve = () => {
                                                 textAlign: 'center',
                                                 transition: 'background-color 0.3s ease',
                                             }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.backgroundColor = '#f1f1f1';
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#ffffff';
-                                            }}
                                         >
-                                            <td style={{ ...tableCellStyle, backgroundColor: '#f4a261', cursor: 'pointer' }}>
+                                            <td style={{ 
+                                                ...tableCellStyle, 
+                                                backgroundColor: '#f4a261', 
+                                                fontWeight: 'bold',
+                                                color: '#000',
+                                                cursor: 'pointer'
+                                            }}>
                                                 <a
-                                                    onClick={() => navigate(`/entity-details`)}
-                                                    style={{ textDecoration: 'none', color: 'blue', fontWeight: 'bold' }}
+                                                    onClick={() => navigate('/entity-details')}
+                                                    style={{ 
+                                                        textDecoration: 'none', 
+                                                        color: 'blue', 
+                                                        fontWeight: 'bold',
+                                                        cursor: 'pointer'
+                                                    }}
                                                 >
                                                     {row.entity}
                                                 </a>
                                             </td>
-                                            <td style={{ ...tableCellStyle }}>{Math.round(row.maxValue)}</td>
-                                            <td style={{ ...tableCellStyle }}>{row.maxValTime}</td>
-                                            <td style={{ ...tableCellStyle }}>{Math.round(row.minValue)}</td>
-                                            <td style={{ ...tableCellStyle }}>{row.minValTime}</td>
-                                            <td style={{ ...tableCellStyle }}>{Math.round(row.avgValue)}</td>
+                                            <td style={tableCellStyle}>{Math.round(row.maxValue)}</td>
+                                            <td style={tableCellStyle}>{row.maxValTime}</td>
+                                            <td style={tableCellStyle}>{Math.round(row.minValue)}</td>
+                                            <td style={tableCellStyle}>{row.minValTime}</td>
+                                            <td style={tableCellStyle}>{Math.round(row.avgValue)}</td>
                                         </tr>
                                     ))}
                             </tbody>
@@ -326,9 +451,7 @@ const LoadCurve = () => {
                 </div>
             )}
         </div>
-    </div>
-);
-
+    );
 };
 
 export default LoadCurve;
