@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useFetchGraphData from '../lib/getGraphData';
 import { useParams } from 'react-router-dom';
-import { Clock } from "lucide-react";
 
-const DrawlDetails = () => {
+const DrawlSchedule = () => {
   const params = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,41 +10,51 @@ const DrawlDetails = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDiscom, setSelectedDiscom] = useState(params.discom);
   const [selectedRevisionNo, setSelectedRevisionNo] = useState('');
-  const [gencoData, setGencoData] = useState([]);
-  const [formattedTotalTableData, setFormattedTotalTableData] = useState([]);
+  const [gencoData, setGencoData] = useState([]); 
+  const [formattedTotalTableData, setFormattedTotalTableData] = useState([]); 
   const [timeslotData, setTimeslotData] = useState([]);
-  const [revisionDate, setRevisionDate] = useState('');
+
 
   const revisionNo = `${selectedRevisionNo}DS${selectedDiscom}${selectedDate}`;
-  const tableFilter = { REVISIONNO: revisionNo };
+  const tableFilter = {
+    REVISIONNO: revisionNo,
+  };
 
+  
   const queryParams = new URLSearchParams({
     table: "DTL_DRAWL_TOTAL",
     filters: JSON.stringify(tableFilter),
   }).toString();
 
-  const { data: totalTableData, loading: totalTableLoading } = useFetchGraphData(`get-data?${queryParams}`);
+  
+  const {
+    data: totalTableData,
+    loading: totalTableLoading,
+  } = useFetchGraphData(`get-data?${queryParams}`);
 
   useEffect(() => {
     if (!totalTableLoading && totalTableData?.result?.metaData) {
-      const columnNames = totalTableData.result.metaData.map(col => col.name);
-      const rows = totalTableData.result.rows.map(row =>
-        row.reduce((obj, value, index) => {
-          obj[columnNames[index]] = value;
+      const columnNames = totalTableData.result.metaData.map((col) => col.name);
+      const data = totalTableData.result.rows.map((row) => {
+        return row.reduce((obj, value, index) => {
+          obj[columnNames[index]] = value; 
           return obj;
-        }, {})
-      );
-      setFormattedTotalTableData(rows);
+        }, {});
+      });
+      setFormattedTotalTableData(data);
     }
   }, [totalTableData, totalTableLoading]);
 
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
           `https://delhisldc.org/app-api/drawl-schedule-revision?fordate=${selectedDate}`
         );
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const result = await response.json();
         setData(result.data);
       } catch (err) {
@@ -55,146 +64,170 @@ const DrawlDetails = () => {
       }
     };
 
-    if (selectedDate) fetchData();
+    if (selectedDate) {
+      fetchData();
+    }
   }, [selectedDate]);
+
 
   useEffect(() => {
     const fetchGencoData = async () => {
       if (!selectedRevisionNo) return;
+
       setLoading(true);
       try {
         const response = await fetch(
           `https://delhisldc.org/app-api/discom-drawl-schedule?revisionno=${revisionNo}`
         );
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const result = await response.json();
-        setGencoData(result.data || []);
+        setGencoData(result.data || []); 
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
+
     fetchGencoData();
   }, [selectedRevisionNo, selectedDiscom, selectedDate]);
 
-  useEffect(() => {
+
+
+
+  
+useEffect(() => {
     const fetchTimeslotData = async () => {
       try {
         const response = await fetch('https://delhisldc.org/app-api/get-data?table=TIMESLOT');
         const result = await response.json();
-        const timeslots = result?.result?.rows?.map(row => row[1]) || [];
-        setTimeslotData(timeslots);
+        
+        if (result?.result?.rows) {
+          const timeslots = result.result.rows.map((row) => row[1]); 
+          setTimeslotData(timeslots); 
+        } else {
+          setError("No timeslot data found.");
+        }
       } catch (err) {
         setError(err.message);
       }
     };
+  
     fetchTimeslotData();
-  }, []);
+}, []); 
 
-  useEffect(() => {
-    if (!revisionNo) return;
-    const fetchRevisionDate = async () => {
-      try {
-        const url = `https://delhisldc.org/app-api/get-data?table=REVISION&filters=${encodeURIComponent(JSON.stringify({ REVISIONNO: revisionNo }))}`;
-        const res = await fetch(url);
-        const result = await res.json();
-        const rows = result?.result?.rows || [];
-        const meta = result?.result?.metaData || [];
-        if (!rows.length) return;
-        const revDateIndex = meta.findIndex(col => col.name === "REVISIONDATE");
-        if (revDateIndex === -1) return;
-        setRevisionDate(rows[0][revDateIndex]);
-      } catch (err) {
-        setRevisionDate('');
+
+  
+  const formatTableData = () => {
+    const timeslotData = {};
+    gencoData.forEach((entry) => {
+      const { TIMESLOT, GENCOCODE, QUANTUM } = entry;
+      if (!timeslotData[TIMESLOT]) {
+        timeslotData[TIMESLOT] = {};
       }
-    };
-    fetchRevisionDate();
-  }, [revisionNo]);
+      timeslotData[TIMESLOT][GENCOCODE] = QUANTUM; 
+    });
+    return timeslotData;
+  };
+
+  // Get the unique genco codes
+  const getGencoCodes = () => {
+    const gencoCodes = [];
+    gencoData.forEach((entry) => {
+      if (!gencoCodes.includes(entry.GENCOCODE)) {
+        gencoCodes.push(entry.GENCOCODE);
+      }
+    });
+    return gencoCodes.sort();
+  };
+
+  
+  const mergeTablesData = () => {
+    const timeslotData = formatTableData();
+    const gencoCodes = getGencoCodes();
+
+    return formattedTotalTableData.map((formattedItem, index) => {
+      const timeslotRow = timeslotData[formattedItem.TIMESLOT] || {};
+      const rowData = {
+        TIMESLOT: formattedItem.TIMESLOT,
+        ...formattedItem,
+        ...gencoCodes.reduce((acc, genco) => {
+          acc[genco] = timeslotRow[genco] || 0;
+          return acc;
+        }, {}),
+      };
+      return rowData;
+    });
+  };
+
+  const mergedData = mergeTablesData().sort((a, b) => {
+  
+    return a.TIMESLOT - b.TIMESLOT;
+  });
+  const gencoCodes = getGencoCodes();
+
 
   useEffect(() => {
     if (data.length > 0) {
-      const uniqueDiscoms = Array.from(new Set(
-        data.map(ele => {
-          const match = ele.REVISIONNO.match(/DS([A-Z]+)/);
-          return match ? match[1] : null;
-        })
-      )).filter(Boolean);
+      const uniqueDiscoms = Array.from(
+        new Set(
+          data.map((ele) => {
+            const match = ele.REVISIONNO.match(/DS([A-Z]+)/);
+            return match ? match[1] : null;
+          })
+        )
+      ).filter(Boolean);
 
       if (uniqueDiscoms.length > 0 && !selectedDiscom) {
         setSelectedDiscom(uniqueDiscoms[0]);
       }
 
-      const filteredData = data.filter(ele =>
-        ele.REVISIONNO.includes(`DS${selectedDiscom}`)
+      const filteredData = data.filter(
+        (ele) => ele.REVISIONNO.includes(`DS${selectedDiscom}`)
       );
       const revisionNos = filteredData
-        .map(ele => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)
+        .map((ele) => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)
         .sort((a, b) => b.localeCompare(a));
-
       if (revisionNos.length > 0) {
         setSelectedRevisionNo(revisionNos[0]);
       }
     }
   }, [data, selectedDiscom]);
 
+
+ 
+
+  
+
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
     setSelectedDate(today.split("-").join("/"));
   }, []);
 
-  const formatTableData = () => {
-    const timeslotMap = {};
-    gencoData.forEach(({ TIMESLOT, GENCOCODE, QUANTUM }) => {
-      if (!timeslotMap[TIMESLOT]) timeslotMap[TIMESLOT] = {};
-      timeslotMap[TIMESLOT][GENCOCODE] = QUANTUM;
-    });
-    return timeslotMap;
-  };
-
-  const getGencoCodes = () => {
-    return Array.from(new Set(gencoData.map(entry => entry.GENCOCODE))).sort();
-  };
-
-  const mergeTablesData = () => {
-    const timeslotMap = formatTableData();
-    const gencos = getGencoCodes();
-
-    return formattedTotalTableData.map((item, idx) => {
-      const gencoRow = timeslotMap[item.TIMESLOT] || {};
-      const combined = {
-        TIMESLOT: item.TIMESLOT,
-        ...item,
-        ...gencos.reduce((acc, genco) => {
-          acc[genco] = gencoRow[genco] || 0;
-          return acc;
-        }, {}),
-      };
-      return combined;
-    });
-  };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
-  const gencoCodes = getGencoCodes();
-  const mergedData = mergeTablesData().sort((a, b) => a.TIMESLOT - b.TIMESLOT);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div className="container">
-      <h2 style={{
-        textAlign: 'center',
-        backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
-        WebkitBackgroundClip: 'text',
-        color: 'transparent',
-        fontSize: '28px',
-        fontWeight: 'bold',
-        marginTop: '20px'
-      }}>
+       <h2 style={{
+                textAlign: 'center',
+                backgroundImage: 'linear-gradient(45deg, #ff5733, #33c3ff)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                fontSize: '28px',
+                fontWeight: 'bold',
+                marginTop: '20px'
+            }}>
         Drawl Schedule of Discoms from Generating Stations (in MW)
       </h2>
 
-       <div
+      <div
         className="form-row"
         style={{
           display: 'flex',
@@ -252,7 +285,7 @@ const DrawlDetails = () => {
           </div>
         </div>
 
-
+        {/* Date Picker */}
         <div className="form-group" style={{ flex: '1 1 30%', marginBottom: '20px' }}>
           <p
             style={{
@@ -283,18 +316,24 @@ const DrawlDetails = () => {
           />
         </div>
 
-        <div style={{ flex: '1 1 30%', marginBottom: '20px' }}>
-          <p style={{
-            fontSize: '18px',
-            fontWeight: 'bold',
-            backgroundColor: 'black',
-            padding: '10px 20px',
-            borderRadius: '8px',
-            color: '#2980b9',
-            marginBottom: '30px',
-            marginTop: '40px',
-          }}>
-            Revision No:
+        {/* Revision No. Dropdown */}
+        <div className="form-group" style={{ flex: '1 1 30%', marginBottom: '20px' }}>
+          <p
+            style={{
+              fontSize: '18px',
+              fontWeight: 'bold',
+              backgroundColor: 'black',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              display: 'inline-block',
+              transition: 'all 0.3s ease',
+              marginLeft: '70px',
+              marginBottom: '30px',
+              marginTop: '40px',
+            }}
+          >
+            <strong style={{ color: '#2980b9' }}>Revision No:</strong>
             <select
               value={selectedRevisionNo}
               onChange={(e) => setSelectedRevisionNo(e.target.value)}
@@ -302,25 +341,31 @@ const DrawlDetails = () => {
                 marginLeft: '10px',
                 padding: '5px 10px',
                 borderRadius: '4px',
+                border: '1px solid #ccc',
+                fontSize: '16px',
+                color: '#34495e',
                 backgroundColor: '#ecf0f1',
-              }}>
-              {Array.from(new Set(data.map(ele => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)))
-                .sort((a, b) => b.localeCompare(a))
-                .map((rev, i) => (
-                  <option key={i} value={rev}>{rev}</option>
-                ))}
+                cursor: 'pointer',
+              }}
+            >
+              {/* Render unique revision numbers */}
+              {Array.from(new Set(
+                data.map((ele) => `${ele.REVISIONNO[0]}${ele.REVISIONNO[1]}`)
+              )).sort((a, b) => b.localeCompare(a)).map((revisionNo, i) => (
+                <option key={i} value={revisionNo}>
+                  {revisionNo}
+                </option>
+              ))}
             </select>
           </p>
         </div>
-
-        <div>
-          <p className="flex items-center gap-2 text-sm text-slate-700 font-bold">
-            <Clock size={16} className="text-blue-600" />
-            Issued on: <span className="font-bold">{revisionDate || 'Loading...'}</span>
-          </p>
-        </div>
+        <div className="issue-group">
+        <p><strong>Issued on: {selectedDate}</strong> </p>
+      </div>
+  
       </div>
 
+      {/* Merged Data Table */}
       <div className="table-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '20px'}}>
          <div className="table-container" style={{ overflowX: 'auto' }}>
           <h3 style={{ textAlign: 'center', marginBottom: '10px' }}></h3>
@@ -360,4 +405,4 @@ const DrawlDetails = () => {
   );
 };
 
-export default DrawlDetails;
+export default DrawlSchedule;

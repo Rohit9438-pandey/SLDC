@@ -34,7 +34,11 @@ import OD_UD  from './pages/OD_UD Curve';
 import VoltageProfile from './pages/VoltageProfile';
 import VoltagePivotPage from './pages/VoltagePivotPage';
 import OrganisationChart from './pages/OrganisationChart';
-
+import DrawlSchedule from './pages/DrawlSchedule';
+import DrawlScheduleExternal from './pages/DrawlScheduleExternal';
+import DeclaredCapacity from './pages/DeclaredCapacity';
+import Entitlement from './pages/Entitlement';
+import InjectionSchedule from './pages/InjectionSchedule';
 
 
 const App = () => {
@@ -74,6 +78,11 @@ const App = () => {
       <Route path="voltage-profile" element={<VoltageProfile />} />
       <Route path="/voltage-detail-page" element={<VoltagePivotPage />} />
       <Route path="/directory/sldc-organisation-chart" element={<OrganisationChart />} />
+      <Route path='/schedules/drawl-schedule' element={<DrawlSchedule />}  />
+      <Route path='/schedules/drawl-schedule-external' element={<DrawlScheduleExternal />} />
+      <Route path='/schedules/declared/capacity' element={<DeclaredCapacity />} />
+      <Route path='/schedules/entitlement' element={<Entitlement />} />
+      <Route path='/schedules/injection-schedule' element={<InjectionSchedule />} />
 
     </Routes>
     </>

@@ -229,12 +229,14 @@ export const subnav = [
       {
         title: "Declared Capacity",
         href: "/schedules/declared/capacity",
-        disabled: false,
+          disabled: false,
+        isTableVisible: false,
       },
       {
         title: "Entitlement",
         href: "/schedules/entitlement",
-        disabled: false,
+         disabled: false,
+        isTableVisible: false,
       },
       {
         title: "Entitlement (External)",
@@ -255,6 +257,7 @@ export const subnav = [
         title: "Drawl Schedule",
         href: "/schedules/drawl-schedule",
         disabled: false,
+        isTableVisible: false,
       },
       {
         title: "Availability in MW",
@@ -264,7 +267,8 @@ export const subnav = [
       {
         title: "Drawl Schedule (External)",
         href: "/schedules/drawl-schedule-external",
-        disabled: false,
+         disabled: false,
+        isTableVisible: false,
       },
       {
         title: "IR Schedule",
@@ -279,7 +283,8 @@ export const subnav = [
       {
         title: "Injection Schedule",
         href: "/schedules/injection-schedule",
-        disabled: false,
+         disabled: false,
+        isTableVisible: false,
       },
       {
         title: "Injection Schedule old",
