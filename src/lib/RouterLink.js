@@ -300,6 +300,7 @@ export const subnav = [
         title: "Open Access Schedule",
         href: "/schedules/open-access-schedule",
         disabled: false,
+        isTableVisible:false,
       },
       {
         title: "Inter Discom Transfer",

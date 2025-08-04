@@ -324,237 +324,257 @@ const Entitlement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-300"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-700"></div>
-      </div>
-
-      {/* Enhanced Header */}
-      <div className="relative z-10 bg-white/80 backdrop-blur-lg border-b border-slate-200/50 shadow-xl">
-        <div className="max-w-5xl mx-auto px-3 py-4">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-lg">
-                <Database className="w-8 h-8 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <header className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white shadow-2xl relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-full mx-auto px-3 sm:px-6 lg:px-4 py-3 sm:py-4 lg:py-5">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full backdrop-blur-sm">
+                <Database className="text-white" size={28} />
+              </div>
+              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-white via-blue-100 to-yellow-100 bg-clip-text text-transparent text-center">
+                Entitlement of Discoms in Generating Stations
+              </h3>
+              <div className="p-2 bg-green-400/20 rounded-full backdrop-blur-sm">
+                <BarChart3 className="text-green-300" size={28} />
               </div>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 bg-clip-text text-transparent mb-2">
-              Entitlement of Discoms in Generating Stations
-            </h2>
-            
-            <div className="mt-4 h-1 w-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto"></div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-5 pt-7">
-        {/* Enhanced Control Card */}
-        <div className="relative group mb-10">
-          {/* Animated Border */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 animate-pulse"></div>
-          
-          <div className="relative bg-white/95 backdrop-blur-lg p-6 rounded-3xl shadow-2xl border border-white/20">
-            {/* Card Header */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
-                </div>
+      <main className="max-w-full mx-auto p-2 space-y-3">
+        {/* Compact Control Card */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg border border-blue-200/50 p-3 hover:shadow-xl transition-all duration-300">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {/* Date Picker */}
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg">
+                <Calendar size={16} className="text-blue-600" />
               </div>
-              
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {/* Enhanced Date Picker */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3">
-                  <Calendar className="w-4 h-4 text-blue-600" />
-                  Select Date
-                </label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl bg-white/90 text-slate-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:border-blue-400 hover:shadow-md group-hover:scale-[1.02]"
-                  />
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                </div>
-              </div>
-
-              {/* Enhanced DISCOM Selector */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3">
-                  <Zap className="w-4 h-4 text-purple-600" />
-                  DISCOM
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedDiscom}
-                    onChange={(e) => setSelectedDiscom(e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl bg-white/90 text-slate-800 shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300 hover:border-purple-400 hover:shadow-md cursor-pointer group-hover:scale-[1.02]"
-                  >
-                    {DISCOMS.map((d) => (
-                      <option key={d} value={d}>{d}</option>
-                    ))}
-                  </select>
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                </div>
-              </div>
-
-              {/* Enhanced Revision Selector */}
-              <div className="group">
-                <label className="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3">
-                  <RotateCcw className="w-4 h-4 text-indigo-600" />
-                  Revision
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedRevision}
-                    onChange={handleRevisionChange}
-                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl bg-white/90 text-slate-800 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 hover:border-indigo-400 hover:shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group-hover:scale-[1.02]"
-                    disabled={loading}
-                  >
-                    {revisionOptions.length > 0 ? (
-                      revisionOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          Revision {opt.label}
-                        </option>
-                      ))
-                    ) : (
-                      <option value="">No revisions available</option>
-                    )}
-                  </select>
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                </div>
-              </div>
-
-              {/* Enhanced Issued On */}
-              <div className="flex flex-col justify-center">
-                <div className="p-4 bg-gradient-to-r from-emerald-50 to-cyan-50 rounded-xl border-2 border-emerald-200/50 shadow-sm">
-                  <div className="flex items-center gap-2 text-sm text-slate-600 mb-1">
-                    <Clock className="w-4 h-4 text-emerald-600" />
-                    <span className="font-medium">Issued On</span>
-                  </div>
-                  <div className="font-bold text-slate-800">
-                    {revisionDate ? (
-                      <span className="text-emerald-700">{revisionDate}</span>
-                    ) : (
-                      <span className="text-slate-400 animate-pulse">Loading...</span>
-                    )}
-                  </div>
-                </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Date</label>
+                <input
+                  type="date"
+                  className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 transition-all duration-200"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                />
               </div>
             </div>
 
-            {/* Enhanced Loading State */}
-            {loading && (
-              <div className="mt-6 flex items-center justify-center space-x-3 text-blue-700 bg-gradient-to-r from-blue-50 to-indigo-50 py-4 px-6 rounded-xl shadow-inner border border-blue-200/50">
-                <RefreshCw className="w-5 h-5 animate-spin" />
-                <span className="font-semibold">Loading data...</span>
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-200"></div>
+            {/* DISCOM Selector */}
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg">
+                <Zap size={16} className="text-purple-600" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">DISCOM</label>
+                <select
+                  className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:border-purple-500 focus:ring-2 focus:ring-purple-200/50 transition-all duration-200"
+                  value={selectedDiscom}
+                  onChange={(e) => setSelectedDiscom(e.target.value)}
+                >
+                  {DISCOMS.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Revision Selector */}
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-lg">
+                <RotateCcw size={16} className="text-indigo-600" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Revision</label>
+                <select
+                  className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200/50 transition-all duration-200 disabled:opacity-50"
+                  value={selectedRevision}
+                  onChange={handleRevisionChange}
+                  disabled={loading}
+                >
+                  {revisionOptions.length > 0 ? (
+                    revisionOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">No revisions</option>
+                  )}
+                </select>
+              </div>
+            </div>
+
+            {/* Revision Date */}
+            {!loading && revisionDate && (
+              <div className="flex items-center gap-2 bg-gradient-to-r from-emerald-50 to-emerald-100 px-2 py-1.5 rounded-lg border border-emerald-200">
+                <Clock size={14} className="text-emerald-600" />
+                <div className="text-xs text-emerald-800">
+                  <span className="font-medium">Issued:</span>
+                  <span className="font-semibold ml-1">{revisionDate}</span>
                 </div>
               </div>
             )}
+
+            {/* Download Button */}
+            {tableData.pivotData.length > 0 && (
+              <button
+                onClick={handleDownload}
+                className="group bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-medium px-3 py-1.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 text-xs"
+              >
+                <Download size={14} className="group-hover:animate-bounce" />
+                <span>Download</span>
+              </button>
+            )}
           </div>
+
+          {/* Loading Indicator in Control Card */}
+          {loading && (
+            <div className="mt-3 flex items-center justify-center space-x-3 text-blue-700 bg-gradient-to-r from-blue-50 to-indigo-50 py-2 px-3 rounded-lg border border-blue-200/50">
+              <RefreshCw className="w-3 h-3 animate-spin" />
+              <span className="font-medium text-xs">Loading data...</span>
+              <div className="flex space-x-1">
+                <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce"></div>
+                <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce delay-100"></div>
+                <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce delay-200"></div>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Enhanced Error Message */}
         {error && (
-          <div className="mb-6 bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 text-red-700 px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3">
-            <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="font-medium">{error}</span>
-          </div>
-        )}
-
-        {/* Enhanced Download Button */}
-        {tableData.pivotData.length > 0 && (
-          <div className="flex justify-end mb-6">
-            <button
-              onClick={handleDownload}
-              className="group relative flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105"
-            >
-              <Download className="w-5 h-5 transition-transform group-hover:scale-110" />
-              <span>Download</span>
-              <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-          </div>
-        )}
-
-        {/* Enhanced Table */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-slate-200/60 overflow-hidden">
-          <div className="bg-gradient-to-r from-slate-700 to-slate-800 px-6 py-4 flex items-center gap-3">
-              <BarChart3 size={24} className="text-blue-400" />
-              <h2 className="text-white font-bold text-lg">Entitlement Data</h2>
+          <div className="bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-400 p-4 rounded-r-xl shadow-lg">
+            <div className="flex items-center">
+              <div className="p-2 bg-red-200 rounded-lg mr-3">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <p className="text-red-800 font-medium text-sm">{error}</p>
+              </div>
             </div>
-          
-          <div className="relative bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
-          <div className="overflow-auto max-h-[95vh] xl:max-h-[95vh]">             
-          <table className="w-full text-sm border-collapse">               
-           <thead>
-                  <tr>
-                    <th className="sticky top-0 left-0 z-30 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-4 py-4 font-bold text-left border-r border-blue-500/30 shadow-lg">
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        Timeslot
+          </div>
+        )}
+
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl border border-slate-200/60 overflow-hidden">
+          <div className="overflow-auto max-h-[calc(100vh-150px)]" style={{ fontSize: '12px' }}>
+            <table className="w-full border-collapse" style={{ minWidth: 'max-content' }}>
+              <thead>
+                <tr className="bg-gradient-to-r from-indigo-600 to-purple-600">
+                  <th className="sticky top-0 left-0 z-30 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-bold shadow-lg text-left border-r border-indigo-500" 
+                      style={{ height: '60px', padding: '8px 16px', minWidth: '140px', width: '140px' }}>
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      <Clock size={14} />
+                      <span className="text-sm font-semibold">Time Slot</span>
+                    </div>
+                  </th>
+                  {tableData.gencos.map((genco, index) => (
+                    <th
+                      key={genco}
+                      className="sticky top-0 z-20  bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-bold text-center border-l border-indigo-500"
+                      style={{ 
+                        height: '60px', 
+                        padding: '8px 4px',
+                        minWidth: '100px',
+                        width: '100px'
+                      }}
+                    >
+                      <div className="flex items-center justify-center h-full">
+                        <div 
+                          className="text-xs font-medium text-center whitespace-nowrap overflow-hidden text-ellipsis" 
+                          title={genco}
+                          style={{ 
+                            maxWidth: '90px',
+                            lineHeight: '1.2',
+                            fontSize: '10px'
+                          }}
+                        >
+                          {genco}
+                        </div>
                       </div>
                     </th>
-                    {tableData.gencos.map((g, index) => (
-                      <th key={g} className="sticky top-0 z-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-4 py-4 font-bold text-center border-r border-blue-500/30 shadow-lg min-w-[120px]">
-                        <div className="flex items-center justify-center gap-2">
-                          <Zap className="w-4 h-4" />
-                          {g}
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={(tableData.gencos.length || 1) + 1} className="p-8 text-center">
+                      <div className="flex items-center justify-center gap-3 py-8">
+                        <div className="flex space-x-2">
+                          <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                          <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                          <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
                         </div>
-                      </th>
-                    ))}
+                        <span className="text-blue-600 font-medium">Loading data...</span>
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {tableData.pivotData.length > 0 ? (
-                    tableData.pivotData.map((row, idx) => (
-                      <tr key={idx} className={`group transition-all duration-200 ${idx % 2 === 0 ? 'bg-gradient-to-r from-slate-50 to-blue-50' : 'bg-white'} hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50`}>
-                        <td className="sticky left-0 z-10 bg-gradient-to-r from-slate-100 to-blue-100 font-semibold px-4 py-3 border-r border-slate-200 shadow-sm p-2">
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                ) : tableData.pivotData.length ? (
+                  tableData.pivotData.map((row, i) => (
+                    <tr
+                      key={i}
+                      className={`${
+                        i % 2 ? 'bg-slate-50/80' : 'bg-white/80'
+                      } hover:bg-blue-50/80 transition-all duration-200 group`}
+                      style={{ height: '45px' }}
+                    >
+                      <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm font-bold border-r border-gray-200 shadow-sm group-hover:bg-blue-50/95" 
+                          style={{ 
+                            padding: '8px 16px',
+                            minWidth: '140px',
+                            width: '140px'
+                          }}>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                          <span className="text-slate-700 text-sm font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
                             {timeslotData[row.timeslot] || row.timeslot}
-                          </div>
-                        </td>
-                        {row.values.map((val, j) => (
-                          <td key={j} className="px-4 py-3 text-center border-r border-slate-200 transition-all duration-200 group-hover:bg-white/80">
-                            {val === '-' ? (
-                              <span className="text-slate-400 font-medium text-lg">—</span>
-                            ) : (
-                              <div className="font-semibold text-slate-800 bg-gradient-to-r from-green-100 to-emerald-100 px-2 py-1 rounded-lg">
-                                {parseFloat(val).toFixed(2)}
-                              </div>
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={tableData.gencos.length + 1} className="text-center py-12 text-slate-500">
-                        <div className="flex flex-col items-center gap-3">
-                          <Database className="w-12 h-12 text-slate-300" />
-                          <span className="font-medium text-lg">
-                            {loading ? 'Loading data...' : 'No data available'}
                           </span>
                         </div>
                       </td>
+                      {row.values.map((value, j) => (
+                        <td
+                          key={j}
+                          className="text-center border-b border-gray-100"
+                          style={{ 
+                            padding: '8px 4px',
+                            minWidth: '100px',
+                            width: '100px'
+                          }}
+                        >
+                          <span className={`text-sm font-semibold whitespace-nowrap ${
+                            value !== '-' 
+                              ? 'text-blue-700 bg-blue-50 px-2 py-1 rounded-md' 
+                              : 'text-gray-400 bg-gray-50 px-2 py-1 rounded-md'
+                          }`}>
+                            {value === '-' ? value : parseFloat(value).toFixed(2)}
+                          </span>
+                        </td>
+                      ))}
                     </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={(tableData.gencos.length || 1) + 1} className="p-12 text-center">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                          <Database size={32} className="text-gray-400" />
+                        </div>
+                        <div className="text-gray-500 font-medium">
+                          No data available for the selected date and revision
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

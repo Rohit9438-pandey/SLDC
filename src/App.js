@@ -39,6 +39,7 @@ import DrawlScheduleExternal from './pages/DrawlScheduleExternal';
 import DeclaredCapacity from './pages/DeclaredCapacity';
 import Entitlement from './pages/Entitlement';
 import InjectionSchedule from './pages/InjectionSchedule';
+import OpenAccessSchedule from './pages/OpenAccessSchedule';
 
 
 const App = () => {
@@ -83,6 +84,7 @@ const App = () => {
       <Route path='/schedules/declared/capacity' element={<DeclaredCapacity />} />
       <Route path='/schedules/entitlement' element={<Entitlement />} />
       <Route path='/schedules/injection-schedule' element={<InjectionSchedule />} />
+      <Route path ='/schedules/open-access-schedule' element={<OpenAccessSchedule />} />
 
     </Routes>
     </>

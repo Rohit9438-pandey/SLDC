@@ -195,147 +195,146 @@ const DeclaredCapacity = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Enhanced Header */}
       <header className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white shadow-2xl relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6">
+        <div className="relative max-w-full mx-auto px-3 sm:px-6 lg:px-4 py-3 sm:py-4 lg:py-5">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="p-2 bg-yellow-400/20 rounded-full backdrop-blur-sm">
                 <Zap className="text-yellow-300" size={28} />
               </div>
-              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-white via-blue-100 to-yellow-100 bg-clip-text text-transparent text-center">
-                Declared Capacity Dashboard
-              </h1>
+              <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-white via-blue-100 to-yellow-100 bg-clip-text text-transparent text-center">
+              Declared Capacity of Various Generating Stations
+              </h3>
               <div className="p-2 bg-green-400/20 rounded-full backdrop-blur-sm">
                 <TrendingUp className="text-green-300" size={28} />
               </div>
             </div>
           </div>
-          <p className="text-center text-blue-100 mt-2 text-sm sm:text-base lg:text-lg font-medium">
-            Real-time monitoring of generating station capacity across Delhi
-          </p>
+         
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-5">
-        {/* Enhanced Controls Card */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-blue-200/50 p-5 sm:p-6 hover:shadow-3xl hover:border-blue-300/70 transition-all duration-300">
-          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 xl:gap-8">
-            {/* Date and Revision Controls */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-1">
-              <div className="flex items-center gap-4 min-w-0 flex-1">
-                <div className="p-3 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl shadow-sm">
-                  <Calendar size={24} className="text-blue-600" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Select Date
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-200/50 transition-all duration-200 shadow-sm hover:shadow-md"
-                    value={selectedDate}
-                    onChange={e => setSelectedDate(e.target.value)}
-                  />
-                </div>
+      <main className="max-w-full mx-auto p-2 space-y-3">
+        {/* Compact Control Card */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg border border-blue-200/50 p-3 hover:shadow-xl transition-all duration-300">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {/* Date Picker */}
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg">
+                <Calendar size={16} className="text-blue-600" />
               </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Date</label>
+                <input
+                  type="date"
+                  className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 transition-all duration-200"
+                  value={selectedDate}
+                  onChange={e => setSelectedDate(e.target.value)}
+                />
+              </div>
+            </div>
 
-              <div className="flex items-center gap-4 min-w-0 flex-1">
-                <div className="p-3 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl shadow-sm">
-                  <Database size={24} className="text-purple-600" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Revision
-                  </label>
-                  <select
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-200/50 transition-all duration-200 shadow-sm hover:shadow-md"
-                    value={selectedRevision}
-                    onChange={(e) => {
-                      setManualRevisionChange(true);
-                      setSelectedRevision(e.target.value);
-                    }}
-                    disabled={loadingRevisions}
-                  >
-                    {loadingRevisions ? (
-                      <option>Loading revisions...</option>
-                    ) : (
-                      revisionOptions.map(opt => (
-                        <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                        </option>
-                      ))
-                    )}
-                  </select>
-                </div>
+            {/* Revision Selector */}
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg">
+                <Database size={16} className="text-purple-600" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Revision</label>
+                <select
+                  className="border border-gray-300 rounded-lg px-2 py-1.5 text-xs focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 transition-all duration-200"
+                  value={selectedRevision}
+                  onChange={(e) => {
+                    setManualRevisionChange(true);
+                    setSelectedRevision(e.target.value);
+                  }}
+                  disabled={loadingRevisions}
+                >
+                  {loadingRevisions ? (
+                    <option>Loading...</option>
+                  ) : (
+                    revisionOptions.map(opt => (
+                      <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                      </option>
+                    ))
+                  )}
+                </select>
               </div>
             </div>
 
             {/* Revision Date */}
             {!loadingData && revisionDate && (
-              <div className="flex items-center gap-3 bg-gradient-to-r from-emerald-50 to-emerald-100 px-4 py-3 rounded-xl shadow-sm border-2 border-emerald-200 self-start lg:self-center">
-                <Clock size={20} className="text-emerald-600 flex-shrink-0" />
-                <div className="text-sm text-emerald-800">
+              <div className="flex items-center gap-2 bg-gradient-to-r from-emerald-50 to-emerald-100 px-2 py-1.5 rounded-lg border border-emerald-200">
+                <Clock size={14} className="text-emerald-600" />
+                <div className="text-xs text-emerald-800">
                   <span className="font-medium">Issued:</span>
-                  <span className="font-bold ml-1">{revisionDate}</span>
+                  <span className="font-semibold ml-1">{revisionDate}</span>
                 </div>
               </div>
+            )}
+
+            {/* Download Button */}
+            {tableData.pivotData.length > 0 && (
+              <button
+                onClick={handleDownload}
+                className="group bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-medium px-3 py-1.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2 text-xs"
+              >
+                <Download size={14} className="group-hover:animate-bounce" />
+                <span>Download</span>
+              </button>
             )}
           </div>
         </div>
 
-        {/* Enhanced Error Message */}
         {error && (
-          <div className="bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-400 p-6 rounded-r-xl shadow-lg">
+          <div className="bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-400 p-4 rounded-r-xl shadow-lg">
             <div className="flex items-center">
-              <div className="p-2 bg-red-200 rounded-lg mr-4">
-                <Activity size={20} className="text-red-600" />
+              <div className="p-2 bg-red-200 rounded-lg mr-3">
+                <Activity size={16} className="text-red-600" />
               </div>
               <div>
-                <p className="text-red-800 font-medium">{error}</p>
+                <p className="text-red-800 font-medium text-sm">{error}</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Enhanced Download Button */}
-        {tableData.pivotData.length > 0 && (
-          <div className="flex justify-center sm:justify-end">
-            <button
-              onClick={handleDownload}
-              className="group bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 hover:from-emerald-600 hover:via-emerald-700 hover:to-green-700 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-3 text-base"
-            >
-              <Download size={20} className="group-hover:animate-bounce" />
-              <span>Download</span>
-            </button>
-          </div>
-        )}
-
-        {/* Enhanced Data Table */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-slate-200/60 overflow-hidden">
-          <div className="bg-gradient-to-r from-slate-700 to-slate-800 px-6 py-4 flex items-center gap-3">
-            <BarChart3 size={24} className="text-blue-400" />
-            <h2 className="text-white font-bold text-lg">Capacity Data</h2>
-          </div>
-          
-          <div className="overflow-auto max-h-[95vh] xl:max-h-[95vh]">
-            <table className="w-full text-sm border-collapse">
+        {/* Full Width Table */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl border border-slate-200/60 overflow-hidden">
+          <div className="overflow-auto max-h-[calc(100vh-150px)]" style={{ fontSize: '12px' }}>
+            <table className="w-full border-collapse" style={{ minWidth: 'max-content' }}>
               <thead>
                 <tr className="bg-gradient-to-r from-indigo-600 to-purple-600">
-                  <th className="sticky top-0 left-0 z-30 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 font-bold shadow-lg text-left border-r border-indigo-500">
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} />
-                      <span>Time Slot</span>
+                  <th className="sticky top-0 left-0 z-30 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-bold shadow-lg text-left border-r border-indigo-500" 
+                      style={{ height: '60px', padding: '8px 16px', minWidth: '140px', width: '140px' }}>
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      <Clock size={14} />
+                      <span className="text-sm font-semibold">Time Slot</span>
                     </div>
                   </th>
                   {tableData.gencos.map((genco, index) => (
                     <th
                       key={genco}
-                      className="sticky top-0 z-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 font-bold text-center border-l border-indigo-500 min-w-[120px]"
+                      className="sticky top-0 z-20 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white font-bold text-center border-l border-indigo-500"
+                      style={{ 
+                        height: '60px', 
+                        padding: '8px 4px',
+                        minWidth: '100px',
+                        width: '100px'
+                      }}
                     >
-                      <div className="flex flex-col items-center gap-1">
-                        <div className="text-xs font-medium leading-tight break-words max-w-[100px]" title={genco}>
+                      <div className="flex items-center justify-center h-full">
+                        <div 
+                          className="text-xs font-medium text-center whitespace-nowrap overflow-hidden text-ellipsis" 
+                          title={genco}
+                          style={{ 
+                            maxWidth: '90px',
+                            lineHeight: '1.2',
+                            fontSize: '10px'
+                          }}
+                        >
                           {genco}
                         </div>
                       </div>
@@ -357,30 +356,38 @@ const DeclaredCapacity = () => {
                       className={`${
                         i % 2 ? 'bg-slate-50/80' : 'bg-white/80'
                       } hover:bg-blue-50/80 transition-all duration-200 group`}
+                      style={{ height: '45px' }}
                     >
-                      <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm p-4 font-bold border-r border-gray-200 shadow-sm group-hover:bg-blue-50/95">
+                      <td className="sticky left-0 z-10 bg-white/95 backdrop-blur-sm font-bold border-r border-gray-200 shadow-sm group-hover:bg-blue-50/95" 
+                          style={{ 
+                            padding: '8px 16px',
+                            minWidth: '140px',
+                            width: '140px'
+                          }}>
                         <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span className="text-slate-700">{row.timeslot}</span>
+                          <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></div>
+                          <span className="text-slate-700 text-sm font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                            {row.timeslot}
+                          </span>
                         </div>
                       </td>
                       {row.values.map((value, j) => (
                         <td
                           key={j}
-                          className="text-center p-4 border-b border-gray-100 min-w-[120px]"
+                          className="text-center border-b border-gray-100"
+                          style={{ 
+                            padding: '8px 4px',
+                            minWidth: '100px',
+                            width: '100px'
+                          }}
                         >
-                          <div className="flex flex-col items-center gap-1">
-                            <span className={`text-base font-semibold ${
-                              value !== '-' 
-                                ? 'text-blue-700 bg-blue-50 px-2 py-1 rounded-lg' 
-                                : 'text-gray-400 bg-gray-50 px-2 py-1 rounded-lg'
-                            }`}>
-                              {value}
-                            </span>
-                            {value !== '-' && (
-                              <span className="text-xs text-gray-500 font-medium"></span>
-                            )}
-                          </div>
+                          <span className={`text-sm font-semibold whitespace-nowrap ${
+                            value !== '-' 
+                              ? 'text-blue-700 bg-blue-50 px-2 py-1 rounded-md' 
+                              : 'text-gray-400 bg-gray-50 px-2 py-1 rounded-md'
+                          }`}>
+                            {value}
+                          </span>
                         </td>
                       ))}
                     </tr>
