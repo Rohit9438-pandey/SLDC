@@ -40,6 +40,8 @@ import DeclaredCapacity from './pages/DeclaredCapacity';
 import Entitlement from './pages/Entitlement';
 import InjectionSchedule from './pages/InjectionSchedule';
 import OpenAccessSchedule from './pages/OpenAccessSchedule';
+import InterDiscomTransfer from './pages/InterDiscomTransfer';
+
 
 
 const App = () => {
@@ -84,7 +86,8 @@ const App = () => {
       <Route path='/schedules/declared/capacity' element={<DeclaredCapacity />} />
       <Route path='/schedules/entitlement' element={<Entitlement />} />
       <Route path='/schedules/injection-schedule' element={<InjectionSchedule />} />
-      <Route path ='/schedules/open-access-schedule' element={<OpenAccessSchedule />} />
+      <Route path='/schedules/open-access-schedule' element={<OpenAccessSchedule />} />
+      <Route path='/schedules/inter-discom-transfer' element={<InterDiscomTransfer />} />
 
     </Routes>
     </>

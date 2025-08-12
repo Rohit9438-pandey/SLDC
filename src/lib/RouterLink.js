@@ -306,6 +306,7 @@ export const subnav = [
         title: "Inter Discom Transfer",
         href: "/schedules/inter-discom-transfer",
         disabled: false,
+        isTableVisible:false,
       },
       {
         title: "Inter Discom Transfer (Ex Bilateral)",

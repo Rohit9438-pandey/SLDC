@@ -21,6 +21,7 @@
     "chart.js": "^4.4.7",
     "d3": "^7.9.0",
     "dayjs": "^1.11.13",
+    "file-saver": "^2.0.5",
     "flatpickr": "^4.6.13",
     "font-awesome": "^4.7.0",
     "framer-motion": "^12.15.0",
@@ -50,7 +51,8 @@
     "swiper": "^11.1.14",
     "tailwindcss": "^3.4.14",
     "uuid": "^11.1.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "overrides": {
     "react-datepicker": {
@@ -81,5 +83,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage":"sldc-new/"
+  "homepage": "sldc-new/"
 }
