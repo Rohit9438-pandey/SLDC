@@ -655,11 +655,12 @@ const OpenAccessSchedule = () => {
                     <tr style={{ position: "sticky", top: 0, zIndex: 10 }}>
                       {tableData.headers.map((head, idx) => (
                         <th key={idx} style={{
-                          background: idx === 0 ? "linear-gradient(135deg, #6f42c1 0%, #563d7c 100%)" : // Purple for Time Block
-                                      idx === tableData.headers.length - 1 ? "linear-gradient(135deg, #28a745 0%, #1e7e34 100%)" : // Green for Total
-                                      "linear-gradient(135deg, #fd7e14 0%, #e55a00 100%)", // Orange for approval numbers
-                          color: "#fff", 
-                          padding: "6px 4px", // Increased padding 
+                          background: idx === 0 ? "linear-gradient(135deg, #2A9B97 0%, #57C785 100%)" : 
+                                      idx === tableData.headers.length - 1 ? "linear-gradient(135deg, #28a745 0%, #1e7e34 100%)" :
+                                     "linear-gradient(135deg, #116466 0%, #1E824C 100%)",
+ 
+                          color: "#ffffff", 
+                          padding: "6px 4px", 
                           position: idx === 0 ? "sticky" : "static", 
                           left: idx === 0 ? 0 : "auto", 
                           top: 0, 
@@ -668,7 +669,7 @@ const OpenAccessSchedule = () => {
                           minWidth: idx === 0 ? "85px" : "90px", // Increased width for time column
                           maxWidth: idx === 0 ? "85px" : "130px", // Increased width for time column
                           fontSize: "0.95rem", // Increased font size
-                          fontWeight: "700",
+                          fontWeight: "bold",
                           borderRight: "1px solid rgba(255,255,255,0.3)",
                           textTransform: "uppercase",
                           letterSpacing: "0.1px",
@@ -677,6 +678,7 @@ const OpenAccessSchedule = () => {
                           boxSizing: "border-box",
                           height: "32px", // Increased height
                           lineHeight: "1"
+                          
                         }}>
                           <div style={{ 
                             wordBreak: "break-word", 

@@ -119,12 +119,13 @@ const InterDiscomTransfer = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-2">
       <div className="max-w-full mx-auto">
-        {/* Compact Header */}
-        <div className="text-center mb-3">
-          <h1 className="text-2xl font-bold text-gray-800 mb-1">
-            Inter Discom Transfer Data
-          </h1>
-        </div>
+      <div className="text-center mb-5">
+      <h1 className="inline-block px-6 py-3 text-3xl font-bold text-white rounded-lg shadow-lg bg-gradient-to-r from-purple-600 via-pink-500 to-red-500">
+        Inter Discom Transfer Data
+      </h1>
+    </div>
+
+
 
         <div className="bg-white rounded-lg shadow-lg p-3 mb-3">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 items-end">
@@ -210,9 +211,9 @@ const InterDiscomTransfer = () => {
              
             <div className="overflow-x-auto max-h-[70vh] overflow-y-auto">
               <table className="min-w-full text-sm">
-                <thead className="sticky top-0">
+                <thead className="sticky top-0 z-20">
                   <tr className="bg-gradient-to-r from-indigo-600 to-purple-700 border-b border-gray-300">
-                    <th className="px-3 py-2 text-center text-xs font-bold text-white border-r border-indigo-400 bg-gradient-to-r from-violet-600 to-purple-700 sticky left-0 z-10">
+                    <th className="px-3 py-2 text-center text-xs font-bold text-white border-r border-indigo-400 bg-gradient-to-r from-violet-600 to-purple-700 sticky left-0 z-30">
                       TimeSlot
                     </th>
                     {getVisibleColumns().map(discom => (

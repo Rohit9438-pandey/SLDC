@@ -118,6 +118,7 @@ export const subnav = [
         title: "Congestion Charges",
         href: "/energy-accounting/congestion-charges",
         disabled: false,
+        isTableVisible:false,
       },
       {
         title: "Delhi Pool Account",
@@ -138,7 +139,16 @@ export const subnav = [
         title: "Intra State Energy Account",
         href: "/energy-accounting/intra-state-energy-account",
         disabled: false,
+        isTableVisible: false,
       },
+
+      {
+        title:"STOA bills for DISCOMS",
+        href:"/energy-accounting/stoa-bills",
+        disabled: false,
+        isTableVisible: false,
+      },
+
       {
         title: "Low Frequency Overdrawl/under Generation",
         href: "/energy-accounting/low-frequency-overdrawl-generation",
@@ -148,51 +158,69 @@ export const subnav = [
         title: "NRLDC Charges",
         href: "/energy-accounting/nrldc-charges",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "Reactive Energy Account",
         href: "/energy-accounting/reactive-energy-account",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "Open Cycle Generation",
         href: "/energy-accounting/open-cycle-generation",
         disabled: false,
+        isTableVisible: false,
       },
       {
         title: "Open Access Application Status",
         href: "/energy-accounting/open-access-application-status",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "Source Wise Sale/Purchase of Energy",
         href: "/energy-accounting/source-wise-sale-purchase-of-energy",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "Transmission Charges Bill",
         href: "/energy-accounting/transmission-charges-bill",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "Unscheduled Interchange Bills",
         href: "/energy-accounting/unscheduled-interchange-bills",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "RRAS Accounts",
         href: "/energy-accounting/rras-accounts",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "Metering Data",
         href: "/energy-accounting/metering-data",
         disabled: false,
+        isTableVisible: false,
       },
+
       {
         title: "SCED Accounts",
         href: "/energy-accounting/sced-accounts",
         disabled: false,
+        isTableVisible: false,
       },
     ],
   },

@@ -41,6 +41,30 @@ import Entitlement from './pages/Entitlement';
 import InjectionSchedule from './pages/InjectionSchedule';
 import OpenAccessSchedule from './pages/OpenAccessSchedule';
 import InterDiscomTransfer from './pages/InterDiscomTransfer';
+import CongestionCharges from './pages/CongestionCharges';
+import IntraStateEnergyAccount from './pages/IntraStateEnergyAccount';
+import StoaBills from './pages/StoaBills';
+import NRLDCCharges from './pages/NRLDCCharges';
+import ReactiveEnergy from './pages/ReactiveEnergy';
+import OpenCycleGeneration from './pages/OpenCycleGeneration';
+import OpenAccessScheduleAccount from './pages/OpenAccessScheduleAccount';
+import SourceWiseSales from './pages/SourceWiseSales';
+import TransmissionBillCharges from './pages/TransmissionBillCharges';
+import UnScheduleInterchange from './pages/UnScheduleInterchange';
+import RRASAccount from './pages/RRASAccount';
+import MeteringData from './pages/MeteringData';
+import SCEDAccounts from './pages/SCEDAccounts';
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -88,7 +112,19 @@ const App = () => {
       <Route path='/schedules/injection-schedule' element={<InjectionSchedule />} />
       <Route path='/schedules/open-access-schedule' element={<OpenAccessSchedule />} />
       <Route path='/schedules/inter-discom-transfer' element={<InterDiscomTransfer />} />
-
+      <Route path='/energy-accounting/congestion-charges' element={<CongestionCharges />}/>
+      <Route path='/energy-accounting/intra-state-energy-account' element={<IntraStateEnergyAccount />} />
+      <Route path='/energy-accounting/stoa-bills' element={<StoaBills />} />
+      <Route path='/energy-accounting/nrldc-charges' element={<NRLDCCharges />} />
+      <Route path='/energy-accounting/reactive-energy-account' element={<ReactiveEnergy />} />
+      <Route path='/energy-accounting/open-cycle-generation' element={<OpenCycleGeneration />} />
+      <Route path='/energy-accounting/open-access-application-status' element={<OpenAccessScheduleAccount />} />
+      <Route path='/energy-accounting/source-wise-sale-purchase-of-energy' element={<SourceWiseSales />} />
+      <Route path='/energy-accounting/transmission-charges-bill' element={<TransmissionBillCharges />} />
+      <Route path='/energy-accounting/unscheduled-interchange-bills' element={<UnScheduleInterchange />} />
+      <Route path='/energy-accounting/rras-accounts' element={<RRASAccount />} />
+      <Route path='/energy-accounting/metering-data' element={<MeteringData />} />
+      <Route path='/energy-accounting/sced-accounts' element={<SCEDAccounts />} />
     </Routes>
     </>
     
