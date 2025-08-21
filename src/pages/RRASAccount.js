@@ -22,9 +22,9 @@ const RRASAccount = () => {
     });
 
     return filtered.sort((a, b) => {
-      const weekA = parseInt(a[6]) || 0;
-      const weekB = parseInt(b[6]) || 0;
-      return weekA - weekB;
+          const dateA = new Date(a[3]);
+          const dateB = new Date(b[3]);
+          return dateB - dateA;
     });
   }, [data, searchTerm]);
 
@@ -66,10 +66,6 @@ const RRASAccount = () => {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
       });
     } catch {
       return dateString;

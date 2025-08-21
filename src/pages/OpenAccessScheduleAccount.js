@@ -22,20 +22,9 @@ const OpenAccessScheduleAccount = () => {
     });
 
    return filtered.sort((a, b) => {
-    const getSortKey = (period) => {
-      if (!period) return '0000-00';
-      const [monthName, yearStr] = period.split(' ');
-      const monthMap = {
-        january: '01', february: '02', march: '03', april: '04', may: '05', june: '06',
-        july: '07', august: '08', september: '09', october: '10', november: '11', december: '12'
-      };
-      const month = monthMap[monthName.toLowerCase()] || '00';
-      const year = yearStr || '0000';
-      return `${year}-${month}`;
-    };
-    const keyA = getSortKey(a[5]);
-    const keyB = getSortKey(b[5]);
-    return keyB.localeCompare(keyA);
+          const dateA = new Date(a[3]);
+          const dateB = new Date(b[3]);
+          return dateB - dateA;
   });
 }, [data, searchTerm]);
 
@@ -77,10 +66,6 @@ const OpenAccessScheduleAccount = () => {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
       });
     } catch {
       return dateString;

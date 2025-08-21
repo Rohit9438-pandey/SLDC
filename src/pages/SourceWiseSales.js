@@ -19,40 +19,9 @@ const SourceWiseSales = () => {
     });
 
     return filtered.sort((a, b) => {
-      const extractPeriod = (period) => {
-        if (!period) return { year: 0, month: 0 };
-        const match = period.match(/(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{4})/i);
-        if (!match) return { year: 0, month: 0 };
-        const monthMap = {
-          january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
-          july: 7, august: 8, september: 9, october: 10, november: 11, december: 12
-        };
-        return {
-          month: monthMap[match[1].toLowerCase()] || 0,
-          year: parseInt(match[2], 10)
-        };
-      };
-
-      const periodA = extractPeriod(a[5]);
-      const periodB = extractPeriod(b[5]);
-
-      if (periodB.year !== periodA.year) {
-        return periodB.year - periodA.year;
-      }
-
-      const now = new Date();
-      const currentMonth = now.getMonth() + 1;
-
-      const shiftMonth = (monthNum) => {
-        let diff = monthNum - currentMonth;
-        if (diff < 0) diff += 12;
-        return diff;
-      };
-
-      const aRank = shiftMonth(periodA.month);
-      const bRank = shiftMonth(periodB.month);
-
-      return aRank - bRank;
+      const dateA = new Date(a[3]);
+          const dateB = new Date(b[3]);
+          return dateB - dateA;
     });
   }, [data, searchTerm]);
 
@@ -95,10 +64,6 @@ const SourceWiseSales = () => {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
       });
     } catch {
       return dateString;

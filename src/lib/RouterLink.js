@@ -150,11 +150,6 @@ export const subnav = [
       },
 
       {
-        title: "Low Frequency Overdrawl/under Generation",
-        href: "/energy-accounting/low-frequency-overdrawl-generation",
-        disabled: false,
-      },
-      {
         title: "NRLDC Charges",
         href: "/energy-accounting/nrldc-charges",
         disabled: false,

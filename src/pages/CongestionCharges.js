@@ -22,9 +22,9 @@ const CongestionCharges = () => {
     });
 
     return filtered.sort((a, b) => {
-      const weekA = parseInt(a[6]) || 0;
-      const weekB = parseInt(b[6]) || 0;
-      return weekA - weekB;
+      const weekA = parseInt(a[3]) || 0;
+      const weekB = parseInt(b[3]) || 0;
+      return weekB - weekA;
     });
   }, [data, searchTerm]);
 
@@ -66,10 +66,7 @@ const CongestionCharges = () => {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
+      
       });
     } catch {
       return dateString;
@@ -78,7 +75,6 @@ const CongestionCharges = () => {
 
   const handleBillClick = (filename, eaId, description) => {
     if (!filename) {
-      console.error('No filename available for download');
       alert('No file available for download');
       return;
     }

@@ -37,9 +37,9 @@ const IntraStateEnergyAccount = () => {
         const filteredData = result.result.rows
           .filter(row => row[1] === "I")
           .sort((a, b) => {
-            const periodA = parsePeriod(a[5]);
-            const periodB = parsePeriod(b[5]);
-            return periodB.sortKey.localeCompare(periodA.sortKey);
+          const dateA = new Date(a[3]);
+          const dateB = new Date(b[3]);
+          return dateB - dateA;
           });
         setData(filteredData);
       } catch (err) {
