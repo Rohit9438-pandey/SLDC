@@ -112,7 +112,6 @@ const TransmissionBillCharges = () => {
 
         <div className="bg-white">
           {error && (
-            // Error block stays intact
             <div className="text-center py-16 mx-6">
               <div className="bg-red-50 border border-red-200 rounded-xl p-6 max-w-md mx-auto">
                 <div className="text-red-600 text-xl mb-2">⚠️ Error</div>

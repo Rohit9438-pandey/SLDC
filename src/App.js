@@ -54,6 +54,8 @@ import UnScheduleInterchange from './pages/UnScheduleInterchange';
 import RRASAccount from './pages/RRASAccount';
 import MeteringData from './pages/MeteringData';
 import SCEDAccounts from './pages/SCEDAccounts';
+import DCAndSchedule from './pages/DCAndSchedules';
+
 
 
 
@@ -125,6 +127,7 @@ const App = () => {
       <Route path='/energy-accounting/rras-accounts' element={<RRASAccount />} />
       <Route path='/energy-accounting/metering-data' element={<MeteringData />} />
       <Route path='/energy-accounting/sced-accounts' element={<SCEDAccounts />} />
+      <Route path='/schedules/dc-and-schedules' element={<DCAndSchedule />} />
     </Routes>
     </>
     

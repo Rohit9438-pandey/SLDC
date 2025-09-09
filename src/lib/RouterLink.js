@@ -243,6 +243,7 @@ export const subnav = [
         title: "DC And Schedules(CSV)",
         href: "/schedules/dc-and-schedules",
         disabled: false,
+        isTableVisible:false,
       },
       {
         title: "NR API Data(CSV)",
