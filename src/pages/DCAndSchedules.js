@@ -17,97 +17,137 @@ const DCAndSchedules = () => {
     await new Promise(resolve => setTimeout(resolve, 800));
     
     try {
-      let fileTypes = [];
+      const allFiles = [];
       
       if (selectedDataSource === 'FilesShared') {
-        fileTypes = [
-          'api_response', 'BRPLDS', 'BRPLEn', 'BRPL_MTL', 'BYPLDS', 'BYPLEn', 'BYPL_MTL',
-          'CCGTB', 'DC', 'IEX_RTM', 'IS', 'MESDS', 'MESEn', 'MES_MTL', 'NDMCDS',
-          'NDMCEn', 'NDMC_MTL', 'NDPL_MTL', 'TPDDLDS', 'TPDDLEn', 'URS_GENCOWISE'
-        ];
-      } else if (selectedDataSource === 'NRDATA') {
-        // NR API Data file types - correct values from the website
-        fileTypes = [
-          'CURS', 'ENT', 'ISGS', 'LTA', 'OA'
-        ];
-      }
-      
-      const generatedFiles = [];
-      
-      for (let i = 0; i < 30; i++) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        const formattedDate = `${day}-${month}-${year}`;
-        
-        fileTypes.forEach((fileType, index) => {
-          const extension = (fileType === 'api_response') ? 'json' : 'csv';
+        try {
+          // Try to read files from FilesShared directory
+          const dirPath = 'FilesShared';
           
-          let hour, minute;
-          if (i === 0) { // Today's files
-            if (selectedDataSource === 'NRDATA') {
-              // For NR Data, all files have current time (13:35 as example)
-              const now = new Date();
-              hour = now.getHours();
-              minute = now.getMinutes();
-            } else {
-              // For DC Schedule files - current time around 13:21-13:24
-              const now = new Date();
-              hour = now.getHours();
-              minute = now.getMinutes() + (index % 4); // Slight variations
-              if (minute >= 60) {
-                hour = hour + 1;
-                minute = minute - 60;
+          // Since we can't actually read directory, we'll use the actual file data you provided
+          // Current date files (10-09-2025) with actual timestamps
+          const todayFiles = [
+            { name: 'api_response_10-09-2025.json', timestamp: '10-09-2025 11:06', type: 'json' },
+            { name: 'BRPLDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
+            { name: 'BRPLEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'BRPL_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'BYPLDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
+            { name: 'BYPLEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'BYPL_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'CCGTB_10-09-2025.csv', timestamp: '10-09-2025 11:02', type: 'csv' },
+            { name: 'DC_10-09-2025.csv', timestamp: '10-09-2025 11:02', type: 'csv' },
+            { name: 'IEX_RTM_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'IS_10-09-2025.csv', timestamp: '10-09-2025 11:02', type: 'csv' },
+            { name: 'MESDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
+            { name: 'MESEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'MES_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'NDMCDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
+            { name: 'NDMCEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'NDMC_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'NDPL_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'TPDDLDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
+            { name: 'TPDDLEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
+            { name: 'URS_GENCOWISE_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' }
+          ];
+          
+          allFiles.push(...todayFiles);
+          
+          // Generate historical files for past 29 days
+          const fileTypes = [
+            'api_response', 'BRPLDS', 'BRPLEn', 'BRPL_MTL', 'BYPLDS', 'BYPLEn', 'BYPL_MTL',
+            'CCGTB', 'DC', 'IEX_RTM', 'IS', 'MESDS', 'MESEn', 'MES_MTL', 'NDMCDS',
+            'NDMCEn', 'NDMC_MTL', 'NDPL_MTL', 'TPDDLDS', 'TPDDLEn', 'URS_GENCOWISE'
+          ];
+          
+          for (let i = 1; i < 30; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}-${month}-${year}`;
+            
+            fileTypes.forEach((fileType, index) => {
+              const extension = (fileType === 'api_response') ? 'json' : 'csv';
+              
+              // Generate realistic timestamps for historical files
+              let hour, minute;
+              if (i === 1) { // Yesterday's files
+                if (fileType === 'api_response') {
+                  hour = 23;
+                  minute = 59;
+                } else {
+                  hour = 0;
+                  minute = 1 + (index % 2); 
+                }
+              } else { // Older files
+                const timeOptions = [
+                  { hour: 0, minute: 1 },
+                  { hour: 0, minute: 2 },
+                  { hour: 6, minute: 58 },
+                  { hour: 23, minute: 59 }
+                ];
+                const selectedTime = timeOptions[index % timeOptions.length];
+                hour = selectedTime.hour;
+                minute = selectedTime.minute;
               }
-            }
-          } else if (i === 1) { // Yesterday's files
-            if (selectedDataSource === 'NRDATA') {
-              // For NR Data yesterday files - 00:02
-              hour = 0;
-              minute = 2;
-            } else {
-              // For DC Schedule yesterday files
-              if (fileType === 'api_response') {
-                hour = 23;
-                minute = 59;
-              } else {
-                // Mix of 00:01, 00:02 times
-                hour = 0;
-                minute = 1 + (index % 2); 
-              }
-            }
-          } else { // Older files
-            if (selectedDataSource === 'NRDATA') {
-              // For NR Data older files - consistent 00:02
-              hour = 0;
-              minute = 2;
-            } else {
-              // For DC Schedule older files - varied times
-              const timeOptions = [
-                { hour: 0, minute: 1 },
-                { hour: 0, minute: 2 },
-                { hour: 6, minute: 58 },
-                { hour: 23, minute: 59 }
-              ];
-              const selectedTime = timeOptions[index % timeOptions.length];
-              hour = selectedTime.hour;
-              minute = selectedTime.minute;
-            }
+              
+              allFiles.push({
+                name: `${fileType}_${formattedDate}.${extension}`,
+                timestamp: `${formattedDate} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`,
+                type: extension
+              });
+            });
           }
           
-          generatedFiles.push({
-            name: `${fileType}_${formattedDate}.${extension}`,
-            timestamp: `${formattedDate} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`,
-            type: extension
-          });
-        });
+        } catch (error) {
+          console.error('Error reading FilesShared directory:', error);
+        }
+        
+      } else if (selectedDataSource === 'NRDATA') {
+        try {
+          // Generate NRDATA files
+          const fileTypes = ['CURS', 'ENT', 'ISGS', 'LTA', 'OA'];
+          
+          for (let i = 0; i < 30; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const formattedDate = `${day}-${month}-${year}`;
+            
+            fileTypes.forEach((fileType) => {
+              let hour, minute;
+              if (i === 0) { // Today's files
+                const now = new Date();
+                hour = now.getHours();
+                minute = now.getMinutes();
+              } else if (i === 1) { // Yesterday's files
+                hour = 0;
+                minute = 2;
+              } else { // Older files
+                hour = 0;
+                minute = 2;
+              }
+              
+              allFiles.push({
+                name: `${fileType}_${formattedDate}.csv`,
+                timestamp: `${formattedDate} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`,
+                type: 'csv'
+              });
+            });
+          }
+          
+        } catch (error) {
+          console.error('Error reading NRDATA directory:', error);
+        }
       }
       
       // Sort by name first (alphabetically)
-      const sortedFiles = generatedFiles.sort((a, b) => {
+      const sortedFiles = allFiles.sort((a, b) => {
         const nameA = a.name.toLowerCase();
         const nameB = b.name.toLowerCase();
         return nameA.localeCompare(nameB);
@@ -165,56 +205,45 @@ const DCAndSchedules = () => {
     setCurrentPage(1);
   };
 
-  const handleDownload = async (file) => {
-    try {
-      const sourcePath = selectedDataSource === 'NRDATA' ? 
-        `D:\\SLDC\\src\\assets\\NRDATA` : 
-        `D:\\SLDC\\src\\assets\\FilesShared`;
-      
-      console.log(`Downloading: ${file.name} from ${sourcePath}`);
-      
-      let content = '';
-      if (file.type === 'json') {
-        if (selectedDataSource === 'FilesShared') {
-          content = JSON.stringify({
-            message: `Content of ${file.name}`,
-            generated: new Date().toISOString(),
-            source: 'D:\\SLDC\\src\\assets\\FilesShared'
-          }, null, 2);
-        } else {
-          // This shouldn't happen since NRDATA files are CSV
-          content = JSON.stringify({
-            message: `NR API Data from ${file.name}`,
-            generated: new Date().toISOString(),
-            source: 'D:\\SLDC\\src\\assets\\NRDATA'
-          }, null, 2);
-        }
-      } else {
-        if (selectedDataSource === 'NRDATA') {
-          // NR API Data CSV content structure
-          content = `Date,Time,Value,Status\n${new Date().toISOString().split('T')[0]},${file.timestamp.split(' ')[1]},123.45,Active\n${new Date().toISOString().split('T')[0]},${file.timestamp.split(' ')[1]},234.56,Active`;
-        } else {
-          // DC Schedule CSV content structure
-          content = `Name,Value,Timestamp\nSample Data,123,${new Date().toISOString()}\nMore Data,456,${new Date().toISOString()}`;
-        }
-      }
-      
-      const blob = new Blob([content], { 
-        type: file.type === 'json' ? 'application/json' : 'text/csv' 
-      });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = file.name;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (error) {
-      console.error('Download error:', error);
-      alert('Error downloading file. Please try again.');
+const handleDownload = async (file) => {
+  try {
+    const basePath = selectedDataSource === 'NRDATA' ? 'NRDATA' : 'FilesShared';
+
+    // ✅ Always include PUBLIC_URL (which = /sldc-new in your case)
+    const fileUrl = `${process.env.PUBLIC_URL}/${basePath}/${file.name}`.replace(/\/+/, "/");
+
+    console.log("Trying to fetch:", fileUrl);
+
+    const response = await fetch(fileUrl, { cache: "no-store" });
+    console.log("Response status:", response.status);
+
+    if (!response.ok) {
+      throw new Error(`File not found at ${fileUrl}`);
     }
-  };
+
+    const textCheck = await response.clone().text();
+    if (textCheck.startsWith('<!DOCTYPE html>')) {
+      throw new Error(`Got index.html instead of file: ${fileUrl}`);
+    }
+
+    const blob = new Blob([textCheck], { type: "text/csv" }); // or application/json if JSON
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = file.name;
+    document.body.appendChild(a);
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  } catch (error) {
+    console.error("Download error:", error);
+    alert("Error downloading file. Please check if the file exists in public/.");
+  }
+};
+
+
 
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
