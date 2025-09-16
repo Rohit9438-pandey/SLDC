@@ -83,7 +83,6 @@ const DCAndSchedules = () => {
      const extension = (file.filename || "").split(".").pop().toLowerCase();
     return {
     name: file.filename,
-    // ✅ use API-provided formatted string if available
     timestamp: file.lastModifiedFormatted || file.lastModified,
     type: extension,
     path: `https://delhisldc.org/app-api/download-file/${getFolderName(
@@ -291,7 +290,7 @@ const DCAndSchedules = () => {
                 ))}
               </tbody>
             </table>
-          </div> // ✅ properly closing div
+          </div> 
         )}
 
         {totalPages > 1 && (
@@ -327,7 +326,6 @@ const DCAndSchedules = () => {
         )}
       </div>
 
-      {/* --- CSS styling remains unchanged --- */}
       <style jsx>{`
         .container {
           min-height: 100vh;
