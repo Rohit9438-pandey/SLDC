@@ -1,177 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import { Download, Calendar, Search, FileText, RefreshCw, Folder } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  Download,
+  Calendar,
+  Search,
+  FileText,
+  RefreshCw,
+  Folder,
+} from "lucide-react";
 
 const DCAndSchedules = () => {
   const [allFiles, setAllFiles] = useState([]);
   const [filteredFiles, setFilteredFiles] = useState([]);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedDataSource, setSelectedDataSource] = useState('FilesShared');
+  const [selectedDataSource, setSelectedDataSource] = useState("FilesShared");
 
-  // Read files from selected directory
-  const loadFilesFromDirectory = async () => {
-    setIsLoading(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
+  const getApiEndpoint = (dataSource) => {
+    if (dataSource === "FilesShared")
+      return "https://delhisldc.org/app-api/list-files/fileshared";
+    if (dataSource === "NRDATA")
+      return "https://delhisldc.org/app-api/list-files/nrdata";
+    return null;
+  };
+
+  const getFolderName = (dataSource) => {
+    if (dataSource === "FilesShared") return "fileshared";
+    if (dataSource === "NRDATA") return "nrdata";
+    return "";
+  };
+
+  const formatTimestamp = (isoDate) => {
     try {
-      const allFiles = [];
-      
-      if (selectedDataSource === 'FilesShared') {
-        try {
-          // Try to read files from FilesShared directory
-          const dirPath = 'FilesShared';
-          
-          // Since we can't actually read directory, we'll use the actual file data you provided
-          // Current date files (10-09-2025) with actual timestamps
-          const todayFiles = [
-            { name: 'api_response_10-09-2025.json', timestamp: '10-09-2025 11:06', type: 'json' },
-            { name: 'BRPLDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
-            { name: 'BRPLEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'BRPL_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'BYPLDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
-            { name: 'BYPLEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'BYPL_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'CCGTB_10-09-2025.csv', timestamp: '10-09-2025 11:02', type: 'csv' },
-            { name: 'DC_10-09-2025.csv', timestamp: '10-09-2025 11:02', type: 'csv' },
-            { name: 'IEX_RTM_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'IS_10-09-2025.csv', timestamp: '10-09-2025 11:02', type: 'csv' },
-            { name: 'MESDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
-            { name: 'MESEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'MES_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'NDMCDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
-            { name: 'NDMCEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'NDMC_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'NDPL_MTL_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'TPDDLDS_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' },
-            { name: 'TPDDLEn_10-09-2025.csv', timestamp: '10-09-2025 10:58', type: 'csv' },
-            { name: 'URS_GENCOWISE_10-09-2025.csv', timestamp: '10-09-2025 11:03', type: 'csv' }
-          ];
-          
-          allFiles.push(...todayFiles);
-          
-          // Generate historical files for past 29 days
-          const fileTypes = [
-            'api_response', 'BRPLDS', 'BRPLEn', 'BRPL_MTL', 'BYPLDS', 'BYPLEn', 'BYPL_MTL',
-            'CCGTB', 'DC', 'IEX_RTM', 'IS', 'MESDS', 'MESEn', 'MES_MTL', 'NDMCDS',
-            'NDMCEn', 'NDMC_MTL', 'NDPL_MTL', 'TPDDLDS', 'TPDDLEn', 'URS_GENCOWISE'
-          ];
-          
-          for (let i = 1; i < 30; i++) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            const formattedDate = `${day}-${month}-${year}`;
-            
-            fileTypes.forEach((fileType, index) => {
-              const extension = (fileType === 'api_response') ? 'json' : 'csv';
-              
-              // Generate realistic timestamps for historical files
-              let hour, minute;
-              if (i === 1) { // Yesterday's files
-                if (fileType === 'api_response') {
-                  hour = 23;
-                  minute = 59;
-                } else {
-                  hour = 0;
-                  minute = 1 + (index % 2); 
-                }
-              } else { // Older files
-                const timeOptions = [
-                  { hour: 0, minute: 1 },
-                  { hour: 0, minute: 2 },
-                  { hour: 6, minute: 58 },
-                  { hour: 23, minute: 59 }
-                ];
-                const selectedTime = timeOptions[index % timeOptions.length];
-                hour = selectedTime.hour;
-                minute = selectedTime.minute;
-              }
-              
-              allFiles.push({
-                name: `${fileType}_${formattedDate}.${extension}`,
-                timestamp: `${formattedDate} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`,
-                type: extension
-              });
-            });
-          }
-          
-        } catch (error) {
-          console.error('Error reading FilesShared directory:', error);
-        }
-        
-      } else if (selectedDataSource === 'NRDATA') {
-        try {
-          // Generate NRDATA files
-          const fileTypes = ['CURS', 'ENT', 'ISGS', 'LTA', 'OA'];
-          
-          for (let i = 0; i < 30; i++) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            const formattedDate = `${day}-${month}-${year}`;
-            
-            fileTypes.forEach((fileType) => {
-              let hour, minute;
-              if (i === 0) { // Today's files
-                const now = new Date();
-                hour = now.getHours();
-                minute = now.getMinutes();
-              } else if (i === 1) { // Yesterday's files
-                hour = 0;
-                minute = 2;
-              } else { // Older files
-                hour = 0;
-                minute = 2;
-              }
-              
-              allFiles.push({
-                name: `${fileType}_${formattedDate}.csv`,
-                timestamp: `${formattedDate} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`,
-                type: 'csv'
-              });
-            });
-          }
-          
-        } catch (error) {
-          console.error('Error reading NRDATA directory:', error);
-        }
-      }
-      
-      // Sort by name first (alphabetically)
-      const sortedFiles = allFiles.sort((a, b) => {
-        const nameA = a.name.toLowerCase();
-        const nameB = b.name.toLowerCase();
-        return nameA.localeCompare(nameB);
-      });
-      
-      setAllFiles(sortedFiles);
-      
-      const todayForInput = new Date().toISOString().split('T')[0];
-      setSelectedDate(todayForInput);
-      filterFilesByDate(todayForInput, sortedFiles);
-      
-    } catch (error) {
-      console.error('Error loading files:', error);
-    } finally {
-      setIsLoading(false);
+      const date = new Date(isoDate);
+      if (isNaN(date.getTime())) return isoDate;
+      const day = String(date.getUTCDate()).padStart(2, "0");
+      const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+      const year = date.getUTCFullYear();
+      const hours = String(date.getUTCHours()).padStart(2, "0");
+      const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+      return `${day}-${month}-${year} ${hours}:${minutes}`;
+    } catch {
+      return isoDate;
     }
   };
 
-  // Parse timestamp for sorting
-  const parseTimestamp = (timestamp) => {
-    const [datePart, timePart] = timestamp.split(' ');
-    const [day, month, year] = datePart.split('-');
-    const [hours, minutes] = timePart.split(':');
-    return new Date(year, month - 1, day, hours, minutes);
+  const getUTCDateString = (isoDate) => {
+    try {
+      const d = new Date(isoDate);
+      if (isNaN(d.getTime())) return null;
+      const y = d.getUTCFullYear();
+      const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(d.getUTCDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    } catch {
+      return null;
+    }
+  };
+
+  const formatFileSize = (bytes) => {
+    if (!bytes && bytes !== 0) return "-";
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
+
+  const loadFilesFromDirectory = async () => {
+    setIsLoading(true);
+    try {
+      const apiUrl = getApiEndpoint(selectedDataSource);
+      const response = await fetch(apiUrl);
+      if (!response.ok)
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      const data = await response.json();
+      if (!data.files || !Array.isArray(data.files))
+        throw new Error("Invalid API response format");
+
+     const transformedFiles = data.files.map((file) => {
+     const extension = (file.filename || "").split(".").pop().toLowerCase();
+    return {
+    name: file.filename,
+    // ✅ use API-provided formatted string if available
+    timestamp: file.lastModifiedFormatted || file.lastModified,
+    type: extension,
+    path: `https://delhisldc.org/app-api/download-file/${getFolderName(
+      selectedDataSource
+    )}/${encodeURIComponent(file.filename)}`,
+    size: formatFileSize(file.size),
+    sizeBytes: file.size,
+    originalData: file,
+  };
+});
+
+
+      const sortedFiles = transformedFiles.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setAllFiles(sortedFiles);
+
+      const todayUTC = (() => {
+        const d = new Date();
+        const y = d.getUTCFullYear();
+        const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+        const day = String(d.getUTCDate()).padStart(2, "0");
+        return `${y}-${m}-${day}`;
+      })();
+
+      setSelectedDate(todayUTC);
+      filterFilesByDate(todayUTC, sortedFiles);
+    } catch {
+      setAllFiles([]);
+      setFilteredFiles([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const filterFilesByDate = (date, files = allFiles) => {
@@ -179,230 +124,210 @@ const DCAndSchedules = () => {
       setFilteredFiles([...files]);
       return;
     }
-    
-    const [year, month, day] = date.split('-');
-    const formattedDate = `${day}-${month}-${year}`;
-    
-    const filtered = files.filter(file => file.timestamp.startsWith(formattedDate));
+    const filtered = files.filter((file) => {
+      const fileDateStr = getUTCDateString(file.originalData.lastModified);
+      return fileDateStr === date;
+    });
     setFilteredFiles(filtered);
+    setCurrentPage(1);
+  };
+
+  const handleDownload = async (file) => {
+    try {
+      const downloadUrl = `https://delhisldc.org/app-api/download-file/${getFolderName(
+        selectedDataSource
+      )}/${encodeURIComponent(file.name)}`;
+      const response = await fetch(downloadUrl);
+      if (!response.ok)
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      const blob = await response.blob();
+      if (blob.size === 0) throw new Error("Downloaded file is empty");
+      const objectUrl = window.URL.createObjectURL(blob);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = objectUrl;
+      downloadLink.download = file.name;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      window.URL.revokeObjectURL(objectUrl);
+    } catch (err) {
+      alert(`Failed to download ${file.name}: ${err.message}`);
+    }
   };
 
   useEffect(() => {
     loadFilesFromDirectory();
   }, [selectedDataSource]);
 
-  const handleSearch = () => {
-    filterFilesByDate(selectedDate);
-    setCurrentPage(1);
-  };
-
-  const handleRefresh = () => {
-    loadFilesFromDirectory();
-  };
-
+  const handleSearch = () => filterFilesByDate(selectedDate);
+  const handleRefresh = () => loadFilesFromDirectory();
   const handleDataSourceChange = (e) => {
     setSelectedDataSource(e.target.value);
     setCurrentPage(1);
   };
 
-const handleDownload = async (file) => {
-  try {
-    const basePath = selectedDataSource === 'NRDATA' ? 'NRDATA' : 'FilesShared';
-
-    // ✅ Always include PUBLIC_URL (which = /sldc-new in your case)
-    const fileUrl = `${process.env.PUBLIC_URL}/${basePath}/${file.name}`.replace(/\/+/, "/");
-
-    console.log("Trying to fetch:", fileUrl);
-
-    const response = await fetch(fileUrl, { cache: "no-store" });
-    console.log("Response status:", response.status);
-
-    if (!response.ok) {
-      throw new Error(`File not found at ${fileUrl}`);
-    }
-
-    const textCheck = await response.clone().text();
-    if (textCheck.startsWith('<!DOCTYPE html>')) {
-      throw new Error(`Got index.html instead of file: ${fileUrl}`);
-    }
-
-    const blob = new Blob([textCheck], { type: "text/csv" }); // or application/json if JSON
-    const url = window.URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = file.name;
-    document.body.appendChild(a);
-    a.click();
-
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-  } catch (error) {
-    console.error("Download error:", error);
-    alert("Error downloading file. Please check if the file exists in public/.");
-  }
-};
-
-
-
-  // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentFiles = filteredFiles.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredFiles.length / itemsPerPage);
 
   return (
-    <div className="container">
-      <div className="header">
-        <div className="header-content">
-          <div className="header-left">
-            <div className="header-icon">
-              <Folder size={32} />
+    <>
+      <div className="container">
+        <div className="header">
+          <div className="header-content">
+            <div className="header-left">
+              <div className="header-icon">
+                <Folder size={32} />
+              </div>
+              <div className="header-text">
+                <h1>
+                  {selectedDataSource === "NRDATA"
+                    ? "NR API DATA"
+                    : "DC and Schedule"}
+                </h1>
+              </div>
             </div>
-            <div className="header-text">
-              <h1>{selectedDataSource === 'NRDATA' ? 'NR API DATA' : 'DC and Schedule'}</h1>
+            <div className="header-right">
+              <button
+                onClick={handleRefresh}
+                className="refresh-btn"
+                disabled={isLoading}
+              >
+                <RefreshCw
+                  size={16}
+                  className={isLoading ? "animate-spin" : ""}
+                />
+                Refresh
+              </button>
             </div>
-          </div>
-          <div className="header-right">
-            <button onClick={handleRefresh} className="refresh-btn" disabled={isLoading}>
-              <RefreshCw size={16} className={isLoading ? 'animate-spin' : ''} />
-              Refresh
-            </button>
           </div>
         </div>
-      </div>
 
-      <div className="controls">
-        <div className="date-control">
-          <Calendar className="text-blue-600" size={20} />
-          <label htmlFor="dateSelect">Select Date:</label>
-          <input
-            id="dateSelect"
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="date-input"
-            disabled={isLoading}
-          />
-          <button onClick={handleSearch} className="search-btn" disabled={isLoading}>
-            <Search size={16} />
-            Search
-          </button>
-        </div>
-        <div className="stats">
-          <div className="data-source-dropdown">
-            <label htmlFor="dataSource">Data Source:</label>
-            <select 
-              id="dataSource"
-              value={selectedDataSource} 
-              onChange={handleDataSourceChange}
-              className="dropdown-select"
+        <div className="controls">
+          <div className="date-control">
+            <Calendar className="text-blue-600" size={20} />
+            <label htmlFor="dateSelect">Select Date:</label>
+            <input
+              id="dateSelect"
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="date-input"
+              disabled={isLoading}
+            />
+            <button
+              onClick={handleSearch}
+              className="search-btn"
               disabled={isLoading}
             >
-              <option value="FilesShared">DC and Schedule</option>
-              <option value="NRDATA">NR API DATA</option>
-            </select>
+              <Search size={16} />
+              Search
+            </button>
+          </div>
+          <div className="stats">
+            <div className="data-source-dropdown">
+              <label htmlFor="dataSource">Data Source:</label>
+              <select
+                id="dataSource"
+                value={selectedDataSource}
+                onChange={handleDataSourceChange}
+                className="dropdown-select"
+                disabled={isLoading}
+              >
+                <option value="FilesShared">DC and Schedule</option>
+                <option value="NRDATA">NR API DATA</option>
+              </select>
+            </div>
+            <div className="file-count">Total Files: {filteredFiles.length}</div>
           </div>
         </div>
+
+        {isLoading && (
+          <div className="loading-container">
+            <RefreshCw size={32} className="animate-spin text-blue-600" />
+            <p>Loading files from {selectedDataSource} API...</p>
+          </div>
+        )}
+
+        {!isLoading && (
+          <div className="table-container">
+            <table className="file-table">
+              <thead>
+                <tr>
+                  <th>
+                    <FileText size={16} />
+                    Name
+                  </th>
+                  <th>
+                    <Calendar size={16} />
+                    Timestamp
+                  </th>
+                  <th>
+                    <Download size={16} />
+                    Download
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentFiles.map((file, idx) => (
+                  <tr key={idx} className="file-row">
+                    <td className="file-info">
+                      <span className={`file-icon ${file.type}`}>
+                        <FileText size={18} />
+                      </span>
+                      <span className="name-text">{file.name}</span>
+                    </td>
+                    <td className="timestamp">{file.timestamp}</td>
+                    <td className="download-cell">
+                      <button
+                        className="download-btn"
+                        onClick={() => handleDownload(file)}
+                      >
+                        <Download size={16} /> Download
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div> // ✅ properly closing div
+        )}
+
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button
+              className="page-btn"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => p - 1)}
+            >
+              Previous
+            </button>
+            <div className="page-numbers">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  className={`page-number ${
+                    currentPage === i + 1 ? "active" : ""
+                  }`}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+            <button
+              className="page-btn"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => p + 1)}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
 
-      {isLoading && (
-        <div className="loading-container">
-          <RefreshCw size={32} className="animate-spin text-blue-600" />
-          <p>Loading files from D:\SLDC\src\assets\{selectedDataSource === 'NRDATA' ? 'NRDATA' : 'FilesShared'}...</p>
-        </div>
-      )}
-
-      {!isLoading && (
-        <div className="table-container">
-          <table className="file-table">
-            <thead>
-              <tr>
-                <th>
-                  <FileText size={16} />
-                  Name
-                </th>
-                <th>
-                  <Calendar size={16} />
-                  Timestamp
-                </th>
-                <th>
-                  <Download size={16} />
-                  Download
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentFiles.map((file, index) => (
-                <tr key={`${file.name}-${index}`} className="file-row">
-                  <td className="file-name">
-                    <div className="file-info">
-                      <FileText className={`file-icon ${file.type}`} size={16} />
-                      <span className="name-text" title={file.name}>
-                        {file.name}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="timestamp">{file.timestamp}</td>
-                  <td className="download-cell">
-                    <button
-                      onClick={() => handleDownload(file)}
-                      className="download-btn"
-                      title={`Download ${file.name}`}
-                    >
-                      <Download size={16} />
-                      Download
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {filteredFiles.length === 0 && !isLoading && (
-            <div className="no-data">
-              <FileText size={48} />
-              <p>No files found for the selected date</p>
-              <p>
-                {selectedDate ? `No files found for ${selectedDate}` : 'Try selecting a different date'}
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-
-      {!isLoading && totalPages > 1 && (
-        <div className="pagination">
-          <button
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="page-btn"
-          >
-            Previous
-          </button>
-          
-          <div className="page-numbers">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`page-number ${currentPage === page ? 'active' : ''}`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-          
-          <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="page-btn"
-          >
-            Next
-          </button>
-        </div>
-      )}
-
+      {/* --- CSS styling remains unchanged --- */}
       <style jsx>{`
         .container {
           min-height: 100vh;
@@ -584,6 +509,9 @@ const handleDownload = async (file) => {
         }
         
         .stats {
+          display: flex;
+          align-items: center;
+          gap: 30px;
           color: #666;
           font-weight: 500;
         }
@@ -628,6 +556,15 @@ const handleDownload = async (file) => {
         .dropdown-select option {
           padding: 10px;
           font-weight: 500;
+        }
+
+        .file-count {
+          background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+          padding: 8px 16px;
+          border-radius: 8px;
+          font-weight: 600;
+          color: #1565c0;
+          border: 1px solid #90caf9;
         }
 
         .loading-container {
@@ -854,6 +791,12 @@ const handleDownload = async (file) => {
           .date-control {
             justify-content: center;
           }
+
+          .stats {
+            flex-direction: column;
+            gap: 15px;
+            align-items: stretch;
+          }
           
           .table-container {
             padding: 0 10px 20px 10px;
@@ -883,7 +826,7 @@ const handleDownload = async (file) => {
           }
         }
       `}</style>
-    </div>
+    </>
   );
 };
 
